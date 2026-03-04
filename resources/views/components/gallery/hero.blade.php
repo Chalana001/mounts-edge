@@ -1,4 +1,4 @@
-<section class="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
+<section class="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0">
         <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&q=80" 
              class="w-full h-full object-cover shadow-inner" alt="Gallery Hero">

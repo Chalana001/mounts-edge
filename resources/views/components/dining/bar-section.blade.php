@@ -1,8 +1,8 @@
 <section class="relative h-[60vh] overflow-hidden" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-15%.0.-15%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=1920&q=80');"></div>
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('storage/dining/bar.jfif');"></div>
     <div class="absolute inset-0 bg-brand-green/70"></div>
 
     <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 reveal-hidden"

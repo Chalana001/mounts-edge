@@ -1,6 +1,6 @@
 <section class="py-20 md:py-24 bg-brand-green" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-10%.0.-10%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
         <div class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 lg:gap-32">

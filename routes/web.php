@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminWeddingController;
 use App\Http\Controllers\WeddingController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AdminGalleryController;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -68,21 +69,18 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
 
 Route::get('/luxury-stay', [RoomController::class, 'index'])->name('luxury-stay');
-
 Route::get('/weddings', [WeddingController::class, 'index'])->name('weddings');
-
 Route::get('/dining', function () {
     return view('dining');
 });
-
 Route::get('/experiences', function () {
     return view('experiences');
 });
-
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
-
 Route::get('/contact', function () {
     return view('contact');
 });
+Route::post('/send-enquiry', [ContactController::class, 'sendEnquiry'])->name('enquiry.send');
+Route::post('/notify-whatsapp', [ContactController::class, 'notifyWhatsapp']);
 
 require __DIR__.'/auth.php';

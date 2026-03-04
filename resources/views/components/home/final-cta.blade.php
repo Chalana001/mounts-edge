@@ -1,6 +1,6 @@
 <section class="relative py-32 md:py-40 overflow-hidden" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-15%.0.-15%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="absolute inset-0">
         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] ease-in-out scale-110"

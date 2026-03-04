@@ -1,6 +1,6 @@
 <section class="py-32 md:py-40 bg-[#f9f9f7] overflow-hidden" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-20%.0.-20%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
         <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center max-w-6xl mx-auto">

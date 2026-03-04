@@ -4,7 +4,7 @@
         
         <div class="text-center mb-16 reveal-hidden"
              x-data="{ isVisible: false }" 
-             x-intersect.once.margin.-15%.0.-15%.0="isVisible = true"
+             x-intersect.once.margin.-25%.0.-25%.0="isVisible = true"
              :class="isVisible ? 'reveal-visible' : ''"
              style="transition-duration: 1.2s;">
             <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">Accommodations</span>
@@ -19,10 +19,6 @@
                 <button @click="activeTab = '{{ $type->slug }}'"
                         class="flex items-center justify-center gap-3 px-6 py-4 transition-all duration-300 border text-[10px] tracking-widest uppercase font-bold w-full sm:w-[220px]"
                         :class="activeTab === '{{ $type->slug }}' ? 'bg-[#1a2e2a] text-brand-light border-[#1a2e2a]' : 'bg-brand-light text-brand-green/70 border-brand-green/20 hover:border-brand-green/40'">
-                    
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                        {!! $type->icon !!}
-                    </svg>
 
                     <span class="truncate">{{ $type->name }}</span>
                 </button>
@@ -76,7 +72,18 @@
                                 </div>
 
                                 <div>
-                                    <a href="https://wa.me/9477xxxxxxx?text=I'm interested in booking the {{ $room->name }}" target="_blank"
+                                    <a href="#"
+                                    x-data 
+                                    @click.prevent="
+                                        fetch('/notify-whatsapp', {
+                                            method: 'POST',
+                                            headers: {
+                                                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content'),
+                                                'Accept': 'application/json'
+                                            }
+                                        });
+                                        window.open('https://wa.me/94704589764?text=Hello%20Mounts%20Edge%20Regency!%20I%20would%20like%20to%20book%20room.', '_blank');
+                                    "
                                     class="inline-flex items-center gap-2 bg-brand-green text-brand-light hover:bg-brand-orange px-8 py-4 text-[10px] tracking-[0.2em] uppercase font-bold transition-colors">
                                         Book on Whatsapp
                                     </a>

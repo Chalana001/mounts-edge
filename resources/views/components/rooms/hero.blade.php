@@ -1,4 +1,4 @@
-<section class="relative h-[60vh] md:h-[70vh] overflow-hidden" 
+<section class="relative h-[70vh] md:h-[80vh] overflow-hidden" 
          x-data="{ isVisible: false }" 
          x-init="setTimeout(() => isVisible = true, 100)">
     

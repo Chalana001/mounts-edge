@@ -1,8 +1,6 @@
 <section class="py-24 md:py-32 bg-white" x-data="{ activeTab: 'hall' }">
     <div class="container mx-auto px-6">
-
     @props(['tabs'])
-
         <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-16 px-6 relative z-20">
             @foreach($tabs as $key => $tab)
                 <button @click="activeTab = '{{ $key }}'"
@@ -29,7 +27,7 @@
                             @foreach($tab['items'] as $item)
                                 <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center reveal-hidden"
                                      x-data="{ isSplitVisible: false }" 
-                                     x-intersect.once.margin.-10%.0.-10%.0="isSplitVisible = true"
+                                     x-intersect.once.margin.-25%.0.-25%.0="isSplitVisible = true"
                                      :class="isSplitVisible ? 'reveal-visible' : ''"
                                      style="transition-duration: 1.5s;">
                                      

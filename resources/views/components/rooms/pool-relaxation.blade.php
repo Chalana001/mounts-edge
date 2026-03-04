@@ -1,6 +1,6 @@
 <section class="relative h-[60vh] overflow-hidden"
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-20%.0.-20%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=1920&q=80');"></div>
     <div class="absolute inset-0 bg-brand-green/50"></div>

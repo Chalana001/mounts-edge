@@ -1,6 +1,11 @@
-<section class="py-24 bg-[#f9f9f7]">
+<section class="py-24 bg-[#f9f9f7]"
+         x-data="{ isVisible: false }"
+         x-intersect.once.margin.-25%.0px.-25%.0px="isVisible = true">
     <div class="container mx-auto px-6">
-        <div class="text-center mb-16">
+        
+        <div class="text-center mb-16 reveal-hidden"
+             :class="isVisible ? 'reveal-visible' : ''"
+             style="transition-duration: 1.2s;">
             <h2 class="text-4xl font-serif text-brand-green">Room Amenities</h2>
         </div>
 
@@ -18,8 +23,11 @@
                 ];
             @endphp
 
-            @foreach($amenities as $item)
-                <div class="text-center group">
+            @foreach($amenities as $index => $item)
+                <div class="text-center group reveal-hidden"
+                     :class="isVisible ? 'reveal-visible' : ''"
+                     style="transition-duration: 1s; transition-delay: {{ $index * 100 }}ms;">
+                    
                     <div class="w-12 h-12 mx-auto mb-4 border border-brand-green/30 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-brand-light transition-colors duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             {!! $item['icon'] !!}

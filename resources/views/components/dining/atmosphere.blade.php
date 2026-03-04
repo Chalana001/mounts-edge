@@ -1,6 +1,6 @@
 <section class="py-24 md:py-32 bg-white overflow-hidden" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-20%.0.-20%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
         <div class="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
@@ -10,7 +10,7 @@
                 <h2 class="text-4xl md:text-5xl font-serif text-brand-green mb-6 leading-tight">Dine with a View</h2>
                 <p class="text-brand-green/70 leading-relaxed mb-8 font-light text-lg">
                     Our main restaurant offers panoramic mountain views through floor-to-ceiling windows. 
-                    From a hearty breakfast to a romantic candlelit dinner, every meal is a celebration of Mahiyangana's natural beauty. [cite: 2026-02-01]
+                    From a hearty breakfast to a romantic candlelit dinner, every meal is a celebration of Mahiyangana's natural beauty.
                 </p>
                 
                 <div class="flex items-center gap-3 text-brand-green/70">

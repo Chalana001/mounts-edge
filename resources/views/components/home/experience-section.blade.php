@@ -1,6 +1,6 @@
 <section class="py-32 md:py-40 bg-white" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-20%.0.-20%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
         

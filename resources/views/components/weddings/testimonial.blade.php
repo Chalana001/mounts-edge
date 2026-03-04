@@ -1,6 +1,6 @@
 <section class="py-32 md:py-40 bg-brand-green overflow-hidden" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-10%.0.-10%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
         <div class="max-w-4xl mx-auto text-center">
@@ -27,7 +27,7 @@
                 </div>
 
                 <span class="mt-8 block text-[9px] tracking-[0.2em] uppercase text-brand-orange/40 font-light">
-                    Mahiyangana Highlands [cite: 2026-02-01]
+                    Mahiyangana Highlands
                 </span>
 
             </div>

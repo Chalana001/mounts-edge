@@ -1,6 +1,6 @@
 <section class="relative h-[60vh] overflow-hidden" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-15%.0.-15%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('storage/experiences/Knuckles.webp');"></div>
     <div class="absolute inset-0 bg-brand-green/50"></div>
@@ -10,7 +10,7 @@
         <span class="text-brand-orange text-xs tracking-[0.4em] uppercase mb-6 font-bold">UNESCO World Heritage</span>
         <h2 class="text-4xl md:text-5xl font-serif text-brand-light mb-6 leading-tight">Knuckles Mountain Range</h2>
         <p class="text-[#F5F5DC]/70 text-lg max-w-2xl font-light italic">
-            "One of Sri Lanka's most biodiverse regions, just a short drive from Mounts Edge Regency Mahiyangana." [cite: 2026-02-01]
+            "One of Sri Lanka's most biodiverse regions, just a short drive from Mounts Edge Regency Mahiyangana."
         </p>
     </div>
 </section>

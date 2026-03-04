@@ -23,13 +23,13 @@ class GallerySeeder extends Seeder
             ['cat' => $catPool->id, 'img' => 'pool1.jpg', 'desc' => 'Infinity pool at sunset'],
             ['cat' => $catWeddings->id, 'img' => 'wedding1.jpg', 'desc' => 'Wedding ceremony setup'],
             ['cat' => $catFood->id, 'img' => 'food1.jpg', 'desc' => 'Authentic Sri Lankan cuisine'],
-            ['cat' => $catNature->id, 'img' => 'nature1.jpg', 'desc' => 'Misty mountain sunrise'],
+            ['cat' => $catNature->id, 'img' => 'nature1.jpg', 'desc' => 'Misty sunrise'],
             ['cat' => $catRooms->id, 'img' => 'room2.jpg', 'desc' => 'Deluxe room interior'],
             ['cat' => $catWeddings->id, 'img' => 'wedding2.jpg', 'desc' => 'Grand wedding reception'],
             ['cat' => $catFood->id, 'img' => 'food2.jpg', 'desc' => 'Fine dining experience'],
             ['cat' => $catPool->id, 'img' => 'pool2.jpg', 'desc' => 'Night view of the pool'],
             ['cat' => $catNature->id, 'img' => 'nature2.jpg', 'desc' => 'Lush green garden view'],
-            ['cat' => $catRooms->id, 'img' => 'room3.jpg', 'desc' => 'Cozy family room setup'],
+            ['cat' => $catRooms->id, 'img' => 'room3.jpg', 'desc' => 'Romance, Comfort, and Soft Light. Celebrate Love in Luxury'],
             ['cat' => $catWeddings->id, 'img' => 'wedding3.jpg', 'desc' => 'Beautiful bridal setup'],
         ];
 

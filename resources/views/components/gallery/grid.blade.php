@@ -2,7 +2,7 @@
     
     <div class="text-center mb-12 px-6 reveal-hidden"
          x-data="{ isHeaderVisible: false }"
-         x-intersect.once.margin.-15%.0.-15%.0="isHeaderVisible = true"
+         x-intersect.once.margin.-25%.0.-25%.0="isHeaderVisible = true"
          :class="isHeaderVisible ? 'reveal-visible' : ''"
          style="transition-duration: 1.2s;">
         <h2 class="text-4xl md:text-5xl font-serif text-[#1a2e2a] mb-4">Our Gallery</h2>

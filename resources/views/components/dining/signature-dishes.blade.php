@@ -1,6 +1,6 @@
 <section class="py-24 md:py-32 bg-[#f9f9f7]" 
          x-data="{ isVisible: false }" 
-         x-intersect.once.margin.-10%.0.-10%.0="isVisible = true">
+         x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
         <div class="text-center mb-16 reveal-hidden" :class="isVisible ? 'reveal-visible' : ''">
@@ -15,22 +15,22 @@
                 [
                     'name' => 'Authentic Sri Lankan', 
                     'desc' => 'A fiery selection of traditional village recipes, curries, and local delicacies.', 
-                    'img' => 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80'
+                    'img' => 'storage/dining/signature-dishes/authentic.jfif'
                 ],
                 [
                     'name' => 'Western', 
                     'desc' => 'Premium continental dishes, grilled steaks, and comforting pastas.', 
-                    'img' => 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80'
+                    'img' => 'storage/dining/signature-dishes/western.jfif'
                 ],
                 [
                     'name' => 'Indian', 
                     'desc' => 'Rich gravies, aromatic biryanis, and traditional tandoori specialties.', 
-                    'img' => 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80'
+                    'img' => 'storage/dining/signature-dishes/indian.jfif'
                 ],
                 [
                     'name' => 'Chinese', 
                     'desc' => 'Classic wok-tossed dishes, savory dumplings, and oriental stir-fries.', 
-                    'img' => 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80'
+                    'img' => 'storage/dining/signature-dishes/chinese.jfif'
                 ],
             ];
         @endphp

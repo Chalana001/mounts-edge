@@ -1,7 +1,7 @@
 <section class="py-24 md:py-32 bg-white">
     <div class="container mx-auto px-6 text-center mb-16 reveal-hidden"
          x-data="{ isHeadingVisible: false }"
-         x-intersect.once.margin.-15%.0.-15%.0="isHeadingVisible = true"
+         x-intersect.once.margin.-25%.0.-25%.0="isHeadingVisible = true"
          :class="isHeadingVisible ? 'reveal-visible' : ''"
          style="transition-duration: 1.2s;">
         <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">Where to Eat & Drink</span>
