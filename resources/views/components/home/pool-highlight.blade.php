@@ -1,11 +1,11 @@
-<section class="py-32 md:py-40 bg-[#f9f9f7] overflow-hidden" 
+<section class="py-12 md:py-20 bg-[#f9f9f7] overflow-hidden"
          x-data="{ isVisible: false }" 
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
-        <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center max-w-6xl mx-auto">
             
-            <div class="order-2 md:order-1 reveal-hidden"
+            <div class="order-2 md:order-1 reveal-left"
                  :class="isVisible ? 'reveal-visible' : ''"
                  style="transition-duration: 1.5s;">
                 <div class="relative group">
@@ -19,12 +19,12 @@
             </div>
 
             <div class="order-1 md:order-2">
-                <div class="reveal-hidden" 
+                <div class="reveal-right"
                      :class="isVisible ? 'reveal-visible' : ''"
                      style="transition-delay: 400ms;">
                     
                     <span class="text-brand-green/70 text-[10px] tracking-[0.4em] uppercase font-bold block mb-4">
-                        Highland Sanctuary
+                        The Pool
                     </span>
                     
                     <h2 class="text-3xl md:text-5xl font-serif text-brand-green font-normal mb-8 leading-tight">
@@ -32,7 +32,7 @@
                     </h2>
                     
                     <p class="text-brand-green/70 leading-relaxed mb-10 font-light text-lg">
-                        Experience the ultimate mountain retreat in our infinity pool. Perched on the edge of the range, it offers panoramic valley views while maintaining <b>absolute privacy</b> from the outside world.
+                        Our infinity pool sits right on the edge of the range, looking out over the valley. It's set away from the road and the rest of the property, so it stays <b>private</b> even when we're full.
                     </p>
 
                     <div class="flex flex-wrap gap-3 mb-12">

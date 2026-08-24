@@ -1,13 +1,13 @@
-<section class="py-24 md:py-32 bg-white" 
+<section class="py-12 md:py-20 bg-white"
          x-data="{ isVisible: false }" 
          x-intersect.once.margin.-25%.0px.-25%.0px="isVisible = true">
     
     <div class="container mx-auto px-6">
-        <div class="text-center mb-16 reveal-hidden" :class="isVisible ? 'reveal-visible' : ''" style="transition-duration: 1.2s;">
+        <div class="text-center mb-10 md:mb-14 reveal-fade" :class="isVisible ? 'reveal-visible' : ''" style="transition-duration: 1.2s;">
             <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">Things to Do</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-brand-green mb-6">Curated Experiences</h2>
+            <h2 class="text-4xl md:text-5xl font-serif text-brand-green mb-6">Nearby Adventures</h2>
             <p class="text-brand-green/70 max-w-xl mx-auto font-light leading-relaxed">
-                Explore a handpicked collection of thrilling adventures and cultural immersions around our beautiful region.
+                Activities and day trips we can arrange for you around Mahiyangana.
             </p>
         </div>
 
@@ -21,7 +21,7 @@
                 ],
                 [
                     'name' => 'Wildlife Safari', 
-                    'desc' => 'Embark on a thrilling jeep safari to spot majestic wild elephants and diverse wildlife.', 
+                    'desc' => 'A jeep safari to see wild elephants, birds and other wildlife.',
                     'img' => 'storage/experiences/attractions/wildlife-safari.jpg',
                     'icon' => '<path d="M10 10h4"/><path d="M19 7V4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 21a2 2 0 0 0 2-2v-3.851c0-1.39-2-2.962-2-4.829V8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h4z"/><path d="M9 7V4a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3"/><path d="M4 21a2 2 0 0 1-2-2v-3.851c0-1.39 2-2.962 2-4.829V8a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v11a2 2 0 0 1-2 2H4z"/>' // Binoculars
                 ],
@@ -51,7 +51,7 @@
                 ],
                 [
                     'name' => 'Paragliding', 
-                    'desc' => 'Soar above the mountains and valleys for an adrenaline-pumping aerial view.', 
+                    'desc' => 'Fly over the mountains and valleys with a trained pilot.',
                     'img' => 'storage/experiences/attractions/paragliding.jpg',
                     'icon' => '<path d="M4 22 22 4"/><path d="M22 16.4V4h-12.4l-4.3 4.3c-1 1-1 2.6 0 3.6l5.2 5.2c1 1 2.6 1 3.6 0L22 16.4z"/><path d="m11 13-6 6"/>' // Parachute/Kite
                 ],
@@ -66,7 +66,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
             @foreach($experiences as $index => $item)
-                <div class="group flex flex-col border border-brand-green/20 bg-[#fdfdfb] hover:border-brand-orange/30 hover:shadow-lg transition-all duration-500 reveal-hidden"
+                <div class="group flex flex-col border border-brand-green/20 bg-[#fdfdfb] hover:border-brand-orange/30 hover:shadow-lg transition-all duration-500 reveal-scale"
                      style="transition-delay: {{ $index * 100 }}ms"
                      :class="isVisible ? 'reveal-visible' : ''">
                     

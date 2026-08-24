@@ -16,3 +16,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/mountedge-regency-production.zip
+/.phpunit.result.cache

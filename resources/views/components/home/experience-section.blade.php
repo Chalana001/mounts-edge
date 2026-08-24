@@ -1,10 +1,10 @@
-<section class="py-32 md:py-40 bg-white" 
+<section class="py-12 md:py-20 bg-white"
          x-data="{ isVisible: false }" 
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
         
-        <div class="text-center mb-20 reveal-hidden"
+        <div class="text-center mb-10 md:mb-14 reveal-fade"
              :class="isVisible ? 'reveal-visible' : ''">
             <span class="text-brand-green/70 text-xs tracking-[0.3em] uppercase font-light block mb-4">
                 Experiences
@@ -14,7 +14,7 @@
             </h2>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-8 lg:gap-16 max-w-5xl mx-auto">
+        <div class="grid grid-cols-2 gap-3 sm:gap-6 lg:gap-16 max-w-5xl mx-auto">
             @php
                 $experiences = [
                     [
@@ -35,12 +35,12 @@
             @endphp
 
             @foreach($experiences as $index => $exp)
-                <div class="reveal-hidden"
+                <div class="reveal-scale"
                      style="transition-delay: {{ ($index + 1) * 250 }}ms"
                      :class="isVisible ? 'reveal-visible' : ''">
                     
                     <a href="{{ $exp['link'] }}" class="group block">
-                        <div class="relative overflow-hidden aspect-[4/5] mb-8 shadow-sm">
+                        <div class="relative overflow-hidden aspect-[4/5] mb-4 md:mb-8 shadow-sm">
                             <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[1500ms] ease-out group-hover:scale-110"
                                  style="background-image: url('{{ $exp['image'] }}')">
                             </div>
@@ -48,17 +48,17 @@
                         </div>
 
                         <div>
-                            <span class="text-brand-green/70 text-[10px] tracking-[0.3em] uppercase font-bold">
+                            <span class="text-brand-green/70 text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.3em] uppercase font-bold">
                                 {{ $exp['subtitle'] }}
                             </span>
-                            <h3 class="text-2xl md:text-3xl font-serif text-brand-green mt-2 mb-3 transition-colors duration-500 group-hover:text-brand-orange">
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-serif text-brand-green mt-2 mb-2 md:mb-3 transition-colors duration-500 group-hover:text-brand-orange">
                                 {{ $exp['title'] }}
                             </h3>
-                            <p class="text-brand-green/70 text-sm font-light leading-relaxed mb-6">
+                            <p class="hidden sm:block text-brand-green/70 text-sm font-light leading-relaxed mb-6">
                                 {{ $exp['description'] }}
                             </p>
                             
-                            <div class="flex items-center gap-2 text-brand-green transition-all duration-500 group-hover:gap-4 font-bold tracking-widest text-[10px] uppercase">
+                            <div class="flex items-center gap-1 sm:gap-2 text-brand-green transition-all duration-500 group-hover:gap-4 font-bold tracking-widest text-[9px] sm:text-[10px] uppercase">
                                 <span>Explore</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>

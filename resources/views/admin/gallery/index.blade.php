@@ -1,8 +1,8 @@
 <x-admin-layout>
     <div class="py-12 bg-[#FAF9F6] min-h-screen" x-data="{ activeTab: 'images', imageModal: false, editItem: null }">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
             
-            <h2 class="text-3xl font-serif text-[#1a2e2a] mb-6">Manage Gallery</h2>
+            <header class="mb-8"><span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E67E22]">Media Library</span><h1 class="mt-2 font-serif text-3xl text-[#1a2e2a]">Gallery</h1><p class="mt-2 text-sm text-gray-500">Upload, categorize and manage images shown on the website.</p></header>
 
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 text-sm font-bold">
@@ -14,8 +14,15 @@
                     {{ session('error') }}
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="mb-6 border-l-4 border-red-600 bg-red-50 px-4 py-3 text-sm text-red-800">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
 
-            <div class="flex gap-4 mb-8 border-b border-gray-300 pb-2">
+            <div class="flex gap-4 mb-8 overflow-x-auto border-b border-gray-300 pb-2">
                 <button @click="activeTab = 'images'" :class="activeTab === 'images' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Gallery Images</button>
                 <button @click="activeTab = 'categories'" :class="activeTab === 'categories' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Categories</button>
             </div>
@@ -32,10 +39,10 @@
                     @forelse($items as $item)
                         <div class="bg-white rounded border border-gray-200 shadow-sm overflow-hidden group">
                             <div class="relative aspect-square">
-                                <img src="{{ asset($item->image) }}" class="w-full h-full object-cover">
+                                <img src="{{ asset($item->image) }}" alt="{{ $item->description ?: 'Gallery image' }}" loading="lazy" decoding="async" class="w-full h-full object-cover">
                                 
-                                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                                    <button @click="editItem = {{ $item }}; imageModal = true" class="bg-[#E67E22] text-white p-2 rounded hover:bg-orange-600">
+                                <div class="absolute inset-0 bg-black/30 opacity-100 transition-opacity flex items-center justify-center gap-3 md:bg-black/50 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100">
+                                    <button @click="editItem = {{ Illuminate\Support\Js::from($item) }}; imageModal = true" class="bg-[#E67E22] text-white p-2 rounded hover:bg-orange-600">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                     </button>
                                     
@@ -56,7 +63,8 @@
                         <div class="col-span-full text-center py-10 text-gray-500 text-sm">No images found.</div>
                     @endforelse
                 </div>
-
+                <div class="mt-6">{{ $items->links() }}</div>
+ 
                 <div x-show="imageModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" style="display: none;">
                     <div class="bg-white max-w-lg w-full p-8 rounded-lg">
                         <h3 class="text-2xl font-serif text-[#1a2e2a] mb-6" x-text="editItem ? 'Edit Image' : 'Upload New Image'"></h3>
@@ -84,8 +92,8 @@
                                 
                                 <input type="file" name="image" class="w-full border-gray-300 rounded text-sm mb-2 image-upload-input" accept="image/*" x-bind:required="!editItem">
                                 
-                                <img src="" class="mt-2 h-20 w-32 object-cover rounded shadow-sm image-preview hidden">
-                                <img :src="editItem?.image" class="h-20 w-32 object-cover rounded shadow-sm mt-2 existing-image" x-show="editItem?.image">
+                                <img src="" alt="Preview of selected image" class="mt-2 h-20 w-32 object-cover rounded shadow-sm image-preview hidden">
+                                <img :src="editItem?.image" :alt="editItem?.description ?? 'Current gallery image'" class="h-20 w-32 object-cover rounded shadow-sm mt-2 existing-image" x-show="editItem?.image">
                             </div>
 
                             <div class="flex justify-end gap-4">
@@ -114,7 +122,7 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <div class="bg-white overflow-hidden shadow-sm border border-gray-100 rounded-lg p-6">
+                        <div class="bg-white overflow-x-auto shadow-sm border border-gray-100 rounded-lg p-6">
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-gray-50 border-b text-[10px] uppercase tracking-widest text-gray-500">
@@ -159,7 +167,6 @@
             imageInputs.forEach(input => {
                 input.addEventListener('change', function() {
                     const file = this.files[0];
-                    // Find the parent container to locate the correct preview images
                     const parent = this.closest('div');
                     const previewImg = parent.querySelector('.image-preview');
                     const existingImg = parent.querySelector('.existing-image');
@@ -167,13 +174,11 @@
                     if (file) {
                         if (file.size > maxSizeInBytes) {
                             alert(`Warning! The selected image is too large. Please select an image smaller than ${maxSizeInMB}MB.`);
-                            this.value = ''; // Clear the input
+                            this.value = '';
                             
-                            // Hide preview, restore existing
                             if (previewImg) previewImg.classList.add('hidden');
                             if (existingImg) existingImg.style.display = 'block';
                         } else {
-                            // Show preview, hide existing
                             if (previewImg) {
                                 previewImg.src = URL.createObjectURL(file);
                                 previewImg.classList.remove('hidden');
@@ -181,7 +186,6 @@
                             if (existingImg) existingImg.style.display = 'none';
                         }
                     } else {
-                        // User canceled file selection
                         if (previewImg) previewImg.classList.add('hidden');
                         if (existingImg) existingImg.style.display = 'block';
                     }

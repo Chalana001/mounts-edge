@@ -21,6 +21,7 @@ class WeddingSeeder extends Seeder
             'area' => '3,500 sq ft',
             'style' => 'Indoor with views',
             'image' => '/storage/weddings/indoor-hall.jpg',
+            'images' => ['/storage/weddings/indoor-hall.jpg'],
             'features' => [
                 'Climate controlled', 
                 'Built-in sound system', 
@@ -36,7 +37,8 @@ class WeddingSeeder extends Seeder
             'capacity' => '400+ guests',
             'area' => '12,000 sq ft',
             'style' => 'Outdoor / Garden',
-            'image' => '/storage/weddings/outdoor-hall.jpg', 
+            'image' => '/storage/weddings/outdoor-hall.jpg',
+            'images' => ['/storage/weddings/outdoor-hall.jpg'],
             'features' => [
                 'Marquee & Tent setups available', 
                 'Garden fairy lighting', 

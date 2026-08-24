@@ -1,13 +1,25 @@
-<section class="h-[450px] bg-brand-light relative grayscale hover:grayscale-0 transition-all duration-1000 overflow-hidden">
-    <div class="absolute inset-0 flex flex-col items-center justify-center bg-brand-green/10">
-        <div class="bg-white p-8 text-center shadow-2xl border border-brand-light reveal-hidden"
-             x-data="{ visible: false }" x-init="setTimeout(() => visible = true, 500)" :class="visible ? 'reveal-visible' : ''">
-            <svg class="w-10 h-10 text-brand-orange mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <h4 class="font-serif text-brand-green text-xl mb-2">Find Us</h4>
-            <p class="text-brand-green/70 text-sm font-light mb-6">Gurulupotha, Mahiyangana, Sri Lanka [cite: 2026-02-18]</p>
-            <a href="https://maps.google.com" target="_blank" class="text-[10px] tracking-widest uppercase font-bold text-brand-green underline underline-offset-8 hover:text-brand-orange transition-colors">
-                Open in Google Maps
-            </a>
-        </div>
-    </div>
+@php
+    // Where the map should centre. Business name first so Google drops the pin
+    // on the property when it is listed, with the address as a fallback if it
+    // cannot resolve the name.
+    $mapQuery = trim('Mounts Edge Regency, '.$siteSettings->address, ', ');
+
+    // Google's official Maps Embed API needs a key. Without one we fall back to
+    // the keyless /maps?output=embed form: it 301s to /maps/embed, and that
+    // final response carries no X-Frame-Options, so it frames fine.
+    $mapsEmbedKey = config('services.google_maps.embed_key');
+
+    $mapSrc = $mapsEmbedKey
+        ? 'https://www.google.com/maps/embed/v1/place?key='.$mapsEmbedKey.'&q='.urlencode($mapQuery)
+        : 'https://www.google.com/maps?q='.urlencode($mapQuery).'&z=15&hl=en&output=embed';
+@endphp
+
+<section class="relative h-[400px] md:h-[450px] bg-white border-t border-brand-green/10 overflow-hidden">
+    <iframe
+        src="{{ $mapSrc }}"
+        class="absolute inset-0 w-full h-full border-0"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map showing {{ $siteSettings->address }}">
+    </iframe>
 </section>

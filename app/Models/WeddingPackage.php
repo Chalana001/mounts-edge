@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class WeddingPackage extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = ['name', 'guests', 'is_popular', 'includes'];
     protected $casts = ['includes' => 'array', 'is_popular' => 'boolean'];
 }

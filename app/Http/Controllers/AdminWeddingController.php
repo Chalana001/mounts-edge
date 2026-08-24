@@ -2,119 +2,172 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\WeddingHall;
-use App\Models\WeddingPackage;
+use App\Http\Controllers\Concerns\HandlesImageUploads;
 use App\Models\WeddingCatering;
 use App\Models\WeddingDecoration;
-use Illuminate\Support\Facades\Storage;
+use App\Models\WeddingHall;
+use App\Models\WeddingPackage;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AdminWeddingController extends Controller
 {
-    public function index()
-    {
-        $hall = WeddingHall::all() ?? new WeddingHall();
-        $catering = WeddingCatering::first() ?? new WeddingCatering();
-        $decoration = WeddingDecoration::first() ?? new WeddingDecoration();
-        $packages = WeddingPackage::all();
+    use HandlesImageUploads;
 
-        return view('admin.weddings.index', compact('hall', 'catering', 'decoration', 'packages'));
+    public function index(): View
+    {
+        return view('admin.weddings.index', [
+            'halls' => WeddingHall::latest()->paginate(8, ['*'], 'halls_page')->withQueryString(),
+            'catering' => WeddingCatering::first() ?? new WeddingCatering(),
+            'decoration' => WeddingDecoration::first() ?? new WeddingDecoration(),
+            'packages' => WeddingPackage::latest()->paginate(10, ['*'], 'packages_page')->withQueryString(),
+        ]);
     }
 
-    //WEDDING HALL
-    public function storeHall(Request $request)
+    public function storeHall(Request $request): RedirectResponse
     {
-        $data = $request->except(['image', 'features']);
-        if ($request->hasFile('image')) {
-            $data['image'] = '/storage/' . $request->file('image')->store('weddings', 'public');
-        }
-        $data['features'] = array_filter($request->features ?? []);
-        WeddingHall::create($data);
-        return redirect()->back()->with('success', 'Wedding Hall added successfully!');
+        $data = $request->validate($this->hallRules());
+        $data['features'] = $this->cleanList($data['features'] ?? []);
+
+        $images = $this->syncImages($request, [], 'weddings');
+        $data['images'] = $images;
+        $data['image'] = $images[0];
+
+        WeddingHall::create(\Illuminate\Support\Arr::except($data, ['existing_images', 'new_images']));
+
+        return back()->with('success', 'Wedding Hall added successfully!');
     }
 
-    public function updateHall(Request $request, WeddingHall $hall)
+    public function updateHall(Request $request, WeddingHall $hall): RedirectResponse
     {
-        $data = $request->except(['image', 'features']);
-        if ($request->hasFile('image')) {
-            if ($hall->image) Storage::disk('public')->delete(str_replace('/storage/', '', $hall->image));
-            $data['image'] = '/storage/' . $request->file('image')->store('weddings', 'public');
-        }
-        $data['features'] = array_filter($request->features ?? []);
-        $hall->update($data);
-        return redirect()->back()->with('success', 'Hall updated successfully!');
+        $data = $request->validate($this->hallRules());
+        $data['features'] = $this->cleanList($data['features'] ?? []);
+
+        $images = $this->syncImages($request, $hall->images ?? [], 'weddings');
+        $data['images'] = $images;
+        $data['image'] = $images[0];
+
+        $hall->update(\Illuminate\Support\Arr::except($data, ['existing_images', 'new_images']));
+
+        return back()->with('success', 'Hall updated successfully!');
     }
 
-    public function destroyHall(WeddingHall $hall)
+    public function destroyHall(WeddingHall $hall): RedirectResponse
     {
-        if ($hall->image) Storage::disk('public')->delete(str_replace('/storage/', '', $hall->image));
+        $this->deletePublicImages($hall->images ?: array_filter([$hall->image]));
         $hall->delete();
-        return redirect()->back()->with('success', 'Hall deleted successfully!');
+
+        return back()->with('success', 'Hall deleted successfully!');
     }
-    //WEDDING PACKAGES (CRUD)
-    public function storePackage(Request $request)
+
+    public function storePackage(Request $request): RedirectResponse
     {
-        $data = $request->except(['includes']);
-        $data['includes'] = array_filter($request->includes ?? []);
-        $data['is_popular'] = $request->has('is_popular');
-        
+        $data = $request->validate($this->packageRules());
+        $data['includes'] = $this->cleanIncludes($data['includes'] ?? []);
+        $data['is_popular'] = $request->boolean('is_popular');
         WeddingPackage::create($data);
-        return redirect()->back()->with('success', 'Package added successfully!');
+
+        return back()->with('success', 'Package added successfully!');
     }
 
-    public function updatePackage(Request $request, WeddingPackage $package)
+    public function updatePackage(Request $request, WeddingPackage $package): RedirectResponse
     {
-        $data = $request->except(['includes']);
-        $data['includes'] = array_filter($request->includes ?? []);
-        $data['is_popular'] = $request->has('is_popular');
-
+        $data = $request->validate($this->packageRules());
+        $data['includes'] = $this->cleanIncludes($data['includes'] ?? []);
+        $data['is_popular'] = $request->boolean('is_popular');
         $package->update($data);
-        return redirect()->back()->with('success', 'Package updated successfully!');
+
+        return back()->with('success', 'Package updated successfully!');
     }
 
-    public function destroyPackage(WeddingPackage $package)
+    public function destroyPackage(WeddingPackage $package): RedirectResponse
     {
         $package->delete();
-        return redirect()->back()->with('success', 'Package deleted successfully!');
+
+        return back()->with('success', 'Package deleted successfully!');
     }
 
-    //CATERING & MENU
-    public function updateCatering(Request $request)
+    public function updateCatering(Request $request): RedirectResponse
     {
-        $catering = WeddingCatering::first() ?? new WeddingCatering();
-        $data = $request->except(['image', 'list_items', 'tags']);
+        $this->updateFeatureSection($request, WeddingCatering::first() ?? new WeddingCatering());
 
-        if ($request->hasFile('image')) {
-            if ($catering->image && str_contains($catering->image, '/storage/')) {
-                Storage::disk('public')->delete(str_replace('/storage/', '', $catering->image));
-            }
-            $data['image'] = '/storage/' . $request->file('image')->store('weddings', 'public');
-        }
-
-        $data['list_items'] = array_filter($request->list_items ?? []);
-        $data['tags'] = array_filter($request->tags ?? []);
-
-        $catering->fill($data)->save();
-        return redirect()->back()->with('success', 'Catering details updated successfully!');
+        return back()->with('success', 'Catering details updated successfully!');
     }
 
-    //DECORATIONS
-    public function updateDecoration(Request $request)
+    public function updateDecoration(Request $request): RedirectResponse
     {
-        $decoration = WeddingDecoration::first() ?? new WeddingDecoration();
-        $data = $request->except(['image', 'list_items', 'tags']);
+        $this->updateFeatureSection($request, WeddingDecoration::first() ?? new WeddingDecoration());
+
+        return back()->with('success', 'Decoration details updated successfully!');
+    }
+
+    private function hallRules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'tagline' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'capacity' => ['nullable', 'string', 'max:100'],
+            'area' => ['nullable', 'string', 'max:100'],
+            'style' => ['nullable', 'string', 'max:255'],
+            'features' => ['nullable', 'array'],
+            'features.*' => ['nullable', 'string', 'max:255'],
+        ] + $this->imageRules();
+    }
+
+    private function packageRules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'guests' => ['nullable', 'string', 'max:100'],
+            'is_popular' => ['nullable', 'boolean'],
+            'includes' => ['nullable', 'array'],
+            'includes.*.title' => ['required', 'string', 'max:255'],
+            'includes.*.rule' => ['nullable', 'string', 'max:255'],
+            'includes.*.items' => ['nullable', 'array'],
+            'includes.*.items.*' => ['nullable', 'string', 'max:255'],
+        ];
+    }
+
+    private function updateFeatureSection(Request $request, WeddingCatering|WeddingDecoration $section): void
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'tagline' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'list_title' => ['nullable', 'string', 'max:255'],
+            'list_items' => ['nullable', 'array'],
+            'list_items.*' => ['nullable', 'string', 'max:255'],
+            'tags' => ['nullable', 'array'],
+            'tags.*' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+        ]);
+
+        $data['list_items'] = $this->cleanList($data['list_items'] ?? []);
+        $data['tags'] = $this->cleanList($data['tags'] ?? []);
 
         if ($request->hasFile('image')) {
-            if ($decoration->image && str_contains($decoration->image, '/storage/')) {
-                Storage::disk('public')->delete(str_replace('/storage/', '', $decoration->image));
-            }
-            $data['image'] = '/storage/' . $request->file('image')->store('weddings', 'public');
+            $this->deletePublicImage($section->image);
+            $data['image'] = '/storage/'.$request->file('image')->store('weddings', 'public');
         }
 
-        $data['list_items'] = array_filter($request->list_items ?? []);
-        $data['tags'] = array_filter($request->tags ?? []);
+        $section->fill($data)->save();
+    }
 
-        $decoration->fill($data)->save();
-        return redirect()->back()->with('success', 'Decoration details updated successfully!');
+    private function cleanList(array $values): array
+    {
+        return array_values(array_filter(array_map('trim', $values), fn ($value) => $value !== ''));
+    }
+
+    private function cleanIncludes(array $sections): array
+    {
+        return array_values(array_filter(array_map(function ($section) {
+            return [
+                'title' => trim($section['title'] ?? ''),
+                'rule' => trim($section['rule'] ?? ''),
+                'items' => $this->cleanList($section['items'] ?? []),
+            ];
+        }, $sections), fn ($section) => $section['title'] !== '' || ! empty($section['items'])));
     }
 }

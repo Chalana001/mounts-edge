@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('guests')->nullable();
-            $table->boolean('is_popular')->default(false); // Most Popular ද කියලා බලන්න
-            $table->json('includes')->nullable(); // Package එකේ තියෙන දේවල්
+            $table->boolean('is_popular')->default(false);
+            $table->json('includes')->nullable(); // Items included in the package.
             $table->timestamps();
         });
     }   

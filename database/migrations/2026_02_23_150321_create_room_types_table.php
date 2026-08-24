@@ -14,7 +14,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique(); // 'deluxe', 'family'
             $table->string('name'); // 'Deluxe Rooms'
-            $table->text('icon'); // SVG කේතය
+            $table->text('icon'); // Raw SVG markup.
             $table->timestamps();
         });
     }

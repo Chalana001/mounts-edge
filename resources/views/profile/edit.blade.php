@@ -1,29 +1,16 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-brand-green leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+<x-admin-layout>
+    <div class="min-h-screen bg-[#FAF9F6] py-10">
+        <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
+            <header class="mb-8">
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E67E22]">Account Settings</span>
+                <h1 class="mt-2 font-serif text-3xl text-[#1a2e2a]">My Profile</h1>
+                <p class="mt-2 text-sm text-gray-500">Manage your personal details and secure your administrator account.</p>
+            </header>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
+            <div class="grid gap-8 lg:grid-cols-2 lg:items-start">
+                @include('profile.partials.update-profile-information-form')
+                @include('profile.partials.update-password-form')
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

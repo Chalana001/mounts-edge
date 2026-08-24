@@ -23,7 +23,8 @@ class RoomSeeder extends Seeder
             'name' => 'Deluxe Rooms',
             'tagline' => 'Comfort Meets Elegance',
             'description' => 'Our Deluxe Rooms offer the perfect blend of comfort and style, featuring modern amenities with stunning mountain views from your private balcony.',
-            'image' => '/storage/rooms/deluxe.jpg', 
+            'image' => '/storage/rooms/deluxe.jpg',
+            'images' => ['/storage/rooms/deluxe.jpg'],
             'capacity' => '2 Adults',
             'size' => '32 sqm',
         ]);
@@ -46,7 +47,8 @@ class RoomSeeder extends Seeder
             'name' => 'Family Rooms',
             'tagline' => 'Space for Everyone',
             'description' => 'Spacious family rooms designed for memorable getaways with your loved ones. Enjoy separate sleeping areas and a cozy living space.',
-            'image' => '/storage/rooms/family.jpg', 
+            'image' => '/storage/rooms/family.jpg',
+            'images' => ['/storage/rooms/family.jpg'],
             'capacity' => '4 Adults + 2 Kids',
             'size' => '55 sqm',
         ]);
@@ -69,7 +71,8 @@ class RoomSeeder extends Seeder
             'name' => 'Villa Experience',
             'tagline' => 'Ultimate Privacy & Luxury',
             'description' => 'Experience unparalleled luxury in our exclusive villa, featuring a private pool, panoramic views, and personalized butler service.',
-            'image' => '/storage/rooms/villa.jpg', 
+            'image' => '/storage/rooms/villa.jpg',
+            'images' => ['/storage/rooms/villa.jpg'],
             'capacity' => '6 Adults',
             'size' => '120 sqm',
         ]);

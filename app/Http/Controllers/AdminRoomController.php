@@ -2,40 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\HandlesImageUploads;
 use App\Models\Room;
 use App\Models\RoomType;
 use App\Models\Feature;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AdminRoomController extends Controller
 {
-    // ඔක්කොම ඩේටා Index එකෙන්ම යවනවා
+    use HandlesImageUploads;
+
     public function index()
     {
-        $rooms = Room::with(['roomType', 'features'])->latest()->get();
+        $rooms = Room::with(['roomType', 'features'])->latest()->paginate(12, ['*'], 'rooms_page')->withQueryString();
         $roomTypes = RoomType::withCount('rooms')->latest()->get(); 
         
-        // Modal එකේ Checkboxes වලට මේක අනිවාර්යයෙන්ම ඕනේ
+        // The modal needs the full feature list for its checkboxes.
         $features = Feature::all(); 
         
         return view('admin.rooms.index', compact('rooms', 'roomTypes', 'features'));
     }
 
-    // Modal එකෙන් එන ඩේටා කෙලින්ම සේව් වෙනවා
     public function store(Request $request)
     {
         $request->validate([
-            'room_type_id' => 'required',
-            'name' => 'required',
-            'tagline' => 'required',
-            'description' => 'required',
-            'capacity' => 'required',
-            'size' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+            'room_type_id' => 'required|integer|exists:room_types,id',
+            'name' => 'required|string|max:255',
+            'tagline' => 'required|string|max:255',
+            'description' => 'required|string|max:5000',
+            'capacity' => 'required|string|max:100',
+            'size' => 'required|string|max:100',
+            'features' => 'nullable|array',
+            'features.*' => 'integer|exists:features,id',
+        ] + $this->imageRules());
 
-        $imagePath = $request->file('image')->store('rooms', 'public');
+        $images = $this->syncImages($request, [], 'rooms');
 
         $room = Room::create([
             'room_type_id' => $request->room_type_id,
@@ -44,7 +45,8 @@ class AdminRoomController extends Controller
             'description' => $request->description,
             'capacity' => $request->capacity,
             'size' => $request->size,
-            'image' => '/storage/' . $imagePath,
+            'images' => $images,
+            'image' => $images[0],
         ]);
 
         if ($request->has('features')) {
@@ -54,33 +56,27 @@ class AdminRoomController extends Controller
         return redirect()->route('admin.rooms.index')->with('success', 'Room created successfully.');
     }
 
-    // Modal එකෙන් එන ඩේටා කෙලින්ම අප්ඩේට් වෙනවා
     public function update(Request $request, Room $room)
     {
-        $request->validate([
-            'room_type_id' => 'required',
-            'name' => 'required',
-            'tagline' => 'required',
-            'description' => 'required',
-            'capacity' => 'required',
-            'size' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+        $validated = $request->validate([
+            'room_type_id' => 'required|integer|exists:room_types,id',
+            'name' => 'required|string|max:255',
+            'tagline' => 'required|string|max:255',
+            'description' => 'required|string|max:5000',
+            'capacity' => 'required|string|max:100',
+            'size' => 'required|string|max:100',
+            'features' => 'nullable|array',
+            'features.*' => 'integer|exists:features,id',
+        ] + $this->imageRules());
 
-        $data = $request->except(['image', 'features']);
+        $data = \Illuminate\Support\Arr::except($validated, ['existing_images', 'new_images', 'features']);
 
-        // අලුත් පින්තූරයක් දැම්මොත් පරණ එක මකලා අලුත් එක දානවා
-        if ($request->hasFile('image')) {
-            if ($room->image && str_contains($room->image, '/storage/')) {
-                Storage::disk('public')->delete(str_replace('/storage/', '', $room->image));
-            }
-            $imagePath = $request->file('image')->store('rooms', 'public');
-            $data['image'] = '/storage/' . $imagePath;
-        }
+        $images = $this->syncImages($request, $room->images ?? [], 'rooms');
+        $data['images'] = $images;
+        $data['image'] = $images[0];
 
         $room->update($data);
 
-        // Features ටික අලුත් කිරීම
         if ($request->has('features')) {
             $room->features()->sync($request->features);
         } else {
@@ -92,33 +88,27 @@ class AdminRoomController extends Controller
 
     public function destroy(Room $room)
     {
-        if ($room->image && str_contains($room->image, '/storage/')) {
-            Storage::disk('public')->delete(str_replace('/storage/', '', $room->image));
-        }
+        $this->deletePublicImages($room->images ?: array_filter([$room->image]));
         $room->delete();
 
         return redirect()->route('admin.rooms.index')->with('success', 'Room deleted successfully.');
     }
 
-    // ============
-    // ROOM TYPES
-    // ============
-
     public function roomTypesStore(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'slug' => 'required|unique:room_types',
-            'icon' => 'required', 
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|alpha_dash|unique:room_types',
+            'icon' => 'required|string|max:5000',
         ]);
 
-        RoomType::create($request->all());
+        RoomType::create($request->only(['name', 'slug', 'icon']));
         return redirect()->route('admin.rooms.index')->with('success', 'Room Type added successfully!');
     }
 
     public function roomTypesDestroy(RoomType $roomType)
     {
-        // කාමර පාවිච්චි වෙනවා නම් මකන්න දෙන්නේ නෑ!
+        // Keep room types that are still assigned to rooms.
         if ($roomType->rooms()->count() > 0) {
             return redirect()->route('admin.rooms.index')->with('error', 'Cannot delete! This Room Type is being used by existing rooms.');
         }

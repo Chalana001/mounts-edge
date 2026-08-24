@@ -31,4 +31,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google_maps' => [
+        // Free "Maps Embed API" key from Google Cloud Console. Without it,
+        // the contact page shows the address card only (no live map),
+        // since Google blocks the no-key embed trick from being framed.
+        'embed_key' => env('GOOGLE_MAPS_EMBED_KEY'),
+    ],
+
 ];

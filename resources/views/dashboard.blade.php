@@ -1,8 +1,8 @@
 <x-admin-layout>
     <div class="py-12 bg-[#FAF9F6] min-h-screen">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
             
-            <h2 class="text-3xl font-serif text-[#1a2e2a] mb-6">Admin Dashboard</h2>
+            <header class="mb-8"><span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E67E22]">Overview</span><h1 class="mt-2 font-serif text-3xl text-[#1a2e2a]">Dashboard</h1><p class="mt-2 text-sm text-gray-500">A current view of website content and guest enquiries.</p></header>
 
             <div class="bg-[#1a2e2a] rounded-xl shadow-lg p-8 mb-8 text-white relative overflow-hidden">
                 <div class="relative z-10">
@@ -58,30 +58,34 @@
             </div>
 
             <h4 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-4 ml-1">System Overview</h4>
-            <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-6 gap-6">
+                <a href="{{ route('admin.enquiries.index') }}" class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center lg:text-left transition hover:border-[#E67E22]">
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">New Enquiries</p>
+                    <h3 class="text-3xl font-serif text-[#E67E22] mt-2">{{ $stats['newEnquiries'] }}</h3>
+                </a>
                 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center lg:text-left">
                     <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Total Rooms</p>
-                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ \App\Models\Room::count() ?? 0 }}</h3>
+                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ $stats['rooms'] }}</h3>
                 </div>
                 
                 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center lg:text-left">
                     <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Room Types</p>
-                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ \App\Models\RoomType::count() ?? 0 }}</h3>
+                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ $stats['roomTypes'] }}</h3>
                 </div>
                 
                 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center lg:text-left">
                     <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Wedding Pkgs</p>
-                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ \App\Models\WeddingPackage::count() ?? 0 }}</h3>
+                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ $stats['weddingPackages'] }}</h3>
                 </div>
 
                 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center lg:text-left">
                     <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Wedding Halls</p>
-                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ \App\Models\WeddingHall::count() ?? 0 }}</h3>
+                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ $stats['weddingHalls'] }}</h3>
                 </div>
 
                 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm text-center lg:text-left">
                     <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Gallery Photos</p>
-                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ \App\Models\GalleryItem::count() ?? 0 }}</h3>
+                    <h3 class="text-3xl font-serif text-[#1a2e2a] mt-2">{{ $stats['galleryItems'] }}</h3>
                 </div>
             </div>
 

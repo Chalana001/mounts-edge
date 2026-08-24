@@ -1,5 +1,5 @@
-<section class="py-24 md:py-32 bg-white">
-    <div class="container mx-auto px-6 text-center mb-16 reveal-hidden"
+<section class="py-12 md:py-20 bg-white">
+    <div class="container mx-auto px-6 text-center mb-10 md:mb-14 reveal-fade"
          x-data="{ isHeadingVisible: false }"
          x-intersect.once.margin.-25%.0.-25%.0="isHeadingVisible = true"
          :class="isHeadingVisible ? 'reveal-visible' : ''"
@@ -8,7 +8,7 @@
         <h2 class="text-4xl md:text-5xl font-serif text-brand-green">Our Dining Spaces</h2>
     </div>
 
-    <div class="flex flex-wrap justify-center gap-8 max-w-5xl mx-auto px-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto px-4 md:px-6">
         @php
             $spaces = [
                 ['name' => 'Main Restaurant', 'hours' => '6:30 AM - 10:00 PM', 'desc' => 'All-day dining with mountain views', 'icon' => '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>'],
@@ -17,7 +17,7 @@
         @endphp
 
         @foreach($spaces as $space)
-            <div class="w-full md:w-[320px] text-center p-12 border border-brand-green/20 hover:border-brand-orange/30 transition-all duration-500 bg-[#fdfdfb] reveal-hidden"
+            <div class="w-full md:max-w-[420px] mx-auto text-center p-8 md:p-12 border border-brand-green/20 hover:border-brand-orange/30 transition-all duration-500 bg-[#fdfdfb] reveal-scale"
                  x-data="{ isCardVisible: false }"
                  x-intersect.once.margin.-10%.0.-10%.0="isCardVisible = true"
                  :class="isCardVisible ? 'reveal-visible' : ''"
@@ -29,7 +29,7 @@
                     </svg>
                 </div>
                 <h3 class="font-serif text-brand-green text-xl mb-3">{{ $space['name'] }}</h3>
-                <p class="text-[10px] tracking-[0.2em] uppercase text-brand-orange font-bold mb-4">{{ $space['hours'] }}</p>
+                <p class="text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-brand-orange font-bold mb-4 whitespace-nowrap">{{ $space['hours'] }}</p>
                 <p class="text-brand-green/70 text-sm font-light leading-relaxed">{{ $space['desc'] }}</p>
             </div>
         @endforeach

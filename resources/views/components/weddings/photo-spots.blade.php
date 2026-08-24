@@ -1,15 +1,15 @@
-<section class="py-24 bg-[#f9f9f7]"
+<section class="py-12 bg-[#f9f9f7]"
          x-data="{ isVisible: false }"
          x-intersect.once.margin.-25%.0px.-25%.0px="isVisible = true">
     <div class="container mx-auto px-6">
         
-        <div class="text-center mb-16 reveal-hidden"
+        <div class="text-center mb-16 reveal-fade"
              :class="isVisible ? 'reveal-visible' : ''"
              style="transition-duration: 1.2s;">
             <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">Picture Perfect</span>
             <h2 class="text-4xl md:text-5xl font-serif text-brand-green mb-6">Outdoor Photo Spots</h2>
             <p class="text-brand-green/70 max-w-xl mx-auto font-light">
-                Capture stunning moments against our breathtaking mountain backdrop
+                Capture your wedding photos against our mountain backdrop
             </p>
         </div>
 
@@ -21,7 +21,7 @@
                 "/storage/weddings/highlights/4.jpg",
             ] as $index => $img)
                 
-                <div class="aspect-square overflow-hidden group reveal-hidden"
+                <div class="aspect-square overflow-hidden group reveal-scale"
                      :class="isVisible ? 'reveal-visible' : ''"
                      style="transition-duration: 1s; transition-delay: {{ $index * 150 }}ms;">
                      

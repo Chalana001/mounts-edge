@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GalleryCategory extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['name'];
 
     public function items()
     {

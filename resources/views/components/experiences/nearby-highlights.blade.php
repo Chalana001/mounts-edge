@@ -1,9 +1,9 @@
-<section class="py-24 md:py-32 bg-[#f9f9f7]" 
+<section class="py-12 md:py-20 bg-[#f9f9f7]"
          x-data="{ isVisible: false }" 
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
-        <div class="text-center mb-16 reveal-hidden" :class="isVisible ? 'reveal-visible' : ''">
+        <div class="text-center mb-10 md:mb-14 reveal-fade" :class="isVisible ? 'reveal-visible' : ''">
             <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">Explore the Region</span>
             <h2 class="text-4xl md:text-5xl font-serif text-brand-green mb-6">Nearby Attractions</h2>
             <p class="text-brand-green/70 max-w-xl mx-auto font-light leading-relaxed">
@@ -28,13 +28,13 @@
                 [
                     'name' => 'Rathna Ella', 
                     'dist' => '45 min drive', 
-                    'desc' => 'A breathtaking and wide waterfall hidden within the lush green forests of Hasalaka.',
+                    'desc' => 'A wide waterfall tucked into the forests of Hasalaka.',
                     'img' => 'storage/experiences/nearby-highlights/rathna-ella.jfif'
                 ],
                 [
                     'name' => '18 Bends (Dahata Wanguwa)', 
                     'dist' => '30 min drive', 
-                    'desc' => 'The famous winding road offering breathtaking panoramic views of the Mahiyangana valley.',
+                    'desc' => 'A winding mountain road with wide views over the Mahiyangana valley.',
                     'img' => 'storage/experiences/nearby-highlights/18-bends.jpg'
                 ],
                 [
@@ -64,7 +64,7 @@
                 [
                     'name' => 'Mawaragala Forest Monastery', 
                     'dist' => '30 min drive', 
-                    'desc' => 'A serene and ancient forest hermitage offering peace and deep spiritual tranquility.',
+                    'desc' => 'An old forest hermitage, quiet and still used by monks today.',
                     'img' => 'storage/experiences/nearby-highlights/mawaragala-forest.jfif'
                 ],
 
@@ -89,13 +89,13 @@
                 [
                     'name' => 'Riverston', 
                     'dist' => '2 hours drive', 
-                    'desc' => 'A spectacular windy gap in the Knuckles mountain range offering sweeping panoramic vistas.',
+                    'desc' => 'A windy gap in the Knuckles range with wide views on both sides.',
                     'img' => 'storage/experiences/nearby-highlights/riverston.jpg'
                 ],
                 [
                     'name' => 'Wasgamuwa National Park', 
                     'dist' => '1 hour drive', 
-                    'desc' => 'A thrilling wildlife sanctuary perfect for spotting wild elephants and diverse bird species.',
+                    'desc' => 'A wildlife reserve known for wild elephants and birdwatching.',
                     'img' => 'storage/experiences/nearby-highlights/wasgamuwa.jpg'
                 ],
                 [
@@ -109,7 +109,7 @@
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             @foreach($highlights as $index => $place)
-                <div class="group bg-white border border-brand-green/20 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 reveal-hidden"
+                <div class="group bg-white border border-brand-green/20 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 reveal-scale"
                      style="transition-delay: {{ $index * 150 }}ms"
                      :class="isVisible ? 'reveal-visible' : ''">
                     

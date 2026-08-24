@@ -1,7 +1,7 @@
-<section class="py-24 md:py-32 bg-white" x-data="{ activeTab: 'hall' }">
+<section class="py-12 md:py-20 bg-white overflow-hidden" x-data="{ activeTab: 'hall' }">
     <div class="container mx-auto px-6">
     @props(['tabs'])
-        <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-16 px-6 relative z-20">
+        <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 md:mb-14 px-6 relative z-20">
             @foreach($tabs as $key => $tab)
                 <button @click="activeTab = '{{ $key }}'"
                         class="flex items-center justify-center gap-3 px-6 py-4 transition-all duration-300 border text-[10px] tracking-widest uppercase font-bold w-full sm:w-[220px]"
@@ -23,23 +23,22 @@
                      style="display: none;">
 
                     @if($tab['type'] === 'multi-split')
-                        <div class="space-y-32">
+                        <div class="space-y-16 md:space-y-24">
                             @foreach($tab['items'] as $item)
-                                <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center reveal-hidden"
-                                     x-data="{ isSplitVisible: false }" 
-                                     x-intersect.once.margin.-25%.0.-25%.0="isSplitVisible = true"
-                                     :class="isSplitVisible ? 'reveal-visible' : ''"
-                                     style="transition-duration: 1.5s;">
-                                     
-                                    <div class="relative aspect-[4/3] w-full overflow-hidden group shadow-xl {{ $loop->even ? 'md:order-2' : 'md:order-1' }}">
-                                        <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}" 
-                                             class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110">
+                                <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center"
+                                     x-data="{ isSplitVisible: false }"
+                                     x-intersect.once.margin.-25%.0.-25%.0="isSplitVisible = true">
+
+                                    <div class="relative aspect-[4/3] w-full overflow-hidden group shadow-xl {{ $loop->even ? 'md:order-2 reveal-right' : 'md:order-1 reveal-left' }}"
+                                         :class="isSplitVisible ? 'reveal-visible' : ''">
+                                        <x-image-slider :images="$item['images']" :alt="$item['title']" />
                                         <div class="absolute bottom-0 left-0 bg-brand-green text-[#F5F5DC] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-bold">
                                             {{ $item['tagline'] }}
                                         </div>
                                     </div>
 
-                                    <div class="flex flex-col justify-center w-full {{ $loop->even ? 'md:order-1' : 'md:order-2' }}">
+                                    <div class="flex flex-col justify-center w-full {{ $loop->even ? 'md:order-1 reveal-left' : 'md:order-2 reveal-right' }}"
+                                         :class="isSplitVisible ? 'reveal-visible' : ''">
                                         <h3 class="text-3xl md:text-4xl font-serif text-brand-green mb-6">{{ $item['title'] }}</h3>
                                         <p class="text-brand-green/70 leading-relaxed mb-8 font-light">{{ $item['desc'] }}</p>
                                         
@@ -63,27 +62,36 @@
                                                 @endforeach
                                             </div>
                                         @endif
+
+                                        {{-- Carries this hall through, so the contact form opens
+                                             with Wedding Inquiry + this hall already selected. --}}
+                                        <div class="mt-8">
+                                            <a href="{{ route('contact', ['type' => \App\Models\Enquiry::TYPE_WEDDING, 'hall' => $item['title']]) }}"
+                                               class="inline-flex items-center gap-2 bg-brand-green text-brand-light hover:bg-brand-orange px-6 md:px-8 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-bold transition-colors">
+                                                Make an Enquiry
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
 
                     @elseif($tab['type'] === 'split')
-                        <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-center reveal-hidden"
-                            x-data="{ isSplitVisible: false }" 
-                            x-intersect.once.margin.-10%.0.-10%.0="isSplitVisible = true"
-                            :class="isSplitVisible ? 'reveal-visible' : ''"
-                            style="transition-duration: 1.5s;">
-                            
-                            <div class="relative aspect-[4/3] w-full overflow-hidden group shadow-xl md:order-1">
-                                <img src="{{ $tab['image'] }}" alt="{{ $tab['title'] }}" 
+                        <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center"
+                            x-data="{ isSplitVisible: false }"
+                            x-intersect.once.margin.-10%.0.-10%.0="isSplitVisible = true">
+
+                            <div class="relative aspect-[4/3] w-full overflow-hidden group shadow-xl md:order-1 reveal-left"
+                                 :class="isSplitVisible ? 'reveal-visible' : ''">
+                                <img src="{{ $tab['image'] }}" alt="{{ $tab['title'] }}"
                                     class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110">
                                 <div class="absolute bottom-0 left-0 bg-brand-green text-[#F5F5DC] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-bold">
                                     {{ $tab['tagline'] }}
                                 </div>
                             </div>
 
-                            <div class="flex flex-col justify-center w-full md:order-2">
+                            <div class="flex flex-col justify-center w-full md:order-2 reveal-right"
+                                 :class="isSplitVisible ? 'reveal-visible' : ''">
                                 <h3 class="text-3xl md:text-4xl font-serif text-brand-green mb-6">{{ $tab['title'] }}</h3>
                                 <p class="text-brand-green/70 leading-relaxed mb-8 font-light">{{ $tab['desc'] }}</p>
                                 
@@ -123,7 +131,7 @@
 
 @elseif($tab['type'] === 'grid')
     
-    <div class="text-center mb-12 reveal-hidden"
+    <div class="text-center mb-12 reveal-fade"
          x-data="{ isGridHeadingVisible: false }" 
          x-intersect.once="isGridHeadingVisible = true"
          :class="isGridHeadingVisible ? 'reveal-visible' : ''"
@@ -132,7 +140,9 @@
         <p class="text-brand-green/70 max-w-xl mx-auto font-light">{{ $tab['desc'] }}</p>
     </div>
     
-    <div class="reveal-hidden flex overflow-x-auto snap-x snap-mandatory gap-4 pt-4 pb-8 px-4 md:px-0 md:grid md:grid-cols-4 md:gap-6 md:pb-0 md:pt-4 md:overflow-visible"
+    {{-- items-start stops a card that is expanded from stretching its
+         collapsed neighbours to the same height. --}}
+    <div class="reveal-scale flex items-start overflow-x-auto snap-x snap-mandatory gap-4 pt-4 pb-8 px-4 md:px-0 md:grid md:grid-cols-4 md:gap-6 md:pb-0 md:pt-4 md:overflow-visible"
         x-data="{ isGridVisible: false }" 
         x-intersect.once.margin.-10%.0.-10%.0="isGridVisible = true"
         :class="isGridVisible ? 'reveal-visible' : ''"

@@ -6,5 +6,6 @@
     <x-dining.signature-dishes />
     <x-dining.bar-section />
     <x-dining.dining-spaces />
+    <x-dining.reserve-cta />
     <x-dining.wedding-cta />
 @endsection

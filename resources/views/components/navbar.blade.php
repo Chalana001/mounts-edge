@@ -3,21 +3,23 @@
         isScrolled: false,
         currentPath: window.location.pathname,
         init() {
-            // පේජ් එක ලෝඩ් වෙද්දිම scroll වෙලාද බලනවා
             this.isScrolled = window.scrollY > 50; 
             
-            // Scroll කරද්දි තත්වය මාරු කරනවා
             window.addEventListener('scroll', () => {
                 this.isScrolled = window.scrollY > 50;
             });
 
-            // Mobile Menu එක ඕපන් කරාම Background Scroll වෙන එක නවත්තනවා
+            // Prevent the page behind the mobile menu from scrolling.
             this.$watch('isOpen', value => {
                 if (value) {
                     document.body.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = '';
                 }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) this.isOpen = false;
             });
         }
     }" 
@@ -31,6 +33,11 @@
             ['name' => 'Experiences', 'url' => '/experiences'],
             ['name' => 'Gallery',     'url' => '/gallery'],
             ['name' => 'Contact',     'url' => '/contact'],
+        ];
+
+        $mobileNavLinks = [
+            ['name' => 'Home', 'url' => '/'],
+            ...$navLinks,
         ];
     @endphp
 
@@ -84,29 +91,26 @@
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
-         class="fixed inset-0 z-[55] bg-[#FAF9F6] lg:hidden flex flex-col items-center justify-center gap-8"
+         class="fixed inset-0 z-[55] bg-[#FAF9F6] lg:hidden overflow-y-auto"
          style="display: none;">
-        
-        <a href="/" class="text-brand-green text-[10px] tracking-[0.2em] uppercase font-bold hover:text-brand-orange transition-colors mb-4">
-            Home
-        </a>
+        <div class="min-h-full flex flex-col items-center justify-center gap-5 py-24 sm:gap-7">
+            @foreach($mobileNavLinks as $index => $link)
+                <div x-show="isOpen"
+                     x-transition:enter="transition ease-out duration-500 delay-[{{ $index * 50 }}ms]"
+                     x-transition:enter-start="opacity-0 translate-y-4"
+                     x-transition:enter-end="opacity-100 translate-y-0">
+                    <a href="{{ $link['url'] }}"
+                       @click="isOpen = false"
+                       class="text-2xl sm:text-3xl font-serif font-normal transition-colors duration-300"
+                       :class="currentPath === '{{ $link['url'] }}' ? 'text-brand-orange' : 'text-brand-green hover:text-brand-orange'">
+                         {{ $link['name'] }}
+                    </a>
+                </div>
+            @endforeach
 
-        @foreach($navLinks as $index => $link)
-            <div x-show="isOpen"
-                 x-transition:enter="transition ease-out duration-500 delay-[{{ $index * 50 }}ms]"
-                 x-transition:enter-start="opacity-0 translate-y-4"
-                 x-transition:enter-end="opacity-100 translate-y-0">
-                <a href="{{ $link['url'] }}" 
-                   @click="isOpen = false"
-                   class="text-3xl font-serif font-normal transition-colors duration-300"
-                   :class="currentPath === '{{ $link['url'] }}' ? 'text-brand-orange' : 'text-brand-green hover:text-brand-orange'">
-                    {{ $link['name'] }}
-                </a>
-            </div>
-        @endforeach
-
-        <a href="/contact" @click="isOpen = false" class="mt-8 px-12 py-5 bg-brand-green text-brand-light text-[10px] tracking-[0.2em] uppercase font-bold hover:bg-brand-orange transition-colors">
-            Book Now
-        </a>
+            <a href="/contact" @click="isOpen = false" class="mt-3 px-12 py-4 bg-brand-green text-brand-light text-[10px] tracking-[0.2em] uppercase font-bold hover:bg-brand-orange transition-colors sm:mt-5 sm:py-5">
+                Book Now
+            </a>
+        </div>
     </div>
 </nav>

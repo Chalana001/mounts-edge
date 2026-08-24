@@ -1,11 +1,11 @@
-<section class="relative py-32 md:py-40 overflow-hidden" 
+<section class="relative py-12 md:py-20 overflow-hidden"
          x-data="{ isVisible: false }" 
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="absolute inset-0">
         <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] ease-in-out scale-110"
              :class="isVisible ? 'scale-100' : 'scale-110'"
-             style="background-image: url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1920&q=80');">
+             style="background-image: url('{{ asset('storage/weddings/highlights/2.jpg') }}');">
         </div>
         <div class="absolute inset-0 bg-brand-green/70"></div>
     </div>
@@ -16,7 +16,7 @@
              style="transition-duration: 1.5s;">
             
             <span class="text-[#F5F5DC]/70 text-[10px] tracking-[0.4em] uppercase font-bold block mb-8">
-                Your Journey Awaits
+                Plan Your Visit
             </span>
 
             <h2 class="text-3xl md:text-5xl lg:text-6xl font-serif text-brand-light font-normal mb-8 leading-tight">
@@ -24,7 +24,7 @@
             </h2>
 
             <p class="text-[#F5F5DC]/70 text-base md:text-lg font-light mb-12 max-w-md mx-auto">
-                Let us create memories that last a lifetime in the heart of Mahiyangana.
+                Get in touch and we'll help you plan your stay in Mahiyangana.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-6 justify-center">

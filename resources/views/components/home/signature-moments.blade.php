@@ -1,10 +1,10 @@
-<section class="py-32 md:py-40 bg-white" 
+<section class="py-12 md:py-20 bg-white"
          x-data="{ isVisible: false }" 
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
         
-        <div class="text-center mb-16 reveal-hidden"
+        <div class="text-center mb-10 md:mb-14 reveal-fade"
              :class="isVisible ? 'reveal-visible' : ''">
             <span class="text-brand-green/70 text-[10px] tracking-[0.4em] uppercase font-bold block mb-4">
                 Moments
@@ -37,7 +37,7 @@
             @endphp
 
             @foreach($moments as $index => $moment)
-                <div class="group relative overflow-hidden aspect-[3/4] reveal-hidden shadow-sm"
+                <div class="group relative overflow-hidden aspect-[3/4] reveal-scale shadow-sm"
                      style="transition-delay: {{ ($index + 1) * 150 }}ms"
                      :class="isVisible ? 'reveal-visible' : ''">
                     

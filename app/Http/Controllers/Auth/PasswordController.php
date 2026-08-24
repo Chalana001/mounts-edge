@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
 class PasswordController extends Controller
@@ -20,9 +21,15 @@ class PasswordController extends Controller
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
 
+        Auth::logoutOtherDevices($validated['current_password']);
+
         $request->user()->update([
             'password' => Hash::make($validated['password']),
         ]);
+
+        $request->user()->forceFill(['remember_token' => null])->save();
+
+        $request->session()->regenerate();
 
         return back()->with('status', 'password-updated');
     }

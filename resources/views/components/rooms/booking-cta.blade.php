@@ -5,20 +5,18 @@
             Reserve your room directly for the best rates and instant confirmation
         </p>
         
-        <button x-data 
-                @click.prevent="
-                    fetch('/notify-whatsapp', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content'),
-                            'Accept': 'application/json'
-                        }
-                    });
-                    window.open('https://wa.me/94704589764?text=Hello%20Mounts%20Edge%20Regency!%20I%20would%20like%20to%20book%20a%20room.', '_blank');
-                "
-                class="bg-brand-light hover:bg-brand-orange hover:text-brand-light text-brand-green px-12 py-5 text-[10px] tracking-[0.2em] uppercase font-bold transition-colors">
-            Book Now
-        </button>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            <a href="{{ route('contact', ['type' => \App\Models\Enquiry::TYPE_ROOM]) }}"
+               class="bg-brand-light hover:bg-brand-orange hover:text-brand-light text-brand-green px-12 py-5 text-[10px] tracking-[0.2em] uppercase font-bold transition-colors">
+                Book Now
+            </a>
+
+            <a href="https://wa.me/{{ $siteSettings->whatsapp_number }}?text=Hello%20Mounts%20Edge%20Regency!%20I%20would%20like%20to%20book%20a%20room."
+               target="_blank" rel="noopener noreferrer"
+               class="border border-brand-light/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-12 py-5 text-[10px] tracking-[0.2em] uppercase font-bold transition-colors">
+                WhatsApp Us
+            </a>
+        </div>
         
     </div>
 </section>

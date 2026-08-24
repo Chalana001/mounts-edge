@@ -1,6 +1,11 @@
 <x-admin-layout>
-    <div class="py-12 bg-[#FAF9F6] min-h-screen" x-data="{ roomModal: false, editRoom: null, selectedFeatures: [] }">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-12 bg-[#FAF9F6] min-h-screen" x-data="roomAdmin()">
+        <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
+            <header class="mb-10">
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E67E22]">Accommodation</span>
+                <h1 class="mt-2 font-serif text-3xl text-[#1a2e2a]">Rooms</h1>
+                <p class="mt-2 text-sm text-gray-500">Manage room types, amenities, rates and accommodation details.</p>
+            </header>
             
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 text-sm font-bold">
@@ -12,9 +17,16 @@
                     {{ session('error') }}
                 </div>
             @endif
+            @if ($errors->any())
+                <div class="mb-6 border-l-4 border-red-600 bg-red-50 px-4 py-3 text-sm text-red-800">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
 
             <div class="mb-16">
-                <h2 class="text-3xl font-serif text-[#1a2e2a] mb-6">Manage Room Types</h2>
+                <h2 class="text-2xl font-serif text-[#1a2e2a] mb-6">Room Types</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="md:col-span-1">
                         <div class="bg-white p-6 shadow-sm border border-gray-100 rounded-lg">
@@ -39,7 +51,7 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <div class="bg-white overflow-hidden shadow-sm border border-gray-100 rounded-lg p-6 h-full">
+                        <div class="bg-white overflow-x-auto shadow-sm border border-gray-100 rounded-lg p-6 h-full">
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-gray-50 border-b text-[10px] uppercase tracking-widest text-gray-500">
@@ -75,7 +87,7 @@
             <div>
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-3xl font-serif text-[#1a2e2a]">Manage Rooms</h2>
-                    <button @click="roomModal = true; editRoom = null; selectedFeatures = []" class="bg-[#E67E22] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#1a2e2a] transition-colors shadow-sm">
+                    <button @click="openCreate()" class="bg-[#E67E22] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#1a2e2a] transition-colors shadow-sm">
                         + Add New Room
                     </button>
                 </div>
@@ -95,13 +107,13 @@
                             <tbody>
                                 @forelse($rooms as $room)
                                 <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
-                                    <td class="p-4"><img src="{{ $room->image }}" class="w-20 h-14 object-cover rounded shadow-sm"></td>
+                                    <td class="p-4"><img src="{{ $room->image }}" alt="{{ $room->name }}" class="w-20 h-14 object-cover rounded shadow-sm"></td>
                                     <td class="p-4 font-bold text-[#1a2e2a]">{{ $room->name }}</td>
                                     <td class="p-4 text-sm text-gray-600">{{ $room->roomType->name ?? 'N/A' }}</td>
                                     <td class="p-4 text-sm text-gray-600">{{ $room->capacity }}</td>
                                     <td class="p-4">
                                         <div class="flex items-center gap-4">
-                                            <button @click="editRoom = {{ $room }}; selectedFeatures = {{ $room->features->pluck('id') }}; roomModal = true" class="text-[#E67E22] hover:text-[#1a2e2a] text-[10px] font-bold tracking-widest uppercase">Edit</button>
+                                            <button @click="openEdit({{ Illuminate\Support\Js::from($room) }}, {{ Illuminate\Support\Js::from($room->features->pluck('id')->values()) }}, {{ Illuminate\Support\Js::from($room->images ?: array_filter([$room->image])) }})" class="text-[#E67E22] hover:text-[#1a2e2a] text-[10px] font-bold tracking-widest uppercase">Edit</button>
                                             
                                             <form action="{{ route('admin.rooms.destroy', $room->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
                                                 @csrf @method('DELETE')
@@ -119,6 +131,7 @@
                         </table>
                     </div>
                 </div>
+                <div class="mt-6">{{ $rooms->links() }}</div>
             </div>
             
         </div>
@@ -157,12 +170,30 @@
                             <input type="text" name="size" :value="editRoom?.size" class="w-full border-gray-300 rounded" required>
                         </div>
                         <div>
-                            <label class="block text-[10px] tracking-widest uppercase text-gray-500 mb-2" x-text="editRoom ? 'Room Image (Leave blank to keep current)' : 'Room Image'"></label>
-                            <input type="file" name="image" id="image_input" accept="image/*" class="w-full border-gray-300 text-sm" x-bind:required="!editRoom">
-                            <div class="mt-2">
-                                <img id="image_preview" src="" class="h-16 rounded object-cover shadow-sm hidden">
-                                <img :src="editRoom?.image" class="h-16 rounded object-cover shadow-sm existing-image" x-show="editRoom?.image">
+                            <label class="block text-[10px] tracking-widest uppercase text-gray-500 mb-2">Room Images</label>
+
+                            <template x-for="(img, i) in kept" :key="img">
+                                <div class="flex items-center gap-2 mb-2 bg-gray-50 border border-gray-200 rounded p-2">
+                                    <img :src="img" alt="" class="h-12 w-16 rounded object-cover shadow-sm">
+                                    <span class="text-[9px] font-bold uppercase tracking-widest text-[#E67E22] w-10" x-text="i === 0 ? 'Main' : ''"></span>
+                                    <input type="hidden" name="existing_images[]" :value="img">
+                                    <div class="ml-auto flex items-center gap-1">
+                                        <button type="button" @click="move(i, -1)" :disabled="i === 0" class="px-2 py-1 text-xs border rounded disabled:opacity-30" title="Move up">&uarr;</button>
+                                        <button type="button" @click="move(i, 1)" :disabled="i === kept.length - 1" class="px-2 py-1 text-xs border rounded disabled:opacity-30" title="Move down">&darr;</button>
+                                        <button type="button" @click="remove(i)" class="px-2 py-1 text-xs text-red-500 font-bold" title="Remove">&times;</button>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <input type="file" name="new_images[]" multiple accept="image/*" x-ref="files" @change="pick($event)" class="w-full border-gray-300 text-sm">
+
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <template x-for="p in previews" :key="p.url">
+                                    <img :src="p.url" alt="Preview of selected image" class="h-12 w-16 rounded object-cover shadow-sm opacity-80">
+                                </template>
                             </div>
+
+                            <p class="mt-2 text-[10px] text-gray-500">The first image is the main photo. Up to <span x-text="max"></span> images, each under 2MB.</p>
                         </div>
                     </div>
 
@@ -196,32 +227,66 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const imageInput = document.getElementById('image_input');
-            const imagePreview = document.getElementById('image_preview');
-            const existingImage = document.querySelector('.existing-image');
-            
-            const maxSizeInMB = 2; 
-            const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('roomAdmin', () => ({
+                roomModal: false,
+                editRoom: null,
+                selectedFeatures: [],
+                kept: [],
+                previews: [],
+                max: 5,
 
-            if (imageInput && imagePreview) {
-                imageInput.addEventListener('change', function() {
-                    const file = this.files[0];
-                    if (file) {
-                        if (file.size > maxSizeInBytes) {
-                            alert(`Warning! The selected image is too large. Please select an image smaller than ${maxSizeInMB}MB.`);
-                            this.value = ''; 
-                            imagePreview.classList.add('hidden');
-                            if(existingImage) existingImage.style.display = 'block';
-                            return; 
-                        }
-                        
-                        imagePreview.classList.remove('hidden');
-                        imagePreview.src = URL.createObjectURL(file);
-                        if(existingImage) existingImage.style.display = 'none';
+                openCreate() {
+                    this.editRoom = null;
+                    this.selectedFeatures = [];
+                    this.resetImages();
+                    this.roomModal = true;
+                },
+
+                openEdit(room, featureIds, images) {
+                    this.editRoom = room;
+                    this.selectedFeatures = featureIds;
+                    this.resetImages(images);
+                    this.roomModal = true;
+                },
+
+                resetImages(images = []) {
+                    this.kept = Array.isArray(images) ? [...images] : [];
+                    this.previews = [];
+                    if (this.$refs.files) this.$refs.files.value = '';
+                },
+
+                move(i, direction) {
+                    const j = i + direction;
+                    if (j < 0 || j >= this.kept.length) return;
+                    [this.kept[i], this.kept[j]] = [this.kept[j], this.kept[i]];
+                },
+
+                remove(i) {
+                    this.kept.splice(i, 1);
+                },
+
+                pick(event) {
+                    const files = Array.from(event.target.files || []);
+                    const maxBytes = 2 * 1024 * 1024;
+
+                    if (files.some(file => file.size > maxBytes)) {
+                        alert('Each image must be smaller than 2MB.');
+                        event.target.value = '';
+                        this.previews = [];
+                        return;
                     }
-                });
-            }
+
+                    if (this.kept.length + files.length > this.max) {
+                        alert(`You can have a maximum of ${this.max} images. Remove some first.`);
+                        event.target.value = '';
+                        this.previews = [];
+                        return;
+                    }
+
+                    this.previews = files.map(file => ({ url: URL.createObjectURL(file) }));
+                },
+            }));
         });
     </script>
 </x-admin-layout>

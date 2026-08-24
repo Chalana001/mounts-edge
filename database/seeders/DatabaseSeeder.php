@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             ['email' => 'admin@mountsedgeregency.com'],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('admin123'),
+                'password' => Hash::make('admin@mer123'),
+                'email_verified_at' => now(),
+                'is_admin' => true,
             ]
         );
         $this->call([

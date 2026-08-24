@@ -11,7 +11,7 @@
             </p>
 
             <div class="flex gap-4">
-                <a href="/contact" 
+                <a href="{{ route('contact', ['type' => \App\Models\Enquiry::TYPE_ROOM]) }}"
                    class="bg-brand-green text-brand-light hover:bg-brand-orange transition-all duration-500 px-10 py-5 text-[10px] tracking-[0.2em] uppercase font-bold shadow-lg">
                     Check Availability
                 </a>

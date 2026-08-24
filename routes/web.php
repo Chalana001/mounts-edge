@@ -9,6 +9,9 @@ use App\Http\Controllers\WeddingController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\AdminGalleryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminEnquiryController;
+use App\Http\Controllers\AdminSiteSettingController;
 
 
 
@@ -17,18 +20,40 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('dashboard', [
+        'stats' => [
+            'newEnquiries' => \App\Models\Enquiry::where('status', \App\Models\Enquiry::STATUS_NEW)->count(),
+            'rooms' => \App\Models\Room::count(),
+            'roomTypes' => \App\Models\RoomType::count(),
+            'weddingPackages' => \App\Models\WeddingPackage::count(),
+            'weddingHalls' => \App\Models\WeddingHall::count(),
+            'galleryItems' => \App\Models\GalleryItem::count(),
+        ],
+    ]);
+})->middleware(['auth', 'auth.session', 'admin', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'auth.session', 'admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::resource('rooms', AdminRoomController::class);
 });
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'auth.session', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('settings', [AdminSiteSettingController::class, 'edit'])->name('settings.edit');
+    Route::put('settings', [AdminSiteSettingController::class, 'update'])->name('settings.update');
+    Route::get('enquiries/trash', [AdminEnquiryController::class, 'trash'])->name('enquiries.trash');
+    Route::delete('enquiries/trash', [AdminEnquiryController::class, 'emptyTrash'])->name('enquiries.trash.empty');
+    Route::get('enquiries', [AdminEnquiryController::class, 'index'])->name('enquiries.index');
+    Route::get('enquiries/{enquiry}', [AdminEnquiryController::class, 'show'])->name('enquiries.show');
+    Route::patch('enquiries/{enquiry}/status', [AdminEnquiryController::class, 'updateStatus'])->name('enquiries.status');
+    Route::delete('enquiries/{enquiry}', [AdminEnquiryController::class, 'destroy'])->name('enquiries.destroy');
+    Route::post('enquiries/{enquiry}/restore', [AdminEnquiryController::class, 'restore'])->name('enquiries.restore');
+    Route::delete('enquiries/{enquiry}/force', [AdminEnquiryController::class, 'forceDestroy'])->name('enquiries.force-destroy');
+
+    Route::get('users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::post('users', [AdminUserController::class, 'store'])->name('users.store');
+    Route::put('users/{user}/password', [AdminUserController::class, 'updatePassword'])->name('users.password.update');
+    Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+
     // Rooms CRUD
     Route::resource('rooms', AdminRoomController::class);
 
@@ -77,10 +102,9 @@ Route::get('/experiences', function () {
     return view('experiences');
 });
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
-Route::get('/contact', function () {
-    return view('contact');
-});
-Route::post('/send-enquiry', [ContactController::class, 'sendEnquiry'])->name('enquiry.send');
-Route::post('/notify-whatsapp', [ContactController::class, 'notifyWhatsapp']);
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/send-enquiry', [ContactController::class, 'sendEnquiry'])
+    ->middleware('throttle:5,1')
+    ->name('enquiry.send');
 
 require __DIR__.'/auth.php';

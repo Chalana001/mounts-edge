@@ -12,28 +12,26 @@ class WeddingController extends Controller
 {
     public function index()
     {
-        // 1. Database එකේ Models වලින් ඩේටා ටික ගන්නවා
-        $halls = WeddingHall::all(); // මෙතන all() කරලා $halls කියලා ගත්තා
+        $halls = WeddingHall::all();
         $packages = WeddingPackage::all();
         $catering = WeddingCatering::first();
         $decoration = WeddingDecoration::first();
 
-        // 2. Blade එකට අවශ්‍ය $tabs Array එක සකස් කිරීම
+        // Shape the database content for the tabbed wedding view.
         $tabs = [
             'hall' => [
                 'label' => 'Wedding Halls',
                 'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>',
                 
-                // අලුත් type එකක් දුන්නා ලූප් කරන්න පුළුවන් වෙන්න
                 'type' => 'multi-split', 
-                
-                // Halls ඔක්කොම ලූප් කරලා Array එකකට දානවා
                 'items' => $halls->map(function($hall) {
                     return [
                         'title' => $hall->name,
                         'tagline' => $hall->tagline,
                         'desc' => $hall->description,
-                        'image' => $hall->image ? asset($hall->image) : 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80',
+                        'images' => ! empty($hall->images)
+                        ? array_map(fn ($path) => asset($path), $hall->images)
+                        : [$hall->image ? asset($hall->image) : 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80'],
                         'details' => [
                             ['label' => 'Capacity', 'value' => $hall->capacity ?? 'N/A'],
                             ['label' => 'Area', 'value' => $hall->area ?? 'N/A'],

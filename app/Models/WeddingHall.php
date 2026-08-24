@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class WeddingHall extends Model
 {
     use HasFactory;
-    protected $guarded = [];
-    protected $casts = ['features' => 'array'];
+    protected $fillable = ['name', 'tagline', 'description', 'capacity', 'area', 'style', 'image', 'images', 'features'];
+    protected $casts = ['features' => 'array', 'images' => 'array'];
 }

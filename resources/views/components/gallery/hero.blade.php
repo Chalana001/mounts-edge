@@ -1,7 +1,7 @@
 <section class="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0">
-        <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1920&q=80" 
-             class="w-full h-full object-cover shadow-inner" alt="Gallery Hero">
+        <img src="{{ asset('storage/home/hero/mounts-edge-regency.jpg') }}"
+             class="w-full h-full object-cover shadow-inner" alt="Mounts Edge Regency">
         <div class="absolute inset-0 bg-black/40"></div>
     </div>
 
@@ -9,7 +9,7 @@
         <span class="text-[#F5F5DC]/80 text-[10px] md:text-xs tracking-[0.5em] uppercase mb-4 block font-bold">
             Visual Journey
         </span>
-        <h1 class="text-5xl md:text-7xl font-serif text-brand-light tracking-wide">
+        <h1 class="text-[clamp(2.5rem,7vw,4.5rem)] font-serif text-brand-light tracking-wide">
             Gallery
         </h1>
     </div>

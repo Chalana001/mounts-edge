@@ -21,9 +21,9 @@
         </div>
     </div>
 
-    <div class="relative z-10 w-full h-full flex flex-col md:flex-row px-6 md:px-16 pt-24 pb-12 md:pb-16 items-end md:items-center">
-        
-        <div class="flex-1 flex flex-col justify-center items-start text-left w-full max-w-2xl h-full pb-32 md:pb-0 transition-all duration-500">
+    <div class="relative z-10 w-full h-full flex flex-col md:flex-row px-6 md:px-16 pt-24 pb-6 md:pb-16 md:items-center">
+
+        <div class="flex-1 flex flex-col justify-center items-start text-left w-full max-w-2xl min-w-0 md:h-full transition-all duration-500">
             
             <div x-show="textShown"
                  x-transition:enter="transition ease-out duration-500 delay-50"
@@ -33,7 +33,7 @@
                  x-transition:leave-start="opacity-100 translate-y-0"
                  x-transition:leave-end="opacity-0 -translate-y-4"
                  class="mb-6">
-                <span class="text-[#F5F5DC]/70 font-sans text-[10px] md:text-xs tracking-[0.3em] uppercase font-semibold drop-shadow-md" 
+                <span class="text-[#F5F5DC]/70 font-sans text-[clamp(9px,1.5vw,12px)] tracking-[0.3em] uppercase font-semibold drop-shadow-md"
                       x-text="activeText.subtitle">
                 </span>
             </div>
@@ -45,7 +45,7 @@
                 x-transition:leave="transition ease-in duration-200"
                 x-transition:leave-start="opacity-100 translate-y-0"
                 x-transition:leave-end="opacity-0 -translate-y-8"
-                class="text-6xl md:text-7xl lg:text-[6rem] font-serif font-normal text-[#F5F5DC] leading-[1.05] tracking-tight drop-shadow-2xl mb-6"
+                class="text-[clamp(2.25rem,7.5vw,6rem)] font-serif font-normal text-[#F5F5DC] leading-[1.05] tracking-tight drop-shadow-2xl mb-6"
                 x-text="activeText.title">
             </h1>
 
@@ -66,7 +66,7 @@
                x-transition:leave="transition ease-in duration-200"
                x-transition:leave-start="opacity-100 translate-y-0"
                x-transition:leave-end="opacity-0 -translate-y-4"
-               class="max-w-md text-[#F5F5DC]/80 text-sm md:text-base font-light leading-relaxed mb-10"
+               class="max-w-md text-[#F5F5DC]/80 text-[clamp(0.8rem,1.8vw,1rem)] font-light leading-relaxed mb-[clamp(1.25rem,3vw,2.5rem)]"
                x-text="activeText.description">
             </p>
 
@@ -77,25 +77,30 @@
                  x-transition:leave="transition ease-in duration-200"
                  x-transition:leave-start="opacity-100 translate-y-0"
                  x-transition:leave-end="opacity-0 translate-y-4"
-                 class="flex flex-row gap-4 mb-12 md:mb-16">
-                
-                <a href="/stay" class="px-8 py-3.5 text-xs font-semibold tracking-[0.15em] uppercase border border-[#F5F5DC]/40 text-[#F5F5DC] hover:bg-[#F5F5DC] hover:text-black transition-all duration-300 rounded-sm">
+                 class="flex flex-row gap-4 mb-0 md:mb-16">
+
+                <a href="/luxury-stay" class="px-[clamp(1.25rem,3.5vw,2rem)] py-[clamp(0.65rem,1.8vw,0.875rem)] text-[clamp(10px,1.4vw,12px)] font-semibold tracking-[0.15em] uppercase border border-[#F5F5DC]/40 text-[#F5F5DC] hover:bg-[#F5F5DC] hover:text-black transition-all duration-300 rounded-sm">
                     Stay
                 </a>
 
-                <a href="/celebrate" class="px-8 py-3.5 text-xs font-semibold tracking-[0.15em] uppercase bg-[#F5F5DC] text-black hover:bg-[#d37841] hover:text-white transition-all duration-300 rounded-sm shadow-lg">
+                <a href="/weddings" class="px-[clamp(1.25rem,3.5vw,2rem)] py-[clamp(0.65rem,1.8vw,0.875rem)] text-[clamp(10px,1.4vw,12px)] font-semibold tracking-[0.15em] uppercase bg-[#F5F5DC] text-black hover:bg-[#d37841] hover:text-white transition-all duration-300 rounded-sm shadow-lg">
                     Celebrate
                 </a>
             </div>
         </div>
 
-        <div class="absolute bottom-6 left-0 w-full pl-6 md:pl-0 md:w-auto md:left-auto md:right-0 md:bottom-16 z-20"
+        {{-- Mobile: sits in normal flow under the text so it can never overlap it,
+             but stretched past the container's right padding (w-full + 1.5rem) and
+             right-aligned, so the partial card is clipped by the screen edge exactly
+             like it is on desktop instead of stopping short with dead space beside it.
+             Desktop: floats at the bottom-right edge of the hero, as designed. --}}
+        <div class="w-[calc(100%+1.5rem)] mt-8 md:mt-0 md:absolute md:right-0 md:bottom-16 md:w-auto overflow-hidden z-20"
              x-show="shown"
              x-transition:enter="transition ease-out duration-1000 delay-100"
              x-transition:enter-start="opacity-0 translate-y-12"
              x-transition:enter-end="opacity-100 translate-y-0">
-            
-            <div class="overflow-hidden transition-all duration-300 ease-in-out" :style="`width: ${containerWidth};`">
+
+            <div class="overflow-hidden max-w-full ml-auto md:ml-0 transition-all duration-300 ease-in-out" :style="`width: ${containerWidth};`">
                 
                 <div x-ref="thumbTrack" class="flex w-max">
                     <template x-for="(slide, index) in thumbnailList" :key="slide.id">
@@ -128,7 +133,13 @@
          x-transition:enter="transition ease-out duration-1000 delay-100"
          x-transition:enter-start="opacity-0 translate-y-4"
          x-transition:enter-end="opacity-100 translate-y-0"
-         class="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
+         {{-- Mobile: centred, sitting just above the card strip.
+              Desktop: pinned immediately left of the strip, so the arrows can
+              never collide with the cards at any viewport width. --}}
+         class="absolute z-30 flex items-center gap-4 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:bottom-8"
+         :style="windowWidth < 768
+            ? `bottom: ${cardHeight + 56}px`
+            : `right: calc(${containerWidth} + 2rem)`">
          
         <button @click="prevSlide()" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#F5F5DC]/30 flex items-center justify-center text-[#F5F5DC] hover:bg-[#F5F5DC] hover:text-black transition-colors cursor-pointer group">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:-translate-x-1">
@@ -151,10 +162,10 @@
             const slidesData = [
                 { id: 1, title: 'Mounts Edge Regency', subtitle: 'Gurulupotha · Mahiyangana', bgWord: 'MOUNTS', description: 'A mountain retreat where stillness meets celebration', image: '/storage/home/hero/mounts-edge-regency.jpg' },
                 { id: 2, title: 'Luxury Suites', subtitle: 'Elegant Stays · Comfort', bgWord: 'LUXURY', description: 'Wake up to the panoramic views of the misty mountains', image: '/storage/home/hero/luxury-suites.jpg' },
-                { id: 3, title: 'Grand Weddings', subtitle: 'Celebrate Love · Nature', bgWord: 'WEDDING', description: 'Make your special day unforgettable amidst nature', image: '/storage/home/hero/wedding.jpg' },
+                { id: 3, title: 'Grand Weddings', subtitle: 'Celebrate Love · Nature', bgWord: 'WEDDING', description: 'Celebrate your wedding day surrounded by mountains and forest', image: '/storage/home/hero/wedding.jpg' },
                 { id: 4, title: 'Fine Dining', subtitle: 'Culinary Journey · Taste', bgWord: 'DINING', description: 'Experience authentic local and international cuisine', image: '/storage/home/hero/dining.jpg' },
-                { id: 5, title: 'Infinity Edge', subtitle: 'Refresh · Unwind', bgWord: 'INFINITY', description: 'Immerse yourself in crystal clear waters that seamlessly blend with the misty mountains.', image: '/storage/home/hero/pool4.jpg' },
-                { id: 6, title: 'Nature Trails', subtitle: 'Explore · Outdoors', bgWord: 'NATURE', description: 'Discover hidden paths and breathtaking landscapes', image: '/storage/home/hero/nature-trails.jpg' }
+                { id: 5, title: 'Infinity Edge', subtitle: 'Refresh · Unwind', bgWord: 'INFINITY', description: 'Swim in our infinity pool, with the misty mountains right at the edge.', image: '/storage/home/hero/pool4.jpg' },
+                { id: 6, title: 'Nature Trails', subtitle: 'Explore · Outdoors', bgWord: 'NATURE', description: 'Explore nature trails through the surrounding hills', image: '/storage/home/hero/nature-trails.jpg' }
             ];
 
             return {
@@ -189,25 +200,32 @@
                 },
 
                 get cardWidth() {
-                    if (this.windowWidth >= 1024) return 180;
-                    if (this.windowWidth >= 768) return 150;
-                    if (this.windowWidth >= 640) return 120;
-                    return 100;
+                    // Continuous scaling with the viewport so the strip never
+                    // jumps between fixed sizes or collides with the hero text.
+                    const vw = this.windowWidth;
+                    if (vw >= 768) return Math.round(Math.min(180, Math.max(96, vw * 0.13)));
+                    return Math.round(Math.min(120, Math.max(80, vw * 0.24)));
                 },
 
                 get cardHeight() {
-                    if (this.windowWidth >= 1024) return 280;
-                    if (this.windowWidth >= 768) return 230;
-                    if (this.windowWidth >= 640) return 180;
-                    return 140;
+                    return Math.round(this.cardWidth * 1.55);
                 },
 
                 get cardGap() {
                     return this.windowWidth >= 640 ? 16 : 10;
                 },
 
+                get visibleCards() {
+                    // Fewer cards on narrow tablets so the strip leaves room
+                    // for the hero text column beside it.
+                    if (this.windowWidth >= 1024) return 3.5;
+                    if (this.windowWidth >= 768) return 2.5;
+                    return 3.5;
+                },
+
                 get containerWidth() {
-                    return `calc((${this.cardWidth}px * 3.5) + (${this.cardGap}px * 3))`; 
+                    const n = this.visibleCards;
+                    return `calc((${this.cardWidth}px * ${n}) + (${this.cardGap}px * ${Math.ceil(n) - 1}))`;
                 },
 
                 nextSlide() {

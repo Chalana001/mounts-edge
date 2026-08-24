@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('area')->nullable();
             $table->string('style')->nullable();
             $table->string('image')->nullable();
-            $table->json('features')->nullable(); // Tags/Features ටික Array එකක් විදියට සේව් වෙන්න
+            $table->json('features')->nullable(); // Feature tags stored as a JSON array.
             $table->timestamps();
         });
     }

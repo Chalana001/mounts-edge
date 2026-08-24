@@ -1,10 +1,10 @@
 <footer class="bg-brand-green text-[#F5F5DC]">
-    <div class="container mx-auto px-6 py-20">
+    <div class="container mx-auto px-6 py-12 md:py-16">
         <div class="max-w-4xl mx-auto text-center">
             <h3 class="text-3xl font-serif font-normal mb-8 tracking-wide">Mounts Edge</h3>
             
             <p class="text-[#F5F5DC]/60 text-sm font-light leading-relaxed mb-10 max-w-md mx-auto">
-                A semi-luxury retreat nestled in Gurulupotha, Mahiyangana – where tranquility meets celebration.
+                A semi-luxury retreat in Gurulupotha, Mahiyangana, for quiet stays and celebrations alike.
             </p>
 
             <nav class="flex flex-wrap justify-center gap-8 mb-12">
@@ -29,9 +29,9 @@
             <div class="w-12 h-px bg-brand-orange/30 mx-auto mb-10"></div>
 
             <div class="space-y-3 text-[#F5F5DC]/50 text-xs tracking-wide font-light mb-10">
-                <p class="hover:text-[#F5F5DC] transition-colors cursor-default">Gurulupotha, Hasalaka, Mahiyangana, Sri Lanka</p>
-                <p><a href="tel:0552256500" class="hover:text-[#F5F5DC] transition-colors">055 2 256 500</a></p>
-                <p><a href="mailto:ckalhara7277@gmail.com" class="hover:text-[#F5F5DC] transition-colors">ckalhara7277@gmail.com</a></p>
+                <p class="hover:text-[#F5F5DC] transition-colors cursor-default">{{ $siteSettings->address }}</p>
+                <p><a href="tel:{{ $siteSettings->phone_link }}" class="hover:text-[#F5F5DC] transition-colors">{{ $siteSettings->phone_display }}</a></p>
+                <p><a href="mailto:{{ $siteSettings->public_email }}" class="hover:text-[#F5F5DC] transition-colors">{{ $siteSettings->public_email }}</a></p>
             </div>
         </div>
 

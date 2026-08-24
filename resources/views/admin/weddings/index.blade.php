@@ -1,37 +1,48 @@
 <x-admin-layout>
     <div class="py-12 bg-[#FAF9F6] min-h-screen" x-data="{ activeTab: 'halls' }">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
             
-            <h2 class="text-3xl font-serif text-[#1a2e2a] mb-6">Manage Weddings</h2>
+            <header class="mb-8"><span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E67E22]">Celebrations</span><h1 class="mt-2 font-serif text-3xl text-[#1a2e2a]">Weddings</h1><p class="mt-2 text-sm text-gray-500">Manage halls, packages, catering menus and decoration options.</p></header>
 
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 text-sm font-bold">
                     {{ session('success') }}
                 </div>
             @endif
+            @if(session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 text-sm font-bold">
+                    {{ session('error') }}
+                </div>
+            @endif
+            @if ($errors->any())
+                <div class="mb-6 border-l-4 border-red-600 bg-red-50 px-4 py-3 text-sm text-red-800">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
 
-            <div class="flex gap-4 mb-8 border-b border-gray-300 pb-2">
+            <div class="flex gap-4 mb-8 overflow-x-auto border-b border-gray-300 pb-2">
                 <button @click="activeTab = 'halls'" :class="activeTab === 'halls' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Wedding Halls</button>
                 <button @click="activeTab = 'packages'" :class="activeTab === 'packages' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Packages</button>
                 <button @click="activeTab = 'catering'" :class="activeTab === 'catering' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Catering & Menu</button>
                 <button @click="activeTab = 'decorations'" :class="activeTab === 'decorations' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Decorations</button>
             </div>
 
-            <div x-show="activeTab === 'halls'" x-data="{ hallModal: false, editHall: null, features: [''] }">
+            <div x-show="activeTab === 'halls'" x-data="hallAdmin()">
                 <div class="flex justify-end mb-4">
-                    <button @click="hallModal = true; editHall = null; features = ['']" class="bg-[#1a2e2a] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#E67E22]">+ Add New Hall</button>
+                    <button @click="openCreate()" class="bg-[#1a2e2a] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#E67E22]">+ Add New Hall</button>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
-                    @forelse($hall instanceof \Illuminate\Database\Eloquent\Collection ? $hall : [$hall] as $h)
-                        @if($h->id)
+                    @forelse($halls as $h)
                         <div class="bg-white p-6 shadow-sm border border-gray-100 flex gap-4">
-                            <img src="{{ asset($h->image) }}" class="w-32 h-24 object-cover rounded">
+                            <img src="{{ asset($h->image) }}" alt="{{ $h->name }}" class="w-32 h-24 object-cover rounded">
                             <div class="flex-1">
                                 <h4 class="font-bold text-lg text-[#1a2e2a]">{{ $h->name }}</h4>
                                 <p class="text-xs text-gray-500 mb-4">{{ $h->capacity }} • {{ $h->area }}</p>
                                 <div class="flex gap-4">
-                                    <button @click="editHall = {{ $h }}; features = {{ json_encode($h->features ?: ['']) }}; hallModal = true" class="text-[#E67E22] text-[10px] font-bold uppercase tracking-widest">Edit</button>
+                                    <button @click="openEdit({{ Illuminate\Support\Js::from($h) }}, {{ Illuminate\Support\Js::from($h->features ?: ['']) }}, {{ Illuminate\Support\Js::from($h->images ?: array_filter([$h->image])) }})" class="text-[#E67E22] text-[10px] font-bold uppercase tracking-widest">Edit</button>
                                     <form action="{{ route('admin.weddings.hall.destroy', $h->id) }}" method="POST" onsubmit="return confirm('Delete this hall?');">
                                         @csrf @method('DELETE')
                                         <button class="text-red-500 text-[10px] font-bold uppercase tracking-widest">Delete</button>
@@ -39,11 +50,11 @@
                                 </div>
                             </div>
                         </div>
-                        @endif
                     @empty
                         <p class="text-gray-500 text-sm">No halls added yet.</p>
                     @endforelse
                 </div>
+                <div class="mt-6">{{ $halls->links() }}</div>
 
                 <div x-show="hallModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" style="display: none;">
                     <div class="bg-white max-w-2xl w-full p-8 rounded-lg max-h-[90vh] overflow-y-auto">
@@ -60,11 +71,31 @@
                                 <div><label class="text-[10px] uppercase text-gray-500">Area</label><input type="text" name="area" :value="editHall?.area" class="w-full border-gray-300 rounded" required></div>
                                 <div><label class="text-[10px] uppercase text-gray-500">Style</label><input type="text" name="style" :value="editHall?.style" class="w-full border-gray-300 rounded" required></div>
                                 
-                                <div>
-                                    <label class="text-[10px] uppercase text-gray-500">Image</label>
-                                    <input type="file" name="image" class="w-full border-gray-300 rounded text-sm image-upload-input" accept="image/*">
-                                    <img src="" class="mt-2 h-16 w-24 object-cover rounded shadow-sm image-preview hidden">
-                                    <img :src="editHall?.image" class="mt-2 h-16 w-24 object-cover rounded shadow-sm existing-image" x-show="editHall?.image">
+                                <div class="col-span-2">
+                                    <label class="text-[10px] uppercase text-gray-500">Hall Images</label>
+
+                                    <template x-for="(img, i) in kept" :key="img">
+                                        <div class="flex items-center gap-2 mb-2 mt-2 bg-gray-50 border border-gray-200 rounded p-2">
+                                            <img :src="img" alt="" class="h-12 w-16 rounded object-cover shadow-sm">
+                                            <span class="text-[9px] font-bold uppercase tracking-widest text-[#E67E22] w-10" x-text="i === 0 ? 'Main' : ''"></span>
+                                            <input type="hidden" name="existing_images[]" :value="img">
+                                            <div class="ml-auto flex items-center gap-1">
+                                                <button type="button" @click="move(i, -1)" :disabled="i === 0" class="px-2 py-1 text-xs border rounded disabled:opacity-30" title="Move up">&uarr;</button>
+                                                <button type="button" @click="move(i, 1)" :disabled="i === kept.length - 1" class="px-2 py-1 text-xs border rounded disabled:opacity-30" title="Move down">&darr;</button>
+                                                <button type="button" @click="remove(i)" class="px-2 py-1 text-xs text-red-500 font-bold" title="Remove">&times;</button>
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <input type="file" name="new_images[]" multiple accept="image/*" x-ref="files" @change="pick($event)" class="w-full border-gray-300 rounded text-sm">
+
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <template x-for="p in previews" :key="p.url">
+                                            <img :src="p.url" alt="Preview of selected image" class="h-12 w-16 rounded object-cover shadow-sm opacity-80">
+                                        </template>
+                                    </div>
+
+                                    <p class="mt-2 text-[10px] text-gray-500">The first image is the main photo. Up to <span x-text="max"></span> images, each under 2MB.</p>
                                 </div>
                             </div>
                             
@@ -100,7 +131,7 @@
                     <button @click="pkgModal = true; editPkg = null; includes = [{ title: '', rule: '', items: [''] }]" class="bg-[#1a2e2a] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#E67E22]">+ Add Package</button>
                 </div>
                 
-                <div class="bg-white shadow-sm border rounded">
+                <div class="bg-white shadow-sm border rounded overflow-x-auto">
                     <table class="w-full text-left">
                         <tr class="bg-gray-50 border-b text-[10px] uppercase tracking-widest text-gray-500">
                             <th class="p-4">Package</th>
@@ -128,7 +159,7 @@
                             <td class="p-4 text-sm">{{ $pkg->guests }}</td>
                             <td class="p-4 text-sm">{{ $pkg->is_popular ? '⭐ Yes' : 'No' }}</td>
                             <td class="p-4 flex gap-4">
-                                <button @click="editPkg = {{ $pkg }}; includes = {{ json_encode($formattedInc) }}; pkgModal = true" class="text-[#E67E22] text-[10px] font-bold uppercase">Edit</button>
+                                <button @click="editPkg = {{ Illuminate\Support\Js::from($pkg) }}; includes = {{ Illuminate\Support\Js::from($formattedInc) }}; pkgModal = true" class="text-[#E67E22] text-[10px] font-bold uppercase">Edit</button>
                                 <form action="{{ route('admin.weddings.packages.destroy', $pkg->id) }}" method="POST" onsubmit="return confirm('Delete this package?');">
                                     @csrf @method('DELETE')
                                     <button class="text-red-500 text-[10px] font-bold uppercase">Delete</button>
@@ -138,6 +169,7 @@
                         @endforeach
                     </table>
                 </div>
+                <div class="mt-6">{{ $packages->links() }}</div>
 
                 <div x-show="pkgModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" style="display: none;">
                     <div class="bg-white max-w-3xl w-full p-8 rounded-lg max-h-[90vh] overflow-y-auto">
@@ -220,9 +252,9 @@
                             <div class="mb-4">
                                 <label class="text-[10px] uppercase text-gray-500">Main Image</label>
                                 <input type="file" name="image" class="w-full border-gray-300 rounded text-sm mb-2 image-upload-input" accept="image/*">
-                                <img src="" class="mt-2 h-20 w-32 object-cover rounded shadow-sm image-preview hidden">
-                                @if($catering->image) 
-                                    <img src="{{ asset($catering->image) }}" class="h-20 w-32 object-cover rounded shadow-sm mt-2 existing-image"> 
+                                <img src="" alt="Preview of selected image" class="mt-2 h-20 w-32 object-cover rounded shadow-sm image-preview hidden">
+                                @if($catering->image)
+                                    <img src="{{ asset($catering->image) }}" alt="{{ $catering->name }}" class="h-20 w-32 object-cover rounded shadow-sm mt-2 existing-image">
                                 @endif
                             </div>
                         </div>
@@ -270,9 +302,9 @@
                             <div class="mb-4">
                                 <label class="text-[10px] uppercase text-gray-500">Main Image</label>
                                 <input type="file" name="image" class="w-full border-gray-300 rounded text-sm mb-2 image-upload-input" accept="image/*">
-                                <img src="" class="mt-2 h-20 w-32 object-cover rounded shadow-sm image-preview hidden">
-                                @if($decoration->image) 
-                                    <img src="{{ asset($decoration->image) }}" class="h-20 w-32 object-cover rounded shadow-sm mt-2 existing-image"> 
+                                <img src="" alt="Preview of selected image" class="mt-2 h-20 w-32 object-cover rounded shadow-sm image-preview hidden">
+                                @if($decoration->image)
+                                    <img src="{{ asset($decoration->image) }}" alt="{{ $decoration->name }}" class="h-20 w-32 object-cover rounded shadow-sm mt-2 existing-image">
                                 @endif
                             </div>
                         </div>
@@ -320,7 +352,6 @@
             imageInputs.forEach(input => {
                 input.addEventListener('change', function() {
                     const file = this.files[0];
-                    // Find the parent container to locate the correct preview images
                     const parent = this.closest('div');
                     const previewImg = parent.querySelector('.image-preview');
                     const existingImg = parent.querySelector('.existing-image');
@@ -328,13 +359,11 @@
                     if (file) {
                         if (file.size > maxSizeInBytes) {
                             alert(`Warning! The selected image is too large. Please select an image smaller than ${maxSizeInMB}MB.`);
-                            this.value = ''; // Clear the input
+                            this.value = '';
                             
-                            // Hide preview, restore existing
                             if (previewImg) previewImg.classList.add('hidden');
                             if (existingImg) existingImg.style.display = 'block';
                         } else {
-                            // Show preview, hide existing
                             if (previewImg) {
                                 previewImg.src = URL.createObjectURL(file);
                                 previewImg.classList.remove('hidden');
@@ -342,12 +371,75 @@
                             if (existingImg) existingImg.style.display = 'none';
                         }
                     } else {
-                        // User canceled file selection
                         if (previewImg) previewImg.classList.add('hidden');
                         if (existingImg) existingImg.style.display = 'block';
                     }
                 });
             });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('hallAdmin', () => ({
+                hallModal: false,
+                editHall: null,
+                features: [''],
+                kept: [],
+                previews: [],
+                max: 5,
+
+                openCreate() {
+                    this.editHall = null;
+                    this.features = [''];
+                    this.resetImages();
+                    this.hallModal = true;
+                },
+
+                openEdit(hall, features, images) {
+                    this.editHall = hall;
+                    this.features = features;
+                    this.resetImages(images);
+                    this.hallModal = true;
+                },
+
+                resetImages(images = []) {
+                    this.kept = Array.isArray(images) ? [...images] : [];
+                    this.previews = [];
+                    if (this.$refs.files) this.$refs.files.value = '';
+                },
+
+                move(i, direction) {
+                    const j = i + direction;
+                    if (j < 0 || j >= this.kept.length) return;
+                    [this.kept[i], this.kept[j]] = [this.kept[j], this.kept[i]];
+                },
+
+                remove(i) {
+                    this.kept.splice(i, 1);
+                },
+
+                pick(event) {
+                    const files = Array.from(event.target.files || []);
+                    const maxBytes = 2 * 1024 * 1024;
+
+                    if (files.some(file => file.size > maxBytes)) {
+                        alert('Each image must be smaller than 2MB.');
+                        event.target.value = '';
+                        this.previews = [];
+                        return;
+                    }
+
+                    if (this.kept.length + files.length > this.max) {
+                        alert(`You can have a maximum of ${this.max} images. Remove some first.`);
+                        event.target.value = '';
+                        this.previews = [];
+                        return;
+                    }
+
+                    this.previews = files.map(file => ({ url: URL.createObjectURL(file) }));
+                },
+            }));
         });
     </script>
 </x-admin-layout>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('list_title')->nullable();
-            $table->json('list_items')->nullable(); // Menu items ටික
+            $table->json('list_items')->nullable(); // Menu items displayed in the list.
             $table->json('tags')->nullable();
             $table->timestamps();
         });

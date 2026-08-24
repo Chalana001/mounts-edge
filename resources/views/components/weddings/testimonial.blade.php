@@ -1,4 +1,4 @@
-<section class="py-32 md:py-40 bg-brand-green overflow-hidden" 
+<section class="py-12 md:py-20 bg-brand-green overflow-hidden"
          x-data="{ isVisible: false }" 
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
