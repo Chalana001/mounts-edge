@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Concerns;
 
+use App\Services\ImageOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -55,8 +56,10 @@ trait HandlesImageUploads
             ]);
         }
 
+        $optimizer = app(ImageOptimizer::class);
+
         foreach ($incoming as $file) {
-            $kept[] = '/storage/'.$file->store($folder, 'public');
+            $kept[] = '/storage/'.$optimizer->store($file, $folder, 'public');
         }
 
         $this->deletePublicImages(array_diff($current, $kept));
@@ -73,8 +76,19 @@ trait HandlesImageUploads
 
     protected function deletePublicImage(?string $path): void
     {
-        if ($path && str_starts_with($path, '/storage/')) {
-            Storage::disk('public')->delete(substr($path, strlen('/storage/')));
+        if (! $path || ! str_starts_with($path, '/storage/')) {
+            return;
         }
+
+        $relative = substr($path, strlen('/storage/'));
+
+        // Drop the srcset variants first, while the original is still there to
+        // derive their names from. Left behind, they would outlive the photo and
+        // keep being served by any srcset that still lists them.
+        if (Storage::disk('public')->exists($relative)) {
+            app(ImageOptimizer::class)->forget(Storage::disk('public')->path($relative));
+        }
+
+        Storage::disk('public')->delete($relative);
     }
 }

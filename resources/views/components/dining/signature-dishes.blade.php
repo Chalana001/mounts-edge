@@ -41,11 +41,11 @@
                      :class="isVisible ? 'reveal-visible' : ''">
                     
                     <div class="overflow-hidden mb-3 md:mb-6 aspect-square shadow-sm">
-                        <img src="{{ $dish['img'] }}" alt="{{ $dish['name'] }}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        <img src="{{ $dish['img'] }}" alt="{{ $dish['name'] }}" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
                     </div>
                     
                     <h3 class="font-serif text-brand-green text-sm md:text-lg mb-1 md:mb-2">{{ $dish['name'] }}</h3>
-                    <p class="text-brand-green/70 text-[10px] md:text-sm font-light leading-relaxed">{{ $dish['desc'] }}</p>
+                    <p class="text-brand-green/70 text-[11px] md:text-sm font-light leading-relaxed">{{ $dish['desc'] }}</p>
                 </div>
             @endforeach
         </div>

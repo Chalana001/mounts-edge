@@ -5,7 +5,10 @@
 @endphp
 
 @if (count($images) === 1)
+    {{-- Sliders only ever appear in room cards and hall tabs, always below the
+         fold, so the single-image case can defer too. --}}
     <img src="{{ $images[0] }}" alt="{{ $alt }}"
+         loading="lazy" decoding="async"
          class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110">
 @elseif (count($images) > 1)
     <div x-data="imageSlider({{ count($images) }}, {{ (int) $interval }})"
@@ -19,7 +22,7 @@
             <img src="{{ $image }}" alt="{{ $alt }}"
                  class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out group-hover:scale-110"
                  :class="index === {{ $i }} ? 'opacity-100' : 'opacity-0'"
-                 @if ($i > 0) loading="lazy" @endif>
+                 loading="lazy" decoding="async">
         @endforeach
 
         {{-- Controls sit on the right; the tagline badge owns the bottom-left corner. --}}

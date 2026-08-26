@@ -149,7 +149,8 @@ class AdminWeddingController extends Controller
 
         if ($request->hasFile('image')) {
             $this->deletePublicImage($section->image);
-            $data['image'] = '/storage/'.$request->file('image')->store('weddings', 'public');
+            $data['image'] = '/storage/'.app(\App\Services\ImageOptimizer::class)
+                ->store($request->file('image'), 'weddings', 'public');
         }
 
         $section->fill($data)->save();

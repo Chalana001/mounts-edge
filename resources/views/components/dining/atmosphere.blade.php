@@ -23,9 +23,10 @@
 
             <div class="reveal-right" :class="isVisible ? 'reveal-visible' : ''" style="transition-delay: 300ms;">
                 <div class="aspect-[4/3] overflow-hidden shadow-2xl">
-                    <img src="{{ asset('storage/dining/dining.jpg') }}"
-                         alt="Restaurant dining room with panoramic mountain views"
-                         class="w-full h-full object-cover transition-transform duration-[3000ms] hover:scale-105">
+                    <x-responsive-image :src="asset('storage/dining/dining.jpg')"
+                                        alt="Restaurant dining room with panoramic mountain views"
+                                        loading="lazy" decoding="async"
+                                        class="w-full h-full object-cover transition-transform duration-[3000ms] hover:scale-105" />
                 </div>
             </div>
 

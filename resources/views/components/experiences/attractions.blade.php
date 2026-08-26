@@ -28,7 +28,7 @@
                 [
                     'name' => 'BBQ Night', 
                     'desc' => 'Enjoy a starlit barbecue dining experience with a private chef in the cool mountain breeze.', 
-                    'img' => 'storage/experiences/attractions/bbq-night.png',
+                    'img' => 'storage/experiences/attractions/bbq-night.jpg',
                     'icon' => '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>' // Flame
                 ],
                 [
@@ -66,18 +66,21 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
             @foreach($experiences as $index => $item)
-                <div class="group flex flex-col border border-brand-green/20 bg-[#fdfdfb] hover:border-brand-orange/30 hover:shadow-lg transition-all duration-500 reveal-scale"
+                <div class="group flex flex-col border border-brand-green/20 bg-white hover:border-brand-orange/30 hover:shadow-lg transition-all duration-500 reveal-scale"
                      style="transition-delay: {{ $index * 100 }}ms"
                      :class="isVisible ? 'reveal-visible' : ''">
                     
                     <div class="aspect-[4/3] overflow-hidden relative">
-                        <img src="{{ $item['img'] }}" class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" alt="{{ $item['name'] }}">
+                        <x-responsive-image :src="$item['img']"
+                                            loading="lazy" decoding="async"
+                                            class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
+                                            :alt="$item['name']" />
                         <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
 
                     <div class="p-6 flex-1 flex flex-col">
                         <div class="flex items-center gap-3 mb-3">
-                            <div class="w-8 h-8 flex shrink-0 items-center justify-center text-[#E67E22]">
+                            <div class="w-8 h-8 flex shrink-0 items-center justify-center text-brand-ember">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     {!! $item['icon'] !!}
                                 </svg>

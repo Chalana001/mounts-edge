@@ -2,14 +2,20 @@
          x-data="{ isVisible: false }" 
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('storage/experiences/Knuckles.webp');"></div>
+    {{-- See bar-section: deferred, and asset() so the path does not resolve
+         relative to the current document on a nested route. --}}
+    <x-responsive-image :src="asset('storage/experiences/Knuckles.webp')"
+                        alt=""
+                        aria-hidden="true"
+                        loading="lazy" decoding="async"
+                        class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-brand-green/50"></div>
 
     <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 reveal-hidden"
          :class="isVisible ? 'reveal-visible' : ''">
-        <span class="text-brand-orange text-xs tracking-[0.4em] uppercase mb-6 font-bold">UNESCO World Heritage</span>
+        <span class="text-brand-cream text-xs tracking-[0.4em] uppercase mb-6 font-bold">UNESCO World Heritage</span>
         <h2 class="text-4xl md:text-5xl font-serif text-brand-light mb-6 leading-tight">Knuckles Mountain Range</h2>
-        <p class="text-[#F5F5DC]/70 text-lg max-w-2xl font-light italic">
+        <p class="text-brand-cream/70 text-lg max-w-2xl font-light italic">
             "One of Sri Lanka's most biodiverse regions, just a short drive from Mounts Edge Regency Mahiyangana."
         </p>
     </div>

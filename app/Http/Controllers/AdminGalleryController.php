@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GalleryCategory;
 use App\Models\GalleryItem;
+use App\Services\ImageOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,7 +50,7 @@ class AdminGalleryController extends Controller
             'description' => 'nullable|string|max:255',
         ]);
 
-        $imagePath = $request->file('image')->store('gallery', 'public');
+        $imagePath = app(ImageOptimizer::class)->store($request->file('image'), 'gallery', 'public');
 
         GalleryItem::create([
             'gallery_category_id' => $request->gallery_category_id,
@@ -74,11 +75,19 @@ class AdminGalleryController extends Controller
         ];
 
         if ($request->hasFile('image')) {
+            $optimizer = app(ImageOptimizer::class);
+
             if ($item->image && str_contains($item->image, '/storage/')) {
-                Storage::disk('public')->delete(str_replace('/storage/', '', $item->image));
+                $old = str_replace('/storage/', '', $item->image);
+                // Clear the srcset variants alongside the file they came from,
+                // otherwise they linger and the grid keeps serving the old photo.
+                if (Storage::disk('public')->exists($old)) {
+                    $optimizer->forget(Storage::disk('public')->path($old));
+                }
+                Storage::disk('public')->delete($old);
             }
-            $imagePath = $request->file('image')->store('gallery', 'public');
-            $data['image'] = '/storage/' . $imagePath;
+
+            $data['image'] = '/storage/' . $optimizer->store($request->file('image'), 'gallery', 'public');
         }
 
         $item->update($data);

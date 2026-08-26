@@ -3,10 +3,16 @@
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="absolute inset-0">
-        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] ease-in-out scale-110"
-             :class="isVisible ? 'scale-100' : 'scale-110'"
-             style="background-image: url('{{ asset('storage/weddings/highlights/2.jpg') }}');">
-        </div>
+        {{-- Last section on the page, and it sits under a 70% green overlay, so
+             it is both the safest to defer and the cheapest to serve small. --}}
+        <x-responsive-image :src="asset('storage/weddings/highlights/2.jpg')"
+                            :widths="[400, 800]"
+                            sizes="100vw"
+                            alt=""
+                            aria-hidden="true"
+                            loading="lazy" decoding="async"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-[10s] ease-in-out scale-110"
+                            ::class="isVisible ? 'scale-100' : 'scale-110'" />
         <div class="absolute inset-0 bg-brand-green/70"></div>
     </div>
 
@@ -15,7 +21,7 @@
              :class="isVisible ? 'reveal-visible' : ''"
              style="transition-duration: 1.5s;">
             
-            <span class="text-[#F5F5DC]/70 text-[10px] tracking-[0.4em] uppercase font-bold block mb-8">
+            <span class="text-brand-cream/70 text-[11px] tracking-[0.4em] uppercase font-bold block mb-8">
                 Plan Your Visit
             </span>
 
@@ -23,18 +29,18 @@
                 Stay. Celebrate. Remember.
             </h2>
 
-            <p class="text-[#F5F5DC]/70 text-base md:text-lg font-light mb-12 max-w-md mx-auto">
+            <p class="text-brand-cream/70 text-base md:text-lg font-light mb-12 max-w-md mx-auto">
                 Get in touch and we'll help you plan your stay in Mahiyangana.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
                 <a href="/luxury-stay" 
-                   class="bg-transparent border border-[#F5F5DC]/40 text-[#F5F5DC] hover:bg-[#F5F5DC] hover:text-brand-green transition-all duration-500 px-12 py-5 text-[10px] tracking-[0.2em] uppercase font-bold rounded-none">
+                   class="bg-transparent border border-brand-cream/40 text-brand-cream hover:bg-brand-cream hover:text-brand-green transition-all duration-500 px-12 py-5 text-[11px] tracking-[0.2em] uppercase font-bold rounded-none">
                     Stay
                 </a>
                 
                 <a href="/weddings" 
-                   class="bg-[#F5F5DC] text-brand-green hover:bg-brand-orange hover:text-brand-light transition-all duration-500 px-12 py-5 text-[10px] tracking-[0.2em] uppercase font-bold rounded-none shadow-xl">
+                   class="bg-brand-cream text-brand-green hover:bg-brand-green hover:text-brand-light transition-all duration-500 px-12 py-5 text-[11px] tracking-[0.2em] uppercase font-bold rounded-none shadow-xl">
                     Celebrate
                 </a>
             </div>

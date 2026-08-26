@@ -22,13 +22,18 @@
                         'subtitle' => 'Mountain Retreat',
                         'description' => 'Wake to mist-wrapped peaks and the quiet of nature',
                         'image' => '/storage/home/experiences/stay.jpg',
+                        'alt' => 'A mountain-view room at Mounts Edge Regency',
                         'link' => '/luxury-stay',
                     ],
                     [
                         'title' => 'Celebrate',
                         'subtitle' => 'Weddings & Events',
                         'description' => 'Intimate gatherings with mountains as your witness',
-                        'image' => '/storage/home/experiences/weddings.jpg',
+                        // Shares the /weddings page-hero photo. These were two
+                        // byte-identical copies; hero-images/ is the canonical
+                        // home for a photo used by more than one section.
+                        'image' => '/storage/hero-images/weddings.jpg',
+                        'alt' => 'A wedding celebration at Mounts Edge Regency',
                         'link' => '/weddings',
                     ],
                 ];
@@ -41,24 +46,32 @@
                     
                     <a href="{{ $exp['link'] }}" class="group block">
                         <div class="relative overflow-hidden aspect-[4/5] mb-4 md:mb-8 shadow-sm">
-                            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[1500ms] ease-out group-hover:scale-110"
-                                 style="background-image: url('{{ $exp['image'] }}')">
-                            </div>
+                            {{-- Below the fold: as a CSS background this could not be
+                                 deferred, so both images loaded on first paint. --}}
+                            {{-- Union of both entries' variant widths: the two images
+                                 live in different folders with different variant sets,
+                                 and the component only offers what exists on disk. --}}
+                            <x-responsive-image :src="$exp['image']"
+                                                :widths="[800, 1200, 1400]"
+                                                sizes="(min-width: 768px) 50vw, 100vw"
+                                                :alt="$exp['alt']"
+                                                loading="lazy" decoding="async"
+                                                class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-110" />
                             <div class="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-500"></div>
                         </div>
 
                         <div>
-                            <span class="text-brand-green/70 text-[8px] sm:text-[10px] tracking-[0.15em] sm:tracking-[0.3em] uppercase font-bold">
+                            <span class="text-brand-green/70 text-[11px] sm:text-[11px] tracking-[0.15em] sm:tracking-[0.3em] uppercase font-bold">
                                 {{ $exp['subtitle'] }}
                             </span>
-                            <h3 class="text-xl sm:text-2xl md:text-3xl font-serif text-brand-green mt-2 mb-2 md:mb-3 transition-colors duration-500 group-hover:text-brand-orange">
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-serif text-brand-green mt-2 mb-2 md:mb-3 transition-colors duration-500 group-hover:text-brand-ember">
                                 {{ $exp['title'] }}
                             </h3>
                             <p class="hidden sm:block text-brand-green/70 text-sm font-light leading-relaxed mb-6">
                                 {{ $exp['description'] }}
                             </p>
                             
-                            <div class="flex items-center gap-1 sm:gap-2 text-brand-green transition-all duration-500 group-hover:gap-4 font-bold tracking-widest text-[9px] sm:text-[10px] uppercase">
+                            <div class="flex items-center gap-1 sm:gap-2 text-brand-green transition-all duration-500 group-hover:gap-4 font-bold tracking-widest text-[11px] sm:text-[11px] uppercase">
                                 <span>Explore</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>

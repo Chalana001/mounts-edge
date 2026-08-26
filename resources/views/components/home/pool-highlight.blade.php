@@ -9,10 +9,17 @@
                  :class="isVisible ? 'reveal-visible' : ''"
                  style="transition-duration: 1.5s;">
                 <div class="relative group">
-                    <div class="aspect-[4/4] overflow-hidden shadow-2xl">
-                        <img src="/storage/home/pool-highlight.jpg" 
-                             alt="Mountain View Infinity Pool" 
-                             class="w-full h-full bg-cover bg-center transition-transform duration-[3000ms] group-hover:scale-110">
+                    <div class="aspect-square overflow-hidden shadow-2xl">
+                        {{-- bg-cover/bg-center were no-ops here: those style a CSS
+                             background, not an <img>. The fill only looked correct
+                             because the source happens to be square; object-cover is
+                             what actually holds the aspect ratio. --}}
+                        <x-responsive-image src="/storage/home/pool-highlight.jpg"
+                                            :widths="[600, 1200]"
+                                            sizes="(min-width: 768px) 50vw, 100vw"
+                                            alt="The mountain-view infinity pool at Mounts Edge Regency"
+                                            loading="lazy" decoding="async"
+                                            class="w-full h-full object-cover transition-transform duration-[3000ms] group-hover:scale-110" />
                     </div>
                     <div class="absolute -top-4 -left-4 w-24 h-24 border-t border-l border-brand-orange/50"></div>
                 </div>
@@ -23,7 +30,7 @@
                      :class="isVisible ? 'reveal-visible' : ''"
                      style="transition-delay: 400ms;">
                     
-                    <span class="text-brand-green/70 text-[10px] tracking-[0.4em] uppercase font-bold block mb-4">
+                    <span class="text-brand-green/70 text-[11px] tracking-[0.4em] uppercase font-bold block mb-4">
                         The Pool
                     </span>
                     
@@ -41,7 +48,7 @@
                         @endphp
 
                         @foreach($poolFeatures as $feature)
-                            <span class="text-[10px] tracking-[0.1em] uppercase text-brand-green/70 border border-brand-green/20 px-5 py-2.5 bg-white/50 backdrop-blur-sm">
+                            <span class="text-[11px] tracking-[0.1em] uppercase text-brand-green/70 border border-brand-green/20 px-5 py-2.5 bg-white/50 backdrop-blur-sm">
                                 {{ $feature }}
                             </span>
                         @endforeach
@@ -53,7 +60,7 @@
 
                     <a href="/experiences" 
                        class="inline-flex items-center gap-4 text-brand-green hover:gap-6 transition-all duration-500 group">
-                        <span class="text-[10px] tracking-[0.2em] uppercase font-bold">Explore Wellness</span>
+                        <span class="text-[11px] tracking-[0.2em] uppercase font-bold">Explore Wellness</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
                         </svg>

@@ -4,10 +4,15 @@
     @resize.window="windowWidth = window.innerWidth">
 
     <div class="absolute inset-0 z-0">
+        {{-- The div for every slide still exists so the cross-fade has something
+             to fade between, but background-image is only bound once a slide is
+             in `loaded`. An unset url() is never fetched, so instead of pulling
+             all six full-size backgrounds on first paint we pull the current one
+             plus the next, then fetch the rest on demand as the user advances. --}}
         <template x-for="slide in slides" :key="'bg-'+slide.id">
             <div class="absolute inset-0 bg-cover bg-center transition-all ease-in-out"
                  :class="activeBg.id === slide.id ? 'opacity-100 scale-105 duration-1000' : 'opacity-0 scale-100 duration-1000'"
-                 :style="`background-image: url('${slide.image}');`">
+                 :style="isLoaded(slide.id) ? backgroundFor(slide) : ''">
             </div>
         </template>
         
@@ -15,9 +20,9 @@
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
         
         <div class="absolute right-0 top-1/2 -translate-y-1/2 overflow-hidden pointer-events-none z-0">
-            <h2 class="text-[15vw] font-black uppercase whitespace-nowrap text-brand-green opacity-[0.2] translate-x-10 transition-all duration-500 ease-in-out"
+            <div aria-hidden="true" class="text-[15vw] font-black uppercase whitespace-nowrap text-brand-green opacity-[0.2] translate-x-10 transition-all duration-500 ease-in-out"
                 x-text="activeBg.bgWord">
-            </h2>
+            </div>
         </div>
     </div>
 
@@ -33,7 +38,7 @@
                  x-transition:leave-start="opacity-100 translate-y-0"
                  x-transition:leave-end="opacity-0 -translate-y-4"
                  class="mb-6">
-                <span class="text-[#F5F5DC]/70 font-sans text-[clamp(9px,1.5vw,12px)] tracking-[0.3em] uppercase font-semibold drop-shadow-md"
+                <span class="text-brand-cream/70 font-sans text-[clamp(11px,1.5vw,12px)] tracking-[0.3em] uppercase font-semibold drop-shadow-md"
                       x-text="activeText.subtitle">
                 </span>
             </div>
@@ -45,8 +50,8 @@
                 x-transition:leave="transition ease-in duration-200"
                 x-transition:leave-start="opacity-100 translate-y-0"
                 x-transition:leave-end="opacity-0 -translate-y-8"
-                class="text-[clamp(2.25rem,7.5vw,6rem)] font-serif font-normal text-[#F5F5DC] leading-[1.05] tracking-tight drop-shadow-2xl mb-6"
-                x-text="activeText.title">
+                class="text-[clamp(2.25rem,7.5vw,6rem)] font-serif font-normal text-brand-cream leading-[1.05] tracking-tight drop-shadow-2xl mb-6"
+                x-html="activeText.titleHtml ?? activeText.title">
             </h1>
 
             <div x-show="textShown"
@@ -56,7 +61,7 @@
                  x-transition:leave="transition ease-in duration-200"
                  x-transition:leave-start="opacity-100 scale-x-100"
                  x-transition:leave-end="opacity-0 scale-x-0"
-                 class="w-16 h-[2px] bg-[#d37841] mb-8 origin-left"> 
+                 class="w-16 h-[2px] bg-brand-orange mb-8 origin-left"> 
             </div>
 
             <p x-show="textShown"
@@ -66,7 +71,7 @@
                x-transition:leave="transition ease-in duration-200"
                x-transition:leave-start="opacity-100 translate-y-0"
                x-transition:leave-end="opacity-0 -translate-y-4"
-               class="max-w-md text-[#F5F5DC]/80 text-[clamp(0.8rem,1.8vw,1rem)] font-light leading-relaxed mb-[clamp(1.25rem,3vw,2.5rem)]"
+               class="max-w-md text-brand-cream/80 text-[clamp(0.8rem,1.8vw,1rem)] font-light leading-relaxed mb-[clamp(1.25rem,3vw,2.5rem)]"
                x-text="activeText.description">
             </p>
 
@@ -79,11 +84,11 @@
                  x-transition:leave-end="opacity-0 translate-y-4"
                  class="flex flex-row gap-4 mb-0 md:mb-16">
 
-                <a href="/luxury-stay" class="px-[clamp(1.25rem,3.5vw,2rem)] py-[clamp(0.65rem,1.8vw,0.875rem)] text-[clamp(10px,1.4vw,12px)] font-semibold tracking-[0.15em] uppercase border border-[#F5F5DC]/40 text-[#F5F5DC] hover:bg-[#F5F5DC] hover:text-black transition-all duration-300 rounded-sm">
+                <a href="/luxury-stay" class="px-[clamp(1.25rem,3.5vw,2rem)] py-[clamp(0.65rem,1.8vw,0.875rem)] text-[clamp(11px,1.4vw,12px)] font-semibold tracking-[0.15em] uppercase border border-brand-cream/40 text-brand-cream hover:bg-brand-cream hover:text-black transition-all duration-300 rounded-sm">
                     Stay
                 </a>
 
-                <a href="/weddings" class="px-[clamp(1.25rem,3.5vw,2rem)] py-[clamp(0.65rem,1.8vw,0.875rem)] text-[clamp(10px,1.4vw,12px)] font-semibold tracking-[0.15em] uppercase bg-[#F5F5DC] text-black hover:bg-[#d37841] hover:text-white transition-all duration-300 rounded-sm shadow-lg">
+                <a href="/weddings" class="px-[clamp(1.25rem,3.5vw,2rem)] py-[clamp(0.65rem,1.8vw,0.875rem)] text-[clamp(11px,1.4vw,12px)] font-semibold tracking-[0.15em] uppercase bg-brand-cream text-black hover:bg-brand-green hover:text-white transition-all duration-300 rounded-sm shadow-lg">
                     Celebrate
                 </a>
             </div>
@@ -113,11 +118,28 @@
                                 <div class="relative rounded-2xl border border-white/20 overflow-hidden shadow-2xl transition-all duration-500"
                                      :style="`width: ${cardWidth}px; height: ${cardHeight}px;`">
                                     
-                                    <img :src="slide.image" class="absolute inset-0 w-full h-full object-cover" alt="thumbnail" />
+                                    {{-- slide.thumb, not slide.image: these cards cap at
+                                         180px wide, so pointing them at the full-size
+                                         background was pulling every hero master on load
+                                         even when only one was on screen.
+
+                                         template x-if, not x-show, so a slide without a
+                                         WebP thumbnail emits no <source> at all -- an empty
+                                         srcset would match nothing and blank the card. --}}
+                                    <picture class="contents">
+                                        <template x-if="slide.thumbWebp">
+                                            <source type="image/webp" :srcset="slide.thumbWebp">
+                                        </template>
+                                        <img :src="slide.thumb"
+                                             :alt="slide.title"
+                                             width="400" height="620"
+                                             decoding="async"
+                                             class="absolute inset-0 w-full h-full object-cover" />
+                                    </picture>
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                                     
                                     <div class="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4 text-left">
-                                        <span class="text-white/70 text-[7px] md:text-[9px] uppercase tracking-[0.2em] block mb-1 font-semibold" x-text="slide.subtitle.split('·')[0]"></span>
+                                        <span class="text-white/70 text-[11px] uppercase tracking-[0.15em] md:tracking-[0.2em] block mb-1 font-semibold" x-text="slide.subtitle.split('·')[0]"></span>
                                         <h3 class="text-white text-xs md:text-sm lg:text-base font-serif tracking-wide leading-tight drop-shadow-lg" x-text="slide.title"></h3>
                                     </div>
                                 </div>
@@ -141,13 +163,13 @@
             ? `bottom: ${cardHeight + 56}px`
             : `right: calc(${containerWidth} + 2rem)`">
          
-        <button @click="prevSlide()" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#F5F5DC]/30 flex items-center justify-center text-[#F5F5DC] hover:bg-[#F5F5DC] hover:text-black transition-colors cursor-pointer group">
+        <button @click="prevSlide()" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-brand-cream/30 flex items-center justify-center text-brand-cream hover:bg-brand-cream hover:text-black transition-colors cursor-pointer group">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:-translate-x-1">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
         </button>
 
-        <button @click="nextSlide()" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-[#F5F5DC]/30 flex items-center justify-center text-[#F5F5DC] hover:bg-[#F5F5DC] hover:text-black transition-colors cursor-pointer group">
+        <button @click="nextSlide()" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-brand-cream/30 flex items-center justify-center text-brand-cream hover:bg-brand-cream hover:text-black transition-colors cursor-pointer group">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
@@ -156,17 +178,45 @@
 
 </section>
 
+@php
+    // Built here rather than inline in JS so the WebP siblings can be probed on
+    // disk. Not every image gets one -- a conversion that saves too little is
+    // discarded by ImageOptimizer -- so `webp` is null for those and the slide
+    // simply falls back to the JPEG.
+    $heroSlides = [
+        ['id' => 1, 'title' => 'Mounts Edge Regency', 'titleHtml' => 'Mounts <span class="text-brand-orange">Edge</span> Regency', 'subtitle' => 'Gurulupotha · Mahiyangana', 'bgWord' => 'MOUNTS', 'description' => 'A mountain retreat where stillness meets celebration', 'file' => 'mounts-edge-regency'],
+        // 'base' overrides the default folder. This slide shares the /luxury-stay
+        // page-hero photo, which used to be a second byte-identical copy at
+        // home/hero/luxury-suites.jpg.
+        ['id' => 2, 'title' => 'Luxury Suites', 'subtitle' => 'Elegant Stays · Comfort', 'bgWord' => 'LUXURY', 'description' => 'Wake up to the panoramic views of the misty mountains', 'file' => 'stay', 'base' => '/storage/hero-images/'],
+        ['id' => 3, 'title' => 'Grand Weddings', 'subtitle' => 'Celebrate Love · Nature', 'bgWord' => 'WEDDING', 'description' => 'Celebrate your wedding day surrounded by mountains and forest', 'file' => 'wedding'],
+        ['id' => 4, 'title' => 'Fine Dining', 'subtitle' => 'Culinary Journey · Taste', 'bgWord' => 'DINING', 'description' => 'Experience authentic local and international cuisine', 'file' => 'dining'],
+        ['id' => 5, 'title' => 'Infinity Edge', 'subtitle' => 'Refresh · Unwind', 'bgWord' => 'INFINITY', 'description' => 'Swim in our infinity pool, with the misty mountains right at the edge.', 'file' => 'pool4'],
+        ['id' => 6, 'title' => 'Nature Trails', 'subtitle' => 'Explore · Outdoors', 'bgWord' => 'NATURE', 'description' => 'Explore nature trails through the surrounding hills', 'file' => 'nature-trails'],
+    ];
+
+    $heroSlides = collect($heroSlides)->map(function (array $slide) {
+        $base = ($slide['base'] ?? '/storage/home/hero/').$slide['file'];
+
+        $withWebp = function (string $path) {
+            $webp = preg_replace('/\.[^.]+$/', '.webp', $path);
+
+            return is_file(public_path($webp)) ? $webp : null;
+        };
+
+        return array_merge($slide, [
+            'image'     => "{$base}.jpg",
+            'webp'      => $withWebp("{$base}.jpg"),
+            'thumb'     => "{$base}-400w.jpg",
+            'thumbWebp' => $withWebp("{$base}-400w.jpg"),
+        ]);
+    })->values()->all();
+@endphp
+
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('heroComponent', () => {
-            const slidesData = [
-                { id: 1, title: 'Mounts Edge Regency', subtitle: 'Gurulupotha · Mahiyangana', bgWord: 'MOUNTS', description: 'A mountain retreat where stillness meets celebration', image: '/storage/home/hero/mounts-edge-regency.jpg' },
-                { id: 2, title: 'Luxury Suites', subtitle: 'Elegant Stays · Comfort', bgWord: 'LUXURY', description: 'Wake up to the panoramic views of the misty mountains', image: '/storage/home/hero/luxury-suites.jpg' },
-                { id: 3, title: 'Grand Weddings', subtitle: 'Celebrate Love · Nature', bgWord: 'WEDDING', description: 'Celebrate your wedding day surrounded by mountains and forest', image: '/storage/home/hero/wedding.jpg' },
-                { id: 4, title: 'Fine Dining', subtitle: 'Culinary Journey · Taste', bgWord: 'DINING', description: 'Experience authentic local and international cuisine', image: '/storage/home/hero/dining.jpg' },
-                { id: 5, title: 'Infinity Edge', subtitle: 'Refresh · Unwind', bgWord: 'INFINITY', description: 'Swim in our infinity pool, with the misty mountains right at the edge.', image: '/storage/home/hero/pool4.jpg' },
-                { id: 6, title: 'Nature Trails', subtitle: 'Explore · Outdoors', bgWord: 'NATURE', description: 'Explore nature trails through the surrounding hills', image: '/storage/home/hero/nature-trails.jpg' }
-            ];
+            const slidesData = @json($heroSlides);
 
             return {
                 shown: false,
@@ -178,16 +228,52 @@
                 trackIndex: 0,
                 
                 isAnimating: false,
-                animatingType: null, 
-                windowWidth: window.innerWidth, 
-                
+                animatingType: null,
+                windowWidth: window.innerWidth,
+
+                // Ids whose background-image has been bound. Only these are
+                // ever fetched; the rest stay unbound until navigated to.
+                loaded: [],
+
                 initComponent() {
+                    this.markLoaded(this.bgIndex);
                     setTimeout(() => {
                         this.shown = true;
                         this.textShown = true;
                     }, 100);
                 },
-                
+
+                isLoaded(id) { return this.loaded.includes(id); },
+
+                /**
+                 * These are CSS backgrounds, so <picture> is not available and
+                 * WebP has to be negotiated in CSS instead.
+                 *
+                 * Two background-image declarations are emitted deliberately:
+                 * a browser that understands image-set() takes the second and
+                 * picks WebP, while one that does not discards it as invalid and
+                 * keeps the plain url() above. No feature detection needed.
+                 */
+                backgroundFor(slide) {
+                    const jpeg = `background-image: url('${slide.image}');`;
+
+                    if (!slide.webp) return jpeg;
+
+                    return jpeg + ` background-image: image-set(url('${slide.webp}') type('image/webp'), url('${slide.image}') type('image/jpeg'));`;
+                },
+
+                /**
+                 * Binds the given slide and the one after it. Fetching the next
+                 * background up front means the cross-fade has it decoded by the
+                 * time the user clicks, so deferring costs no visible latency.
+                 */
+                markLoaded(index) {
+                    for (const i of [index, (index + 1) % this.slides.length]) {
+                        const id = this.slides[i].id;
+                        if (!this.loaded.includes(id)) this.loaded.push(id);
+                    }
+                },
+
                 get activeBg() { return this.slides[this.bgIndex]; },
                 get activeText() { return this.slides[this.textIndex]; },
                 
@@ -235,6 +321,7 @@
                     this.textShown = false;
                     this.animatingType = 'next';
                     this.bgIndex = (this.bgIndex + 1) % this.slides.length;
+                    this.markLoaded(this.bgIndex);
 
                     setTimeout(() => {
                         this.textIndex = this.bgIndex;
@@ -254,7 +341,11 @@
                     
                     this.textShown = false;
                     this.bgIndex = (this.bgIndex - 1 + this.slides.length) % this.slides.length;
-                    
+                    // Seed from the slide before this one, so markLoaded's
+                    // look-ahead covers the direction the user is actually
+                    // travelling as well as the slide now on screen.
+                    this.markLoaded((this.bgIndex - 1 + this.slides.length) % this.slides.length);
+
                     this.trackIndex = this.bgIndex;
                     this.animatingType = 'prev_start';
 

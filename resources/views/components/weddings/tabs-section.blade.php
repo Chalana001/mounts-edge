@@ -1,13 +1,37 @@
-<section class="py-12 md:py-20 bg-white overflow-hidden" x-data="{ activeTab: 'hall' }">
+@props(['tabs'])
+
+<section class="py-12 md:py-20 bg-white overflow-hidden"
+         x-data="{ tabs: @js(array_keys($tabs)), activeTab: 'hall',
+
+        // Arrow keys walk the tablist, which is what a screen-reader user expects
+        // once these announce themselves as tabs.
+        moveTab(direction, event) {
+            const at = this.tabs.indexOf(this.activeTab);
+            const to = direction === 'first' ? 0
+                : direction === 'last' ? this.tabs.length - 1
+                : (at + direction + this.tabs.length) % this.tabs.length;
+
+            this.activeTab = this.tabs[to];
+            this.$nextTick(() => event.target.closest('[role=tablist]')?.querySelectorAll('[role=tab]')[to]?.focus());
+        } }" >
     <div class="container mx-auto px-6">
-    @props(['tabs'])
-        <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 md:mb-14 px-6 relative z-20">
+        <div role="tablist" aria-label="Wedding spaces and packages" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 md:mb-14 px-6 relative z-20">
             @foreach($tabs as $key => $tab)
-                <button @click="activeTab = '{{ $key }}'"
-                        class="flex items-center justify-center gap-3 px-6 py-4 transition-all duration-300 border text-[10px] tracking-widest uppercase font-bold w-full sm:w-[220px]"
-                        :class="activeTab === '{{ $key }}' ? 'bg-[#1a2e2a] text-brand-light border-[#1a2e2a]' : 'bg-brand-light text-[#1a2e2a]/60 border-brand-green/20 hover:border-[#1a2e2a] hover:text-[#1a2e2a]'">
+                <button type="button"
+                        role="tab"
+                        id="wed-tab-{{ $key }}"
+                        aria-controls="wed-panel-{{ $key }}"
+                        :aria-selected="activeTab === '{{ $key }}' ? 'true' : 'false'"
+                        :tabindex="activeTab === '{{ $key }}' ? 0 : -1"
+                        @click="activeTab = '{{ $key }}'"
+                        @keydown.right.prevent="moveTab(1, $event)"
+                    @keydown.left.prevent="moveTab(-1, $event)"
+                    @keydown.home.prevent="moveTab('first', $event)"
+                    @keydown.end.prevent="moveTab('last', $event)"
+                    class="flex items-center justify-center gap-3 px-6 py-4 transition-all duration-300 border text-[11px] tracking-widest uppercase font-bold w-full sm:w-[220px] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+                        :class="activeTab === '{{ $key }}' ? 'bg-brand-green text-brand-light border-brand-green' : 'bg-brand-light text-brand-green/60 border-brand-green/20 hover:border-brand-green hover:text-brand-green'">
                     
-                    <span class="flex-shrink-0">{!! $tab['icon'] !!}</span>
+                    <span class="flex-shrink-0" aria-hidden="true">{!! $tab['icon'] !!}</span>
 
                     <span class="truncate">{{ $tab['label'] }}</span>
                 </button>
@@ -17,6 +41,9 @@
         <div class="min-h-[350px] md:min-h-[400px] transition-all duration-500">
             @foreach($tabs as $key => $tab)
                 <div x-show="activeTab === '{{ $key }}'"
+                     id="wed-panel-{{ $key }}"
+                     role="tabpanel"
+                     aria-labelledby="wed-tab-{{ $key }}"
                      x-transition:enter="transition ease-out duration-500"
                      x-transition:enter-start="opacity-0 translate-y-4"
                      x-transition:enter-end="opacity-100 translate-y-0"
@@ -32,7 +59,7 @@
                                     <div class="relative aspect-[4/3] w-full overflow-hidden group shadow-xl {{ $loop->even ? 'md:order-2 reveal-right' : 'md:order-1 reveal-left' }}"
                                          :class="isSplitVisible ? 'reveal-visible' : ''">
                                         <x-image-slider :images="$item['images']" :alt="$item['title']" />
-                                        <div class="absolute bottom-0 left-0 bg-brand-green text-[#F5F5DC] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-bold">
+                                        <div class="absolute bottom-0 left-0 bg-brand-green text-brand-cream px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-bold">
                                             {{ $item['tagline'] }}
                                         </div>
                                     </div>
@@ -46,7 +73,7 @@
                                             <div class="grid grid-cols-2 gap-6 mb-8">
                                                 @foreach($item['details'] as $detail)
                                                     <div>
-                                                        <span class="text-[10px] tracking-[0.15em] uppercase text-brand-green/70">{{ $detail['label'] }}</span>
+                                                        <span class="text-[11px] tracking-[0.15em] uppercase text-brand-green/70">{{ $detail['label'] }}</span>
                                                         <p class="font-serif text-brand-green mt-1">{{ $detail['value'] }}</p>
                                                     </div>
                                                 @endforeach
@@ -56,7 +83,7 @@
                                         @if(isset($item['tags']))
                                             <div class="flex flex-wrap gap-3">
                                                 @foreach($item['tags'] as $tag)
-                                                    <span class="text-[10px] tracking-[0.1em] uppercase border border-brand-green/20 text-brand-green/70 px-3 py-2">
+                                                    <span class="text-[11px] tracking-[0.1em] uppercase border border-brand-green/20 text-brand-green/70 px-3 py-2">
                                                         {{ $tag }}
                                                     </span>
                                                 @endforeach
@@ -67,7 +94,7 @@
                                              with Wedding Inquiry + this hall already selected. --}}
                                         <div class="mt-8">
                                             <a href="{{ route('contact', ['type' => \App\Models\Enquiry::TYPE_WEDDING, 'hall' => $item['title']]) }}"
-                                               class="inline-flex items-center gap-2 bg-brand-green text-brand-light hover:bg-brand-orange px-6 md:px-8 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-bold transition-colors">
+                                               class="inline-flex items-center gap-2 bg-brand-green text-brand-light hover:bg-brand-hover px-6 md:px-8 py-3 md:py-4 text-[11px] md:text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
                                                 Make an Enquiry
                                             </a>
                                         </div>
@@ -83,9 +110,9 @@
 
                             <div class="relative aspect-[4/3] w-full overflow-hidden group shadow-xl md:order-1 reveal-left"
                                  :class="isSplitVisible ? 'reveal-visible' : ''">
-                                <img src="{{ $tab['image'] }}" alt="{{ $tab['title'] }}"
+                                <img src="{{ $tab['image'] }}" alt="{{ $tab['title'] }}" loading="lazy" decoding="async"
                                     class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110">
-                                <div class="absolute bottom-0 left-0 bg-brand-green text-[#F5F5DC] px-6 py-3 text-[10px] tracking-[0.2em] uppercase font-bold">
+                                <div class="absolute bottom-0 left-0 bg-brand-green text-brand-cream px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-bold">
                                     {{ $tab['tagline'] }}
                                 </div>
                             </div>
@@ -99,7 +126,7 @@
                                     <div class="grid grid-cols-2 gap-6 mb-8">
                                         @foreach($tab['details'] as $detail)
                                             <div>
-                                                <span class="text-[10px] tracking-[0.15em] uppercase text-brand-green/70">{{ $detail['label'] }}</span>
+                                                <span class="text-[11px] tracking-[0.15em] uppercase text-brand-green/70">{{ $detail['label'] }}</span>
                                                 <p class="font-serif text-brand-green mt-1">{{ $detail['value'] }}</p>
                                             </div>
                                         @endforeach
@@ -120,7 +147,7 @@
                                 @if(isset($tab['tags']))
                                     <div class="flex flex-wrap gap-3">
                                         @foreach($tab['tags'] as $tag)
-                                            <span class="text-[10px] tracking-[0.1em] uppercase border border-brand-green/20 text-brand-green/70 px-3 py-2">
+                                            <span class="text-[11px] tracking-[0.1em] uppercase border border-brand-green/20 text-brand-green/70 px-3 py-2">
                                                 {{ $tag }}
                                             </span>
                                         @endforeach
@@ -152,16 +179,17 @@
             <div x-data="{ expanded: false }" class="relative border p-6 md:p-8 transition-all duration-300 hover:shadow-lg flex-none w-[80vw] max-w-[320px] snap-center md:max-w-none md:w-full {{ $pkg['popular'] ? 'border-brand-green' : 'border-brand-green/20' }}">
                 
                 @if($pkg['popular'])
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1a2e2a] text-white text-[10px] tracking-[0.1em] uppercase px-4 py-1 whitespace-nowrap z-10">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-green text-white text-[11px] tracking-[0.1em] uppercase px-4 py-1 whitespace-nowrap z-10">
                         Most Popular
                     </div>
                 @endif
                 
                 <h4 class="text-2xl font-serif text-brand-green mb-2">{{ $pkg['name'] }}</h4>
-                <p class="text-[10px] tracking-[0.15em] uppercase text-brand-green/70 mb-4 border-b border-brand-green/20 pb-4">{{ $pkg['guests'] }}</p>
+                <p class="text-[11px] tracking-[0.15em] uppercase text-brand-green/70 mb-4 border-b border-brand-green/20 pb-4">{{ $pkg['guests'] }}</p>
                 
-                <button @click="expanded = !expanded" 
-                        class="flex w-full items-center justify-between py-2 text-xs font-bold uppercase tracking-widest text-brand-green hover:text-[#1a2e2a] transition-colors duration-200 cursor-pointer focus:outline-none">
+                <button type="button" @click="expanded = !expanded"
+                        :aria-expanded="expanded ? 'true' : 'false'"
+                        class="flex w-full items-center justify-between py-2 text-xs font-bold uppercase tracking-widest text-brand-green hover:text-brand-ember transition-colors duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange">
                     <span x-text="expanded ? 'Hide Menu' : 'View Menu'"></span>
                     <svg :class="expanded ? 'rotate-180' : ''" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -181,9 +209,9 @@
                     @foreach($pkg['includes'] as $section)
                         <div>
                             <div class="flex items-baseline justify-between mb-2">
-                                <h5 class="font-bold text-sm text-[#1a2e2a] uppercase tracking-wider">{{ $section['title'] }}</h5>
+                                <h5 class="font-bold text-sm text-brand-green uppercase tracking-wider">{{ $section['title'] }}</h5>
                                 @if($section['rule'])
-                                    <span class="text-[9px] bg-[#E67E22]/10 text-[#E67E22] px-2 py-1 font-bold tracking-widest uppercase whitespace-nowrap">
+                                    <span class="text-[11px] bg-brand-orange/10 text-brand-ember px-2 py-1 font-bold tracking-widest uppercase whitespace-nowrap">
                                         {{ $section['rule'] }}
                                     </span>
                                 @endif

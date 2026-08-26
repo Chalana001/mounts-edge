@@ -114,21 +114,22 @@
                      :class="isVisible ? 'reveal-visible' : ''">
                     
                     <div class="aspect-[16/10] overflow-hidden">
-                        <img src="{{ $place['img'] }}" alt="{{ $place['name'] }}" 
-                             class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110">
+                        <x-responsive-image :src="$place['img']" :alt="$place['name']"
+                                            loading="lazy" decoding="async"
+                                            class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" />
                     </div>
 
                     <div class="p-8">
                         <div class="flex items-center gap-2 mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-orange">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-brand-ember">
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
                             </svg>
-                            <span class="text-[9px] tracking-[0.2em] uppercase text-brand-orange font-bold">
+                            <span class="text-[11px] tracking-[0.2em] uppercase text-brand-ember font-bold">
                                 {{ $place['dist'] }}
                             </span>
                         </div>
                         
-                            <h3 class="font-serif text-brand-green text-xl mb-3 group-hover:text-brand-orange transition-colors duration-300">
+                            <h3 class="font-serif text-brand-green text-xl mb-3 group-hover:text-brand-ember transition-colors duration-300">
                             {{ $place['name'] }}
                         </h3>
                         
