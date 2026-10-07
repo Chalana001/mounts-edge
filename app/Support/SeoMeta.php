@@ -57,6 +57,7 @@ class SeoMeta
                 'faq' => [
                     ['q' => 'How do I check room availability?', 'a' => 'Use the contact page enquiry form with your dates and guests, or call 055 225 6500. The team confirms availability and rates.'],
                     ['q' => 'What room types are available?', 'a' => 'Deluxe Single for 1 guest, Deluxe Double for 2, Deluxe Triple for 3, Deluxe Family for 4, and a Family Suite sleeping up to 8 guests.'],
+                    ['q' => 'Is WiFi and parking free?', 'a' => 'Yes. WiFi is free in all areas and parking is free for guests. Rooms also have power backup.'],
                 ],
             ],
             'weddings' => [
@@ -103,6 +104,7 @@ class SeoMeta
                 'intro' => 'Reach Mounts Edge Regency on Kandy Rd, Gurulupotha, Hasalaka 20960, near Mahiyangana — for stays, dining, weddings, and general enquiries.',
                 'faq' => [
                     ['q' => 'What is the fastest way to reach the hotel?', 'a' => 'Call 055 225 6500, message on WhatsApp, or send the enquiry form. For directions, use the map on this page.'],
+                    ['q' => 'What payment methods are accepted?', 'a' => 'Common payment methods are accepted, including cash and card. Confirm the details for your stay when you enquire.'],
                 ],
             ],
         ];

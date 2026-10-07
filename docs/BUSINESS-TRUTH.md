@@ -25,7 +25,7 @@
 | Reservation / public email | `mountedgeregency@gmail.com` (monitored) | owner 2026-10-02 | Item 5 confirmed |
 | Notification inbox (receives enquiries) | `mountedgeregency@gmail.com` | owner 2026-10-02 | Enquiry mail goes here |
 | Primary URL (final HTTPS domain) | `https://mountsedgeregency.lk` | owner 2026-10-01 | Set APP_URL to match at launch |
-| Google Business Profile link | TODO | — | No access yet |
+| Google Business Profile link | No access yet | owner 2026-10-07 | Request/claim access when launching Phase 3 |
 | Check-in / Check-out | Check-in 2:00 PM confirmed; check-out TODO | owner 2026-10-01 | Contact page shows check-in only |
 | Booking model | enquiry-only (site) + OTA Show prices | owner 2026-10-01 | Item 9: no on-site prices; OTA handles rates |
 
@@ -119,12 +119,21 @@ any partner page (plan Phase 6 requires disclosure).
 
 ## 6. Facilities / Policies
 
+Owner-confirmed 2026-10-07:
+
+- Parking: **free** (no vehicle count needed)
+- WiFi: **free for all** — all areas
+- Power backup: **with rooms** (supplies the rooms)
+- Payment: **all common methods accepted** (owner said "all accept"; interpret as cash, card, and transfer — no restriction stated)
+
+Still TODO:
+
 - Pool: size/timing/rules/lifeguard? TODO
-- Parking: free? capacity? TODO
-- WiFi: free? coverage? TODO
-- Power backup? TODO
-- Family / kids? TODO
-- Cancellation / payment / ID policy: TODO (needed for FAQ + schema)
+- Family / kids? TODO (ages, extra beds)
+- Cancellation / payment timing / ID policy: TODO (needed for FAQ + schema)
+- Check-out time: TODO (check-in 2:00 PM confirmed)
+
+Google Business Profile: **no access yet** (owner 2026-10-07). Commission on partners: owner does not know — keep TODO; do not publish any partner page until confirmed.
 
 ---
 
@@ -179,7 +188,7 @@ Current Google facts (30 Sep 2026 screenshot): `4.0 / 348 reviews / 3-star / 055
 - [x] §3 rooms confirmed (owner 2026-10-07: 5 rooms, all Deluxe + Family Suite; rates recorded internally, not published)
 - [x] §4 weddings — owner-confirmed 2026-10-07: capacities, areas, power backup, parking, bridal room, catering, decoration, outside vendors; package validity dates and commission disclosure still open
 - [x] §5 dining — owner-confirmed 2026-10-07: no restaurant name, cuisines Sri Lankan + international, walk-ins OK, bar YES, hours 6:30 AM–10:00 PM / bar 5:00 PM–11:00 PM, no signature dishes
-- [ ] §6 policies confirmed (pool/parking/WiFi/power/family/cancellation all still open)
+- [ ] §6 policies confirmed (parking free, WiFi free for all, power backup with rooms, all payment methods — done 2026-10-07; pool, family, cancellation, check-out still open)
 - [x] §7 distances — owner-confirmed 2026-10-07: all attraction data on the site is correct; transport offered still open
 - [ ] §8 listings owner assigned
 - [ ] `SeoMeta.php` copy + `hotelSchema()` + image-sitemap filter updated to this file
