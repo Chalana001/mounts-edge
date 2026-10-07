@@ -5,8 +5,8 @@
     <div class="container mx-auto px-6">
         <div class="text-center mb-10 md:mb-14 reveal-fade" :class="isVisible ? 'reveal-visible' : ''">
             <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">Our Menu</span>
-            <h2 class="text-3xl md:text-5xl font-serif text-brand-green mb-4 md:mb-6">Global & Local Flavors</h2>
-            <p class="text-brand-green/70 max-w-xl mx-auto font-light text-sm md:text-base">Experience a diverse culinary journey ranging from authentic village recipes to beloved international classics.</p>
+            <h2 class="text-3xl md:text-5xl font-serif text-brand-green mb-4 md:mb-6">Global &amp; Local Flavors</h2>
+            <p class="text-brand-green/70 max-w-xl mx-auto font-light text-sm md:text-base">Sri Lankan and international cooking, from village recipes to familiar favourites — planned around what's fresh and available.</p>
         </div>
 
         @php

@@ -1,14 +1,18 @@
-<section class="py-16 bg-brand-green">
+{{-- Light band, matching <x-cta-strip> -- see rooms/booking-cta for why. --}}
+<section class="py-12 bg-brand-orange/5 border-y border-brand-orange/20"
+         x-data="{ isVisible: false }"
+         x-intersect.once.margin.-10%.0.-10%.0="isVisible = true">
     <div class="container mx-auto px-6 text-center">
-        <span class="text-[#F5F5DC]/50 text-xs tracking-[0.3em] uppercase mb-4 block">Special Events</span>
-        <h2 class="text-3xl md:text-4xl font-serif text-brand-light mb-8">Wedding & Event Catering</h2>
-        <p class="text-[#F5F5DC]/70 max-w-xl mx-auto mb-12 font-light leading-relaxed">
-            Our culinary team creates bespoke menus for weddings and celebrations, 
-            from intimate gatherings to grand receptions in Mahiyangana.
-        </p>
-        <a href="/weddings" 
-           class="inline-block bg-[#F5F5DC] text-brand-green hover:bg-brand-orange hover:text-brand-light px-12 py-5 text-[10px] tracking-[0.2em] uppercase font-bold transition-all duration-500">
-            View Wedding Packages
-        </a>
+        <div class="reveal-hidden" :class="isVisible ? 'reveal-visible' : ''">
+            <span class="text-brand-green/70 text-xs tracking-[0.3em] uppercase mb-4 block">Special Events</span>
+            <h2 class="text-3xl md:text-4xl font-serif text-brand-green mb-6">Wedding &amp; Event Catering</h2>
+            <p class="text-brand-green/70 max-w-xl mx-auto mb-8 font-light leading-relaxed">
+                Our kitchen plans menus with you for weddings and celebrations in Mahiyangana — and outside caterers are welcome if you prefer your own.
+            </p>
+            <a href="/weddings"
+               class="inline-block bg-brand-green text-brand-light hover:bg-brand-hover px-12 py-5 text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-500 shadow-lg">
+                View Wedding Spaces
+            </a>
+        </div>
     </div>
 </section>

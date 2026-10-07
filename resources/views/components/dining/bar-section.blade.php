@@ -14,10 +14,10 @@
 
     <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 reveal-hidden"
          :class="isVisible ? 'reveal-visible' : ''">
-        <span class="text-brand-cream text-xs tracking-[0.4em] uppercase mb-6 font-bold">The Terrace Bar</span>
+        <span class="text-brand-cream text-xs tracking-[0.4em] uppercase mb-6 font-bold">The Terrace Bar · Daily 5:00 PM – 11:00 PM</span>
         <h2 class="text-4xl md:text-5xl font-serif text-brand-light mb-6">Evening Ambiance</h2>
         <p class="text-brand-cream/70 text-lg max-w-xl font-light italic">
-            "Unwind with handcrafted cocktails and premium spirits as you watch the sunset paint the mountains"
+            "Unwind with an evening drink as the sunset paints the mountains"
         </p>
     </div>
 </section>

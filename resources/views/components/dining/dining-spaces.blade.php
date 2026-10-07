@@ -11,13 +11,13 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto px-4 md:px-6">
         @php
             $spaces = [
-                ['name' => 'Main Restaurant', 'hours' => '6:30 AM - 10:00 PM', 'desc' => 'All-day dining with mountain views', 'icon' => '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>'],
-                ['name' => 'The Terrace Bar', 'hours' => '5:00 PM - 11:00 PM', 'desc' => 'Cocktails and evening ambiance', 'icon' => '<path d="M8 22h8"/><path d="M12 11v11"/><path d="m19 2-7 9-7-9Z"/>']
+                ['name' => 'Main Restaurant', 'hours' => 'Open daily · 6:30 AM - 10:00 PM', 'desc' => 'All-day dining with mountain views — walk-ins welcome', 'icon' => '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>'],
+                ['name' => 'The Terrace Bar', 'hours' => 'Daily · 5:00 PM - 11:00 PM', 'desc' => 'Evening drinks with a mountain breeze', 'icon' => '<path d="M8 22h8"/><path d="M12 11v11"/><path d="m19 2-7 9-7-9Z"/>']
             ];
         @endphp
 
         @foreach($spaces as $space)
-            <div class="w-full md:max-w-[420px] mx-auto text-center p-8 md:p-12 border border-brand-green/20 hover:border-brand-orange/30 transition-all duration-500 bg-[#fdfdfb] reveal-scale"
+            <div class="w-full md:max-w-[420px] mx-auto text-center p-8 md:p-12 border border-brand-green/20 hover:border-brand-orange/30 transition-all duration-500 bg-white reveal-scale"
                  x-data="{ isCardVisible: false }"
                  x-intersect.once.margin.-10%.0.-10%.0="isCardVisible = true"
                  :class="isCardVisible ? 'reveal-visible' : ''"
@@ -29,7 +29,7 @@
                     </svg>
                 </div>
                 <h3 class="font-serif text-brand-green text-xl mb-3">{{ $space['name'] }}</h3>
-                <p class="text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-brand-orange font-bold mb-4 whitespace-nowrap">{{ $space['hours'] }}</p>
+                <p class="text-[11px] md:text-[11px] tracking-[0.2em] uppercase text-brand-ember font-bold mb-4 whitespace-nowrap">{{ $space['hours'] }}</p>
                 <p class="text-brand-green/70 text-sm font-light leading-relaxed">{{ $space['desc'] }}</p>
             </div>
         @endforeach

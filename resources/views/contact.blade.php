@@ -2,6 +2,7 @@
 
 @section('content')
     <x-contact.hero />
+    <x-seo-intro :seo="$seo" />
     <x-contact.quick-actions />
     <x-contact.info-cards />
     <x-contact.form
@@ -12,5 +13,6 @@
         :preselected-room-type="$preselectedRoomType"
         :preselected-hall="$preselectedHall"
     />
+    <x-seo-faq :seo="$seo" />
     <x-contact.map />
 @endsection

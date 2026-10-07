@@ -28,12 +28,32 @@ and database structure to anyone who triggers a 500.
 
 ```bash
 composer install --no-dev --optimize-autoloader
+php artisan migrate --force
 npm ci && npm run build
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 php artisan storage:link
 ```
+
+`php artisan migrate --force` matters here: the 2026-10-07 migration syncs the
+`site_settings` row to the owner-verified values from `docs/BUSINESS-TRUTH.md`
+§1 (official email, WhatsApp, and full street address). Skipping it leaves the
+production row on whatever the original 2026-08-09 insert wrote — enquiry
+notification mail would go to an unverified address.
+
+After migrating, run the room seeder and clean any placeholder rows the
+pre-2026-10-07 database may still hold (the seeder is idempotent, but
+`firstOrCreate` never *removes* obsolete rooms):
+
+```bash
+php artisan db:seed --class=RoomSeeder --force
+php artisan tinker --execute="App\Models\Room::whereNotIn('name', ['Deluxe Single Room','Deluxe Double Room','Deluxe Triple Room','Deluxe Family Room','Family Suite'])->get()->each->delete(); App\Models\RoomType::whereNotIn('slug', ['deluxe','family-suite'])->get()->each->delete();"
+```
+
+On a fresh `migrate:fresh --seed` deploy this is unnecessary — the seeders
+write only the current inventory. Room prices are never seeded: the site is
+enquiry-only and rates stay on the OTA.
 
 `storage:link` matters more than usual here: every image is served through
 `public/storage`, and the `page-hero` and gallery components probe the
@@ -105,6 +125,12 @@ each one a fresh random name.
   and check the hero background and gallery tiles come down as `.webp`. Files
   where WebP saved too little are served as JPEG by design, so a mix is correct.
 - `curl -I` an image as above.
+- `curl https://your-domain/robots.txt` — the last line must read
+  `Sitemap: https://your-domain/sitemap.xml` (absolute URL). The file is served
+  by Laravel's `SitemapController@robots`; there is no static file anymore, so
+  a 404 here means the rewrite rules are not routing through `index.php`.
+- Check `/contact` shows the official email and WhatsApp number from
+  `docs/BUSINESS-TRUTH.md` §1 — this confirms the site-settings migration ran.
 
 ## 5. Known-good baseline
 

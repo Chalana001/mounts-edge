@@ -1,26 +1,5 @@
-<section class="relative h-[70vh] md:h-[80vh] overflow-hidden" 
-         x-data="{ isVisible: false }" 
-         x-init="setTimeout(() => isVisible = true, 100)">
-    
-    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] ease-in-out scale-110"
-         :class="isVisible ? 'scale-100' : 'scale-110'"
-         style="background-image: url('{{ asset('storage/home/hero/dining.jpg') }}');">
-    </div>
-    <div class="absolute inset-0 bg-brand-green/40"></div>
-
-    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-        <div class="reveal-fade transition-all duration-1000 delay-300"
-             :class="isVisible ? 'reveal-visible' : ''">
-            <span class="text-[#F5F5DC]/80 text-xs tracking-[0.3em] uppercase mb-6 block font-bold">
-                A Culinary Journey
-            </span>
-            <h1 class="text-[clamp(2.5rem,7vw,4.5rem)] font-serif text-brand-light mb-6">
-                Dining & Bar
-            </h1>
-            <div class="w-12 h-px bg-white/40 mx-auto mb-6"></div>
-            <p class="text-[#F5F5DC]/80 text-[clamp(1rem,2vw,1.25rem)] max-w-xl font-light mx-auto">
-                Sri Lankan and international dishes, served with a view over the valley
-            </p>
-        </div>
-    </div>
-</section>
+<x-page-hero
+    :image="asset('storage/home/hero/dining.jpg')"
+    eyebrow="Dining · Gurulupotha"
+    title="Dining Near Mahiyangana"
+    subtitle="Sri Lankan and international flavours in a relaxed mountain setting — reserve a table" />
