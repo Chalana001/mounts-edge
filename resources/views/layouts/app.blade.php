@@ -5,26 +5,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Mounts Edge Regency</title>
-
         @php
-            $metaDescription = 'A semi-luxury retreat in Gurulupotha, Mahiyangana, for quiet stays and celebrations alike.';
+            $seo = \App\Support\SeoMeta::forRequest(request(), $siteSettings);
+            $analyticsMeasurementId = config('services.google_analytics.measurement_id');
         @endphp
+
+        <title>{{ $seo['title'] }}</title>
 
         <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
         <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
         <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
-        <meta name="description" content="{{ $metaDescription }}">
+        <meta name="robots" content="index, follow">
+        <meta name="description" content="{{ $seo['description'] }}">
+        <link rel="canonical" href="{{ $seo['canonical'] }}">
         <meta property="og:type" content="website">
         <meta property="og:site_name" content="Mounts Edge Regency">
-        <meta property="og:title" content="Mounts Edge Regency">
-        <meta property="og:description" content="{{ $metaDescription }}">
-        <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:image" content="{{ asset('images/og-image.jpg') }}">
+        <meta property="og:title" content="{{ $seo['title'] }}">
+        <meta property="og:description" content="{{ $seo['description'] }}">
+        <meta property="og:url" content="{{ $seo['canonical'] }}">
+        <meta property="og:image" content="{{ $seo['image'] }}">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
         <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $seo['title'] }}">
+        <meta name="twitter:description" content="{{ $seo['description'] }}">
+        <meta name="twitter:image" content="{{ $seo['image'] }}">
+
+        @if ($seo['structuredData'])
+            <script type="application/ld+json">{!! json_encode($seo['structuredData'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}</script>
+        @endif
+
+        @if ($analyticsMeasurementId)
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ urlencode($analyticsMeasurementId) }}"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', @json($analyticsMeasurementId), { anonymize_ip: true });
+            </script>
+        @endif
 
         {{-- The home hero's first background is applied by Alpine after the JS
              parses and runs, so the preload scanner never sees it and the LCP

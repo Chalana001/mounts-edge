@@ -12,12 +12,18 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminEnquiryController;
 use App\Http\Controllers\AdminSiteSettingController;
+use App\Http\Controllers\SitemapController;
 
 
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/page-sitemap.xml', [SitemapController::class, 'pages'])->name('sitemap.pages');
+Route::get('/image-sitemap.xml', [SitemapController::class, 'images'])->name('sitemap.images');
 
 Route::get('/dashboard', function () {
     return view('dashboard', [
@@ -97,10 +103,10 @@ Route::get('/luxury-stay', [RoomController::class, 'index'])->name('luxury-stay'
 Route::get('/weddings', [WeddingController::class, 'index'])->name('weddings');
 Route::get('/dining', function () {
     return view('dining');
-});
+})->name('dining');
 Route::get('/experiences', function () {
     return view('experiences');
-});
+})->name('experiences');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/send-enquiry', [ContactController::class, 'sendEnquiry'])

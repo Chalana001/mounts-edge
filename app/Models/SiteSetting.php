@@ -7,12 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class SiteSetting extends Model
 {
     public const DEFAULTS = [
-        'phone_display' => '055 2 256 500',
+        // Verified by management 2026-10-01/02 (BUSINESS-TRUTH.md §1).
+        // Domain: https://mountsedgeregency.lk — set APP_URL to match at launch.
+        'phone_display' => '055 225 6500',
         'phone_link' => '+94552256500',
-        'whatsapp_number' => '94704589764',
-        'public_email' => 'ckalhara7277@gmail.com',
-        'notification_email' => 'info@mountsedgeregency.com',
-        'address' => 'Gurulupotha, Hasalaka, Mahiyangana, Sri Lanka',
+        // Owner 2026-10-02: monitored WhatsApp 0777403940 (backend-editable).
+        'whatsapp_number' => '94777403940',
+        // Owner 2026-10-02: official inbox mountedgeregency@gmail.com.
+        'public_email' => 'mountedgeregency@gmail.com',
+        'notification_email' => 'mountedgeregency@gmail.com',
+        'address' => 'Kandy Rd, Gurulupotha, Hasalaka 20960, Mahiyangana, Sri Lanka',
+        // Item 2: current map embed query verified by owner — keep DB link
+        // generic; live map centres on name+address at runtime.
         'map_url' => 'https://maps.google.com',
     ];
 

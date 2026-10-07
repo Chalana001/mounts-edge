@@ -38,4 +38,11 @@ return [
         'embed_key' => env('GOOGLE_MAPS_EMBED_KEY'),
     ],
 
+    'google_analytics' => [
+        // GA4 stays completely disabled until the production measurement ID is
+        // supplied. This keeps local development and preview deployments from
+        // sending visitor data to the production property.
+        'measurement_id' => env('GA_MEASUREMENT_ID'),
+    ],
+
 ];

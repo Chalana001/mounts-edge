@@ -31,5 +31,17 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('siteSettings', $settings);
         });
+
+        // Page views (contact, dining, ...) render the layout's SEO copy
+        // visibly via <x-seo-intro>/<x-seo-faq>, but the layout computes
+        // $seo after the page view has already been rendered — so the
+        // composer supplies it here for every view that asks.
+        View::composer(['contact', 'dining', 'experiences', 'gallery', 'luxury-stay', 'weddings', 'welcome'], function ($view) {
+            $settings = Schema::hasTable('site_settings')
+                ? SiteSetting::current()
+                : new SiteSetting(SiteSetting::DEFAULTS);
+
+            $view->with('seo', \App\Support\SeoMeta::forRequest(request(), $settings));
+        });
     }
 }

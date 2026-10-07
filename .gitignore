@@ -18,3 +18,7 @@ yarn-error.log
 /.vscode
 /mountedge-regency-production.zip
 /.phpunit.result.cache
+
+# ZCode session tooling
+/.v2c/
+/.zcodeignore

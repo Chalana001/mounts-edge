@@ -1,4 +1,4 @@
-<section class="py-12 md:py-20 bg-white">
+<section class="pt-12 pb-6 md:pt-20 md:pb-10 bg-[#f9f9f7]">
     <div class="container mx-auto px-6">
         @php
             // Each icon is a list of SVG paths: the phone and mail glyphs need
@@ -42,7 +42,7 @@
             ];
         @endphp
 
-        <div class="grid grid-cols-4 gap-2 sm:gap-6 lg:gap-12 max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 max-w-6xl mx-auto">
             @foreach($info as $item)
                 <div class="text-center group">
                     <div class="w-9 h-9 md:w-12 md:h-12 mx-auto mb-2 md:mb-6 border border-brand-green/30 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-brand-light transition-all duration-500">
@@ -55,13 +55,16 @@
                     </div>
                     <h3 class="font-serif text-brand-green text-[11px] md:text-lg mb-1 md:mb-3">{{ $item['title'] }}</h3>
 
-                    @php $lineClass = 'text-brand-green/70 text-[9px] md:text-sm font-light italic leading-snug md:leading-relaxed break-words'; @endphp
+                    @php $lineClass = 'text-brand-green/70 text-[11px] md:text-sm font-light italic leading-snug md:leading-relaxed break-words'; @endphp
 
                     @if(! empty($item['url']))
                         {{-- Tap to call / email / open directions. --}}
                         <a href="{{ $item['url'] }}"
                            @if(! empty($item['external'])) target="_blank" rel="noopener" @endif
-                           class="block hover:text-brand-orange transition-colors">
+                           @if($item['title'] === 'Phone') data-conversion="contact_phone_click" @endif
+                           @if($item['title'] === 'Email') data-conversion="contact_email_click" @endif
+                           @if($item['title'] === 'Address') data-conversion="contact_map_click" @endif
+                           class="block hover:text-brand-ember transition-colors">
                             @foreach($item['lines'] as $line)
                                 <span class="{{ $lineClass }} block">{{ $line }}</span>
                             @endforeach

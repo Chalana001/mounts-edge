@@ -61,3 +61,66 @@ Alpine.data('countUp', (target, decimals = 0, suffix = '', duration = 1600) => (
 window.Alpine = Alpine;
 
 Alpine.start();
+
+// Conversion events stay dormant until GA4 is configured in the production
+// environment. Tracking these high-intent actions gives the hotel a clearer
+// picture of which SEO pages create real enquiries, without requiring every
+// CTA component to embed analytics-specific JavaScript.
+//
+// This is the single event vocabulary for the site: generate_lead plus
+// contact_phone_click / contact_email_click / contact_whatsapp_click /
+// contact_map_click. Links can declare data-conversion="contact_*" as a
+// fallback when their href protocol doesn't reveal intent (e.g. a button
+// that opens WhatsApp via JS); anything else is not a conversion event.
+const trackConversion = (name, parameters = {}) => {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', name, parameters);
+    }
+};
+
+const CONVERSION_EVENTS = [
+    'contact_phone_click',
+    'contact_email_click',
+    'contact_whatsapp_click',
+    'contact_map_click',
+];
+
+document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const declared = event.target.closest('[data-conversion]');
+    if (declared) {
+        const name = declared.getAttribute('data-conversion');
+        if (CONVERSION_EVENTS.includes(name)) {
+            trackConversion(name, { link_url: declared.href || window.location.href });
+        }
+        return;
+    }
+
+    const link = event.target.closest('a[href]');
+    if (!link) return;
+
+    let eventName = null;
+
+    if (link.protocol === 'tel:') {
+        eventName = 'contact_phone_click';
+    } else if (link.protocol === 'mailto:') {
+        eventName = 'contact_email_click';
+    } else if (/^https:\/\/wa\.me\//i.test(link.href)) {
+        eventName = 'contact_whatsapp_click';
+    } else if (/^https:\/\/(www\.)?google\.[^/]+\/maps/i.test(link.href)) {
+        eventName = 'contact_map_click';
+    }
+
+    if (eventName) {
+        trackConversion(eventName, { link_url: link.href });
+    }
+});
+
+document.addEventListener('submit', (event) => {
+    if (!(event.target instanceof HTMLFormElement)) return;
+
+    if (event.target.action.includes('/send-enquiry')) {
+        trackConversion('generate_lead', { lead_source: 'website_enquiry_form' });
+    }
+});
