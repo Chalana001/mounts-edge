@@ -1,6 +1,6 @@
 # Mounts Edge Regency — Business Truth (Phase 0 Source of Truth)
 
-**Status:** MOSTLY VERIFIED — contact + rooms + weddings + dining (incl. hours) + attractions all owner-confirmed 2026-10-01…07; remaining TODOs: check-out time, GBP link, parking count, commission disclosure, §6 policies, listings
+**Status:** NEARLY VERIFIED — contact, rooms, weddings, dining, attractions, and §6 policies owner-confirmed 2026-10-01…07; remaining: check-out time, §8 listing URLs/owners, signature line
 **Last updated:** 2026-10-07
 **Owner:** Hotel management
 **Related:** `docs/SEO-PLAN.md` Phase 0
@@ -125,15 +125,14 @@ Owner-confirmed 2026-10-07:
 - WiFi: **free for all** — all areas
 - Power backup: **with rooms** (supplies the rooms)
 - Payment: **all common methods accepted** (owner said "all accept"; interpret as cash, card, and transfer — no restriction stated)
-
-Still TODO:
-
-- Pool: size/timing/rules/lifeguard? TODO
-- Family / kids? TODO (ages, extra beds)
-- Cancellation / payment timing / ID policy: TODO (needed for FAQ + schema)
+- Family / kids: **no family/kids policy** (no age rules, no extra-bed charges)
+- Cancellation: **no formal cancellation policy** (owner: "no" — nothing defined to publish)
+- Pool: main infinity pool (as shown on the site's pool section) **plus a separate children's pool** (owner-confirmed 2026-10-07). Hours/rules/lifeguard: not specified — do not invent any.
 - Check-out time: TODO (check-in 2:00 PM confirmed)
 
 Google Business Profile: **no access yet** (owner 2026-10-07). Commission on partners: owner does not know — keep TODO; do not publish any partner page until confirmed.
+
+Listing account access (owner 2026-10-07): **access is available** for the OTA/social profiles — Booking.com, TripAdvisor, Agoda, Trip.com, Facebook, Instagram. URL/handles and the person holding each login: TODO — collect during Phase 3 profile audit.
 
 ---
 
@@ -188,9 +187,9 @@ Current Google facts (30 Sep 2026 screenshot): `4.0 / 348 reviews / 3-star / 055
 - [x] §3 rooms confirmed (owner 2026-10-07: 5 rooms, all Deluxe + Family Suite; rates recorded internally, not published)
 - [x] §4 weddings — owner-confirmed 2026-10-07: capacities, areas, power backup, parking, bridal room, catering, decoration, outside vendors; package validity dates and commission disclosure still open
 - [x] §5 dining — owner-confirmed 2026-10-07: no restaurant name, cuisines Sri Lankan + international, walk-ins OK, bar YES, hours 6:30 AM–10:00 PM / bar 5:00 PM–11:00 PM, no signature dishes
-- [ ] §6 policies confirmed (parking free, WiFi free for all, power backup with rooms, all payment methods — done 2026-10-07; pool, family, cancellation, check-out still open)
+- [x] §6 policies confirmed 2026-10-07 — parking free, WiFi free for all, power backup with rooms, all payment methods, no family/cancellation restrictions, main pool + separate children's pool; check-out time still open
 - [x] §7 distances — owner-confirmed 2026-10-07: all attraction data on the site is correct; transport offered still open
-- [ ] §8 listings owner assigned
+- [ ] §8 listings owner assigned (access available 2026-10-07; URLs/handles + login owner TODO)
 - [ ] `SeoMeta.php` copy + `hotelSchema()` + image-sitemap filter updated to this file
 - [ ] `docs/SEO-PLAN.md` status updated to `Phase 0 verified YYYY-MM-DD`
 

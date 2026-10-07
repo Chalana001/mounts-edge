@@ -58,6 +58,7 @@ class SeoMeta
                     ['q' => 'How do I check room availability?', 'a' => 'Use the contact page enquiry form with your dates and guests, or call 055 225 6500. The team confirms availability and rates.'],
                     ['q' => 'What room types are available?', 'a' => 'Deluxe Single for 1 guest, Deluxe Double for 2, Deluxe Triple for 3, Deluxe Family for 4, and a Family Suite sleeping up to 8 guests.'],
                     ['q' => 'Is WiFi and parking free?', 'a' => 'Yes. WiFi is free in all areas and parking is free for guests. Rooms also have power backup.'],
+                    ['q' => 'Is there a pool?', 'a' => 'Yes — an infinity pool overlooking the mountains, plus a separate children\'s pool for families.'],
                 ],
             ],
             'weddings' => [

@@ -28,8 +28,8 @@
             'svg' => '<path d="m12 13 3 3m-3-3-3 3m3-3V7m0 13a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2"/>' // Leaf/Nature icon
         ],
         [
-            'title' => 'Secluded Infinity Pool',
-            'description' => 'A private pool with an uninterrupted view of the mountain horizon.',
+            'title' => 'Infinity & Children\'s Pools',
+            'description' => 'An infinity pool with mountain views and a separate children\'s pool for the family.',
             'svg' => '<path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>' // Water/Pool icon
         ],
         [

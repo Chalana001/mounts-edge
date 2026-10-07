@@ -17,7 +17,7 @@
         <span class="text-brand-cream/80 text-xs tracking-[0.3em] uppercase mb-6">Unwind & Refresh</span>
         <h2 class="text-4xl md:text-5xl font-serif text-brand-light mb-6">Pool & Relaxation</h2>
         <p class="text-brand-cream/70 text-lg max-w-xl font-light">
-            Our infinity pool overlooks the mountain range. A quiet spot to relax any time of day.
+            Our infinity pool overlooks the mountain range, with a separate children's pool alongside — a quiet spot for the whole family, any time of day.
         </p>
     </div>
 </section>
