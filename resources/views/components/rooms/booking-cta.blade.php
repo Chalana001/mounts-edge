@@ -8,7 +8,7 @@
         <div class="reveal-hidden" :class="isVisible ? 'reveal-visible' : ''">
             <h3 class="text-3xl md:text-4xl font-serif text-brand-green mb-4">Ready to Book Your Stay?</h3>
             <p class="text-brand-green/70 mb-8 max-w-xl mx-auto font-light">
-                Send an enquiry for Deluxe and Family Suite rooms in Gurulupotha — call <a href="tel:{{ $siteSettings->phone_link }}" class="underline hover:text-brand-ember">{{ $siteSettings->phone_display }}</a> or message us below. See also our <a href="{{ route('weddings') }}" class="underline hover:text-brand-ember">wedding venue</a> and <a href="{{ route('dining') }}" class="underline hover:text-brand-ember">dining</a>.
+                Send an enquiry for Deluxe and Family Suite rooms in Gurulupotha, call <a href="tel:{{ $siteSettings->phone_link }}" class="underline hover:text-brand-ember">{{ $siteSettings->phone_display }}</a> or message us below. See also our <a href="{{ route('weddings') }}" class="underline hover:text-brand-ember">wedding venue</a> and <a href="{{ route('dining') }}" class="underline hover:text-brand-ember">dining</a>.
             </p>
 
             <div class="flex flex-wrap items-center justify-center gap-3">

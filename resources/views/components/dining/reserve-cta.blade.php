@@ -4,7 +4,7 @@
     <div class="container mx-auto px-6 reveal-hidden" :class="isVisible ? 'reveal-visible' : ''">
         <h3 class="text-3xl md:text-4xl font-serif text-brand-light mb-4">Reserve Your Table</h3>
         <p class="text-brand-cream/70 mb-8 max-w-xl mx-auto font-light">
-            Walk-ins are always welcome — reserve ahead for larger groups and weekends, and we'll have the table ready. Planning a celebration? See our <a href="/weddings" class="underline hover:text-brand-light">wedding venue</a>.
+            Walk-ins are always welcome. Reserve ahead for larger groups and weekends and we'll have the table ready. Planning a celebration? See our <a href="/weddings" class="underline hover:text-brand-light">wedding venue</a>.
         </p>
 
         <div class="flex flex-wrap items-center justify-center gap-3">

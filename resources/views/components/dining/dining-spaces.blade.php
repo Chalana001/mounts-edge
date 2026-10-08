@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto px-4 md:px-6">
         @php
             $spaces = [
-                ['name' => 'Main Restaurant', 'hours' => 'Open daily · 6:30 AM - 10:00 PM', 'desc' => 'All-day dining with mountain views — walk-ins welcome', 'icon' => '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>'],
+                ['name' => 'Main Restaurant', 'hours' => 'Open daily · 6:30 AM - 10:00 PM', 'desc' => 'All-day dining with mountain views, walk-ins welcome', 'icon' => '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>'],
                 ['name' => 'The Terrace Bar', 'hours' => 'Daily · 5:00 PM - 11:00 PM', 'desc' => 'Evening drinks with a mountain breeze', 'icon' => '<path d="M8 22h8"/><path d="M12 11v11"/><path d="m19 2-7 9-7-9Z"/>']
             ];
         @endphp

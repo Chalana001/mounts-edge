@@ -26,7 +26,7 @@
                 Choose Your Retreat
             </h2>
             <p class="text-brand-green/70 max-w-xl mx-auto font-light text-sm md:text-base">
-                Deluxe single, double, triple and family rooms, plus a Family Suite — in Gurulupotha, near Hasalaka and Mahiyangana. Find your mountain escape
+                Deluxe single, double, triple and family rooms, plus a Family Suite, in Gurulupotha near Hasalaka and Mahiyangana. Find your mountain escape
             </p>
         </div>
         <div role="tablist" aria-label="Room types" class="flex {{ count($roomTypes) <= 3 ? 'flex-row' : 'flex-col' }} md:flex-row md:flex-wrap justify-center gap-2 md:gap-4 mb-12 md:mb-16 px-4 md:px-6">

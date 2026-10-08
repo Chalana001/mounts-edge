@@ -73,7 +73,7 @@ class RoomSeeder extends Seeder
                 'room_type_id' => $suiteType->id,
                 'name' => 'Family Suite',
                 'tagline' => 'Room to gather, space to breathe',
-                'description' => 'A Family Suite for up to 8 guests — the largest accommodation at Mounts Edge Regency, ideal for larger families and groups. Enquire for availability and rates.',
+                'description' => 'A Family Suite for up to 8 guests, the largest accommodation at Mounts Edge Regency, ideal for larger families and groups. Enquire for availability and rates.',
                 'image' => '/storage/rooms/villa.jpg',
                 'images' => ['/storage/rooms/villa.jpg'],
                 'capacity' => '8 guests',

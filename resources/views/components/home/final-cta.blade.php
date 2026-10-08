@@ -30,7 +30,7 @@
             </h2>
 
             <p class="text-brand-cream/70 text-base md:text-lg font-light mb-12 max-w-md mx-auto">
-                Get in touch and we'll help you plan your stay in Mahiyangana — <a href="/luxury-stay" class="underline hover:text-brand-light">rooms</a>, <a href="/weddings" class="underline hover:text-brand-light">weddings</a>, <a href="/dining" class="underline hover:text-brand-light">dining</a>, and <a href="/experiences" class="underline hover:text-brand-light">day-outs</a>.
+                Get in touch and we'll help you plan your stay in Mahiyangana: <a href="/luxury-stay" class="underline hover:text-brand-light">rooms</a>, <a href="/weddings" class="underline hover:text-brand-light">weddings</a>, <a href="/dining" class="underline hover:text-brand-light">dining</a>, and <a href="/experiences" class="underline hover:text-brand-light">day-outs</a>.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-6 justify-center">

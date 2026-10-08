@@ -1,13 +1,13 @@
 <footer class="bg-brand-green text-brand-cream">
     <div class="container mx-auto px-6 py-12 md:py-16">
         <div class="max-w-4xl mx-auto text-center">
-            <a href="/" class="inline-block mb-8" aria-label="Mounts Edge Regency — home">
+            <a href="/" class="inline-block mb-8" aria-label="Mounts Edge Regency home">
                 {{-- Stacked lockup: below ~h-32 the wordmark stops being legible. --}}
                 <x-logo variant="wordmark" light class="h-16 w-auto mx-auto md:h-20" />
             </a>
             
             <p class="text-brand-cream/70 text-sm font-light leading-relaxed mb-10 max-w-md mx-auto">
-                A hotel on Kandy Rd, Gurulupotha, Hasalaka 20960, near Mahiyangana — for stays, weddings, dining, and day-outs.
+                A hotel on Kandy Rd, Gurulupotha, Hasalaka 20960, near Mahiyangana, for stays, weddings, dining, and day-outs.
             </p>
 
             {{-- mb-10 matches the tagline above and the contact block below, so the

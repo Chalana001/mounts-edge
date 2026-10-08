@@ -50,7 +50,7 @@ class WeddingController extends Controller
                 // Owner-confirmed: the hotel prepares catering in-house with no
                 // fixed menu — these seeded packages are menu *examples* the
                 // kitchen can build from, not fixed-price offerings.
-                'desc' => 'Our kitchen plans the menu with you for each event. These examples show the range — outside caterers and vendors are also welcome.',
+                'desc' => 'Our kitchen plans the menu with you for each event. These examples show the range, and outside caterers and vendors are also welcome.',
                 'items' => $packages->map(function($pkg) {
                     return [
                         'name' => $pkg->name,

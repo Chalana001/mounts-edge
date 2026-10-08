@@ -9,7 +9,7 @@
             <p class="font-serif text-6xl md:text-8xl text-brand-orange leading-none mb-6">404</p>
             <h1 class="font-serif text-3xl md:text-5xl mb-4">This page has checked out</h1>
             <p class="text-brand-cream/70 max-w-xl mx-auto font-light mb-10">
-                The page you're looking for doesn't exist — it may have moved, or the link might be mistyped.
+                The page you're looking for doesn't exist. It may have moved, or the link might be mistyped.
                 Here are some places you can go instead.
             </p>
 

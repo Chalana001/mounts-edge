@@ -41,7 +41,7 @@ class SeoMeta
         return [
             'home' => [
                 'title' => self::HOME_TITLE,
-                'description' => 'Stay at Mounts Edge Regency on Kandy Rd, Gurulupotha near Hasalaka and Mahiyangana — dining, weddings, and a peaceful mountain setting.',
+                'description' => 'Stay at Mounts Edge Regency on Kandy Rd, Gurulupotha near Hasalaka and Mahiyangana: dining, weddings, and a peaceful mountain setting.',
                 'h1' => 'Hotel in Gurulupotha, Near Mahiyangana',
                 'intro' => 'Mounts Edge Regency is a hotel on Kandy Rd, Gurulupotha, Hasalaka 20960, near Mahiyangana, for quiet stays, weddings, dining, and day-outs.',
                 'faq' => [
@@ -53,32 +53,32 @@ class SeoMeta
                 'title' => 'Rooms & Accommodation in Mahiyangana | Mounts Edge Regency',
                 'description' => 'Deluxe single, double, triple, and family rooms plus a Family Suite at Mounts Edge Regency in Gurulupotha near Mahiyangana. Enquire for availability.',
                 'h1' => 'Rooms & Accommodation Near Mahiyangana',
-                'intro' => 'Stay at Mounts Edge Regency in Gurulupotha, Hasalaka 20960, near Mahiyangana. Choose from Deluxe single, double, triple, and family rooms, or the Family Suite for up to 8 guests — enquire for availability and rates.',
+                'intro' => 'Stay at Mounts Edge Regency in Gurulupotha, Hasalaka 20960, near Mahiyangana. Choose from Deluxe single, double, triple, and family rooms, or the Family Suite for up to 8 guests. Enquire for availability and rates.',
                 'faq' => [
                     ['q' => 'How do I check room availability?', 'a' => 'Use the contact page enquiry form with your dates and guests, or call 055 225 6500. The team confirms availability and rates.'],
                     ['q' => 'What room types are available?', 'a' => 'Deluxe Single for 1 guest, Deluxe Double for 2, Deluxe Triple for 3, Deluxe Family for 4, and a Family Suite sleeping up to 8 guests.'],
                     ['q' => 'Is WiFi and parking free?', 'a' => 'Yes. WiFi is free in all areas and parking is free for guests. Rooms also have power backup.'],
-                    ['q' => 'Is there a pool?', 'a' => 'Yes — an infinity pool overlooking the mountains, plus a separate children\'s pool for families.'],
+                    ['q' => 'Is there a pool?', 'a' => 'Yes, an infinity pool overlooking the mountains, plus a separate children\'s pool for families.'],
                 ],
             ],
             'weddings' => [
                 'title' => 'Wedding Venue in Mahiyangana | Mounts Edge Regency',
                 'description' => 'Wedding venue near Mahiyangana: Grand Hall up to 200 guests, Grand Lawn 400+, in-house catering, outside vendors welcome.',
                 'h1' => 'Wedding Venue Near Mahiyangana',
-                'intro' => 'Celebrate at Mounts Edge Regency in Gurulupotha, Hasalaka 20960, near Mahiyangana. Choose the Grand Hall for up to 200 guests or the Grand Lawn for 400+ — with in-house catering, decoration, power backup, parking, and a bridal room. Outside vendors are welcome.',
+                'intro' => 'Celebrate at Mounts Edge Regency in Gurulupotha, Hasalaka 20960, near Mahiyangana. Choose the Grand Hall for up to 200 guests or the Grand Lawn for 400+, with in-house catering, decoration, power backup, parking, and a bridal room. Outside vendors are welcome.',
                 'faq' => [
                     ['q' => 'How do I enquire about a wedding date?', 'a' => 'Send a wedding enquiry with your date and guest count through the contact page, or call 055 225 6500. The team confirms availability and packages.'],
                     ['q' => 'What capacities do the wedding spaces have?', 'a' => 'The Grand Hall seats up to 200 guests indoors (3,500 sq ft) and the Grand Lawn hosts 400+ guests outdoors (12,000 sq ft).'],
-                    ['q' => 'Can we bring our own caterer or decorator?', 'a' => 'Yes. Outside vendors are welcome, and the hotel also prepares in-house catering and decoration — menus are planned per event.'],
+                    ['q' => 'Can we bring our own caterer or decorator?', 'a' => 'Yes. Outside vendors are welcome, and the hotel also prepares in-house catering and decoration. Menus are planned per event.'],
                 ],
             ],
             'dining' => [
                 'title' => 'Dining in Mahiyangana | Mounts Edge Regency',
-                'description' => 'Open daily 6:30 AM–10:00 PM at Mounts Edge Regency near Mahiyangana, with The Terrace Bar from 5:00 PM. Walk-ins welcome.',
+                'description' => 'Open daily 6:30 AM to 10:00 PM at Mounts Edge Regency near Mahiyangana, with The Terrace Bar from 5:00 PM. Walk-ins welcome.',
                 'h1' => 'Dining Near Mahiyangana',
-                'intro' => 'Dine at Mounts Edge Regency in Gurulupotha, Hasalaka 20960, near Mahiyangana — Sri Lankan and international flavours in a relaxed mountain setting. The restaurant is open daily 6:30 AM–10:00 PM and The Terrace Bar from 5:00 PM. Walk-ins are welcome; reserving is recommended for groups.',
+                'intro' => 'Dine at Mounts Edge Regency in Gurulupotha, Hasalaka 20960, near Mahiyangana. Sri Lankan and international flavours in a relaxed mountain setting. The restaurant is open daily 6:30 AM to 10:00 PM and The Terrace Bar from 5:00 PM. Walk-ins are welcome; reserving is recommended for groups.',
                 'faq' => [
-                    ['q' => 'Do I need to reserve a table?', 'a' => 'No reservation is needed — walk-ins are welcome. For larger groups and weekends, reserving through the contact page or 055 225 6500 is recommended.'],
+                    ['q' => 'Do I need to reserve a table?', 'a' => 'No reservation is needed, walk-ins are welcome. For larger groups and weekends, reserving through the contact page or 055 225 6500 is recommended.'],
                     ['q' => 'What are the dining hours?', 'a' => 'The restaurant serves daily from 6:30 AM to 10:00 PM, and The Terrace Bar is open from 5:00 PM to 11:00 PM.'],
                 ],
             ],
@@ -95,14 +95,14 @@ class SeoMeta
                 'title' => 'Hotel Gallery in Mahiyangana | Mounts Edge Regency',
                 'description' => 'View rooms, celebrations, dining, and the grounds at Mounts Edge Regency in Gurulupotha near Mahiyangana.',
                 'h1' => 'Hotel Gallery',
-                'intro' => 'A look around Mounts Edge Regency in Gurulupotha, Hasalaka 20960 — rooms, celebrations, dining, and the grounds near Mahiyangana.',
+                'intro' => 'A look around Mounts Edge Regency in Gurulupotha, Hasalaka 20960: rooms, celebrations, dining, and the grounds near Mahiyangana.',
                 'faq' => [],
             ],
             'contact' => [
                 'title' => 'Contact Mounts Edge Regency | Hotel Near Mahiyangana',
                 'description' => 'Contact Mounts Edge Regency on Kandy Rd, Gurulupotha near Hasalaka and Mahiyangana for stays, dining, weddings, and general enquiries. Call 055 225 6500.',
                 'h1' => 'Contact Mounts Edge Regency',
-                'intro' => 'Reach Mounts Edge Regency on Kandy Rd, Gurulupotha, Hasalaka 20960, near Mahiyangana — for stays, dining, weddings, and general enquiries.',
+                'intro' => 'Reach Mounts Edge Regency on Kandy Rd, Gurulupotha, Hasalaka 20960, near Mahiyangana, for stays, dining, weddings, and general enquiries.',
                 'faq' => [
                     ['q' => 'What is the fastest way to reach the hotel?', 'a' => 'Call 055 225 6500, message on WhatsApp, or send the enquiry form. For directions, use the map on this page.'],
                     ['q' => 'What payment methods are accepted?', 'a' => 'Common payment methods are accepted, including cash and card. Confirm the details for your stay when you enquire.'],

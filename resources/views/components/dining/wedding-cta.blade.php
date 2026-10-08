@@ -7,7 +7,7 @@
             <span class="text-brand-green/70 text-xs tracking-[0.3em] uppercase mb-4 block">Special Events</span>
             <h2 class="text-3xl md:text-4xl font-serif text-brand-green mb-6">Wedding &amp; Event Catering</h2>
             <p class="text-brand-green/70 max-w-xl mx-auto mb-8 font-light leading-relaxed">
-                Our kitchen plans menus with you for weddings and celebrations in Mahiyangana — and outside caterers are welcome if you prefer your own.
+                Our kitchen plans menus with you for weddings and celebrations in Mahiyangana, and outside caterers are welcome if you prefer your own.
             </p>
             <a href="/weddings"
                class="inline-block bg-brand-green text-brand-light hover:bg-brand-hover px-12 py-5 text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-500 shadow-lg">

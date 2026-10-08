@@ -3,7 +3,7 @@
         <div class="flex flex-col md:flex-row items-center justify-center gap-8">
             <div class="text-left">
                 <h3 class="text-2xl md:text-3xl font-serif text-brand-green mb-2">Ready to Plan Your Wedding?</h3>
-                <p class="text-brand-green/70 font-light">Chat with our events team on WhatsApp — or see our <a href="{{ route('dining') }}" class="underline hover:text-brand-ember">dining</a> and <a href="{{ route('gallery') }}" class="underline hover:text-brand-ember">gallery</a></p>
+                <p class="text-brand-green/70 font-light">Chat with our events team on WhatsApp, or see our <a href="{{ route('dining') }}" class="underline hover:text-brand-ember">dining</a> and <a href="{{ route('gallery') }}" class="underline hover:text-brand-ember">gallery</a></p>
             </div>
             
             <div class="flex flex-wrap items-center justify-center gap-3">

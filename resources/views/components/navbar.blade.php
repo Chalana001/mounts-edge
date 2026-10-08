@@ -75,7 +75,7 @@
              below to fit at every breakpoint; this only ever engages if a nav item
              is added later. --}}
         <a href="/" class="relative group flex items-center gap-2 sm:gap-3 min-w-0 overflow-hidden rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
-           aria-label="Mounts Edge Regency — home">
+           aria-label="Mounts Edge Regency home">
             {{-- Both marks are stacked and cross-faded so the swap matches the navbar's own transition. --}}
             {{-- One mark, always green, no cross-fade: the mountain sits ON the orange
                  circle, not directly on the page, so its contrast comes from orange-vs-green
