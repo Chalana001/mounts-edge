@@ -34,7 +34,7 @@
             <button type="button"
                     @click="activeTab = @js($filter)"
                     :aria-pressed="activeTab === @js($filter) ? 'true' : 'false'"
-                    class="px-6 py-3 text-[11px] tracking-widest uppercase font-bold border transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+                    class="whitespace-nowrap px-4 md:px-6 py-3 text-[11px] tracking-widest uppercase font-bold border transition-all duration-300 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
                     :class="activeTab === @js($filter) ? 'bg-brand-green text-brand-light border-brand-green' : 'bg-white text-brand-green/70 border-brand-green/20 hover:border-brand-green hover:text-brand-green'">
                 {{ $filter }}
             </button>
@@ -112,7 +112,7 @@
                     {{-- Touch devices never fire :hover, so the caption sits flush
                          on mobile and only uses the slide-up reveal from md up. --}}
                     <div class="absolute bottom-0 left-0 right-0 p-3 md:p-5 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
-                        <span class="text-[11px] tracking-[0.15em] md:tracking-[0.2em] uppercase text-brand-orange font-bold block mb-0.5 md:mb-1 drop-shadow-md">
+                        <span class="text-[11px] tracking-[0.15em] md:tracking-[0.2em] uppercase text-brand-cream md:text-brand-orange font-bold block mb-0.5 md:mb-1 drop-shadow-md">
                             {{ $item->category->name ?? 'Uncategorized' }}
                         </span>
                         @if($item->description)

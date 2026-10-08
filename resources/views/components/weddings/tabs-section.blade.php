@@ -15,7 +15,7 @@
             this.$nextTick(() => event.target.closest('[role=tablist]')?.querySelectorAll('[role=tab]')[to]?.focus());
         } }" >
     <div class="container mx-auto px-6">
-        <div role="tablist" aria-label="Wedding spaces and packages" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 md:mb-14 px-6 relative z-20">
+        <div role="tablist" aria-label="Wedding spaces and packages" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 md:mb-14 px-0 relative z-20">
             @foreach($tabs as $key => $tab)
                 <button type="button"
                         role="tab"
@@ -28,7 +28,7 @@
                     @keydown.left.prevent="moveTab(-1, $event)"
                     @keydown.home.prevent="moveTab('first', $event)"
                     @keydown.end.prevent="moveTab('last', $event)"
-                    class="flex items-center justify-center gap-3 px-6 py-4 transition-all duration-300 border text-[11px] tracking-widest uppercase font-bold w-full sm:w-[220px] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+                    class="flex min-w-0 flex-1 items-center justify-center gap-3 px-3 py-4 transition-all duration-300 border text-[11px] tracking-widest uppercase font-bold sm:flex-none sm:w-[220px] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
                         :class="activeTab === '{{ $key }}' ? 'bg-brand-green text-brand-light border-brand-green' : 'bg-brand-light text-brand-green/60 border-brand-green/20 hover:border-brand-green hover:text-brand-green'">
                     
                     <span class="flex-shrink-0" aria-hidden="true">{!! $tab['icon'] !!}</span>
@@ -50,7 +50,7 @@
                      style="display: none;">
 
                     @if($tab['type'] === 'multi-split')
-                        <div class="space-y-16 md:space-y-24">
+                        <div class="space-y-12 md:space-y-16">
                             @foreach($tab['items'] as $item)
                                 <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-center"
                                      x-data="{ isSplitVisible: false }"

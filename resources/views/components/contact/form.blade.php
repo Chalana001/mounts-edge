@@ -71,7 +71,7 @@
 
             {{-- Room Booking --}}
             <div x-show="type === @js(\App\Models\Enquiry::TYPE_ROOM)" x-cloak class="space-y-5">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
                     <div class="space-y-1.5">
                         <label for="check_in" class="{{ $labelClass }}">Check-in *</label>
                         <input id="check_in" type="date" name="details[check_in]" value="{{ old('details.check_in') }}" min="{{ $today }}" class="{{ $fieldClass }}">
@@ -106,7 +106,7 @@
             </div>
 
             {{-- Wedding Inquiry --}}
-            <div x-show="type === @js(\App\Models\Enquiry::TYPE_WEDDING)" x-cloak class="grid grid-cols-2 md:grid-cols-4 gap-5">
+            <div x-show="type === @js(\App\Models\Enquiry::TYPE_WEDDING)" x-cloak class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
                 <div class="space-y-1.5">
                     <label for="event_date" class="{{ $labelClass }}">Event Date *</label>
                     <input id="event_date" type="date" name="details[event_date]" value="{{ old('details.event_date') }}" min="{{ $today }}" class="{{ $fieldClass }}">

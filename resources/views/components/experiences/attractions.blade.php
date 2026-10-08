@@ -64,7 +64,7 @@
             ];
         @endphp
 
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             @foreach($experiences as $index => $item)
                 <div class="group flex flex-col border border-brand-green/20 bg-white hover:border-brand-orange/30 hover:shadow-lg transition-all duration-500 reveal-scale"
                      style="transition-delay: {{ $index * 100 }}ms"

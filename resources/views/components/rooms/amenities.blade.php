@@ -1,4 +1,4 @@
-<section class="py-16 bg-[#f9f9f7]"
+<section class="py-12 md:py-20 bg-[#f9f9f7]"
          x-data="{ isVisible: false }"
          x-intersect.once.margin.-25%.0px.-25%.0px="isVisible = true">
     <div class="container mx-auto px-6">
@@ -6,7 +6,7 @@
         <div class="text-center mb-8 md:mb-16 reveal-fade"
              :class="isVisible ? 'reveal-visible' : ''"
              style="transition-duration: 1.2s;">
-            <h2 class="text-4xl font-serif text-brand-green">Room Amenities</h2>
+            <h2 class="text-3xl md:text-4xl font-serif text-brand-green">Room Amenities</h2>
         </div>
 
         <div class="grid grid-cols-3 sm:grid-cols-4 gap-5 sm:gap-8 max-w-5xl mx-auto">

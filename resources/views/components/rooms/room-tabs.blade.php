@@ -29,7 +29,7 @@
                 Deluxe single, double, triple and family rooms, plus a Family Suite, in Gurulupotha near Hasalaka and Mahiyangana. Find your mountain escape
             </p>
         </div>
-        <div role="tablist" aria-label="Room types" class="flex {{ count($roomTypes) <= 3 ? 'flex-row' : 'flex-col' }} md:flex-row md:flex-wrap justify-center gap-2 md:gap-4 mb-12 md:mb-16 px-4 md:px-6">
+        <div role="tablist" aria-label="Room types" class="flex {{ count($roomTypes) <= 3 ? 'flex-row' : 'flex-col' }} md:flex-row md:flex-wrap justify-center gap-2 md:gap-4 mb-12 md:mb-16 px-0">
             @foreach($roomTypes as $type)
                 <button type="button"
                     role="tab"
@@ -42,7 +42,7 @@
                     @keydown.left.prevent="moveTab(-1, $event)"
                     @keydown.home.prevent="moveTab('first', $event)"
                     @keydown.end.prevent="moveTab('last', $event)"
-                    class="flex items-center justify-center px-2 py-3 md:px-6 md:py-3 transition-all duration-300 border text-[11px] tracking-widest uppercase font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 {{ count($roomTypes) <= 3 ? 'flex-1 md:flex-none' : 'w-full md:w-auto' }} md:min-w-[180px]"
+                    class="flex min-w-0 flex-1 items-center justify-center px-3 py-3 md:flex-none md:px-6 md:py-3 transition-all duration-300 border text-[11px] tracking-widest uppercase font-bold focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 {{ count($roomTypes) <= 3 ? 'md:flex-none' : 'w-full md:w-auto' }} md:min-w-[180px]"
                     :class="activeTab === '{{ $type->slug }}'
                         ? 'bg-brand-green text-brand-light border-brand-green'
                         : 'bg-brand-light text-brand-green/70 border-brand-green/20 hover:border-brand-green/40'">
@@ -52,7 +52,7 @@
                 </button>
             @endforeach
         </div>
-        <div class="relative min-h-[500px] md:min-h-[600px]">
+        <div class="relative min-h-0">
             @foreach($roomTypes as $type)
                 <div x-show="activeTab === '{{ $type->slug }}'"
                      id="room-panel-{{ $type->slug }}"

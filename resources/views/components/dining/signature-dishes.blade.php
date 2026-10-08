@@ -34,7 +34,7 @@
             ];
         @endphp
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
             @foreach($dishes as $index => $dish)
                 <div class="group reveal-scale"
                      style="transition-delay: {{ $index * 150 }}ms"
@@ -45,7 +45,7 @@
                     </div>
                     
                     <h3 class="font-serif text-brand-green text-sm md:text-lg mb-1 md:mb-2">{{ $dish['name'] }}</h3>
-                    <p class="text-brand-green/70 text-[11px] md:text-sm font-light leading-relaxed">{{ $dish['desc'] }}</p>
+                    <p class="text-brand-green/70 text-xs sm:text-sm font-light leading-relaxed">{{ $dish['desc'] }}</p>
                 </div>
             @endforeach
         </div>

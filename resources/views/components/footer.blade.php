@@ -13,7 +13,7 @@
             {{-- mb-10 matches the tagline above and the contact block below, so the
                  three stack on an even rhythm. An orange rule used to sit here and
                  justified a wider gap; without it, the extra space just read as a hole. --}}
-            <nav class="flex flex-wrap justify-center gap-8 mb-10">
+            <nav class="flex flex-wrap justify-center gap-x-5 gap-y-3 sm:gap-8 mb-10">
                 @php
                     $footerLinks = [
                         ['name' => 'Stay', 'path' => '/luxury-stay'],
@@ -33,7 +33,7 @@
                 @endforeach
             </nav>
 
-            <div class="space-y-3 text-brand-cream/70 text-xs tracking-wide font-light mb-10">
+            <div class="space-y-3 text-brand-cream/70 text-sm tracking-wide font-light mb-10">
                 <p class="hover:text-brand-cream transition-colors cursor-default" itemprop="address">{{ $siteSettings->address }}</p>
                 <p><a href="tel:{{ $siteSettings->phone_link }}" data-conversion="contact_phone_click" class="inline-block py-1 hover:text-brand-cream transition-colors">{{ $siteSettings->phone_display }}</a></p>
                 <p><a href="mailto:{{ $siteSettings->public_email }}" data-conversion="contact_email_click" class="inline-block py-1 hover:text-brand-cream transition-colors">{{ $siteSettings->public_email }}</a></p>

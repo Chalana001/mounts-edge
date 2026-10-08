@@ -113,12 +113,12 @@
 
         {{-- The nav appears at lg (1024px), which is also where space is tightest.
              gap-10 throughout cost 80px the row did not have; it returns at xl. --}}
-        <div class="hidden lg:flex items-center gap-6 xl:gap-10">
+        <div class="hidden lg:flex items-center gap-4 xl:gap-8">
             @foreach($navLinks as $link)
                 <a href="{{ $link['url'] }}"
                    class="py-2 text-[11px] tracking-[0.15em] uppercase font-bold transition-colors duration-300 relative group rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-4"
                    :aria-current="currentPath === '{{ $link['url'] }}' ? 'page' : false"
-                   :class="isScrolled ? (currentPath === '{{ $link['url'] }}' ? 'text-brand-ember' : 'text-brand-green hover:text-brand-ember') : (currentPath === '{{ $link['url'] }}' ? 'text-brand-orange' : 'text-brand-light/80 hover:text-brand-light')">
+                   :class="isScrolled ? (currentPath === '{{ $link['url'] }}' ? 'text-brand-ember' : 'text-brand-green hover:text-brand-ember') : (currentPath === '{{ $link['url'] }}' ? 'text-brand-light' : 'text-brand-light/80 hover:text-brand-light')">
                     {{ $link['name'] }}
 
                     <span class="absolute bottom-0 left-0 w-full h-[1px] transition-transform duration-300 origin-left"
@@ -128,7 +128,7 @@
             @endforeach
 
             <a href="/contact"
-               class="px-6 xl:px-8 py-4 text-[11px] tracking-[0.15em] uppercase font-bold transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
+               class="px-5 xl:px-8 py-3 min-h-12 inline-flex items-center text-[11px] tracking-[0.15em] uppercase font-bold transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2"
                :class="isScrolled
                     ? 'bg-brand-green text-brand-light hover:bg-brand-hover'
                     : 'bg-brand-light/10 border border-brand-light/30 text-brand-light hover:bg-brand-light hover:text-brand-green'">

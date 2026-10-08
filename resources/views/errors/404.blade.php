@@ -13,25 +13,25 @@
                 Here are some places you can go instead.
             </p>
 
-            <nav aria-label="Site sections" class="flex flex-wrap items-center justify-center gap-3">
+            <nav aria-label="Site sections" class="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap">
                 <a href="{{ route('luxury-stay') }}"
-                   class="bg-brand-light text-brand-green hover:bg-brand-cream px-8 py-4 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
+                   class="inline-flex min-h-12 w-full items-center justify-center bg-brand-light text-brand-green hover:bg-brand-cream px-8 py-4 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors sm:w-auto">
                     Rooms
                 </a>
                 <a href="{{ route('weddings') }}"
-                   class="border border-brand-cream/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-8 py-4 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
+                   class="inline-flex min-h-12 items-center justify-center border border-brand-cream/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
                     Weddings
                 </a>
                 <a href="{{ route('dining') }}"
-                   class="border border-brand-cream/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-8 py-4 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
+                   class="inline-flex min-h-12 items-center justify-center border border-brand-cream/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
                     Dining
                 </a>
                 <a href="{{ route('gallery') }}"
-                   class="border border-brand-cream/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-8 py-4 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
+                   class="inline-flex min-h-12 items-center justify-center border border-brand-cream/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
                     Gallery
                 </a>
                 <a href="{{ route('contact') }}"
-                   class="border border-brand-cream/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-8 py-4 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
+                   class="inline-flex min-h-12 items-center justify-center border border-brand-cream/60 text-brand-light hover:border-brand-orange hover:text-brand-orange px-6 py-3 text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
                     Contact
                 </a>
             </nav>

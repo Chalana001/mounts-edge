@@ -42,10 +42,10 @@
             ];
         @endphp
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-8 lg:gap-12 max-w-6xl mx-auto">
             @foreach($info as $item)
                 <div class="text-center group">
-                    <div class="w-9 h-9 md:w-12 md:h-12 mx-auto mb-2 md:mb-6 border border-brand-green/30 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-brand-light transition-all duration-500">
+                    <div class="w-10 h-10 md:w-12 md:h-12 mx-auto mb-2 md:mb-6 border border-brand-green/30 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-brand-light transition-all duration-500">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
                              class="w-4 h-4 md:w-5 md:h-5">
                             @foreach($item['paths'] as $path)
@@ -55,7 +55,7 @@
                     </div>
                     <h3 class="font-serif text-brand-green text-[11px] md:text-lg mb-1 md:mb-3">{{ $item['title'] }}</h3>
 
-                    @php $lineClass = 'text-brand-green/70 text-[11px] md:text-sm font-light italic leading-snug md:leading-relaxed break-words'; @endphp
+                    @php $lineClass = 'text-brand-green/70 text-xs md:text-sm font-light italic leading-snug md:leading-relaxed break-words'; @endphp
 
                     @if(! empty($item['url']))
                         {{-- Tap to call / email / open directions. --}}

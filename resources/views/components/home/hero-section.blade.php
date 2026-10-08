@@ -100,12 +100,11 @@
             </div>
         </div>
 
-        {{-- Mobile: sits in normal flow under the text so it can never overlap it,
-             but stretched past the container's right padding (w-full + 1.5rem) and
-             right-aligned, so the partial card is clipped by the screen edge exactly
-             like it is on desktop instead of stopping short with dead space beside it.
-             Desktop: floats at the bottom-right edge of the hero, as designed. --}}
-        <div class="w-[calc(100%+1.5rem)] mt-8 md:mt-0 md:absolute md:right-0 md:bottom-16 md:w-auto overflow-hidden z-20"
+        {{-- Mobile: sits in normal flow under the text so it can never overlap it.
+             The rail itself stays inside the viewport (w-full) and the inner track
+             overflows hidden, so no horizontal page scroll can be produced at
+             narrow widths; the clip effect now comes from the mask below. --}}
+        <div class="w-full mt-8 md:mt-0 md:absolute md:right-0 md:bottom-16 md:w-auto overflow-hidden z-20"
              x-show="shown"
              x-transition:enter="transition ease-out duration-1000 delay-100"
              x-transition:enter-start="opacity-0 translate-y-12"

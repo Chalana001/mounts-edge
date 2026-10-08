@@ -2,7 +2,7 @@
      corners on the Contact page only, which framed the page in floating chrome and
      put back-to-top in the harder corner to reach one-handed. WhatsApp is the
      primary booking channel, so it keeps the corner and back-to-top sits above it. --}}
-<div class="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-3"
+<div class="fixed bottom-4 right-4 z-50 flex flex-col items-center gap-2 sm:bottom-6 sm:right-6 sm:gap-3"
      x-data="{ scrolled: false }"
      x-init="scrolled = window.scrollY > 400;
              window.addEventListener('scroll', () => scrolled = window.scrollY > 400)">
