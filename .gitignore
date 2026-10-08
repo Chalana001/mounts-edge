@@ -22,3 +22,6 @@ yarn-error.log
 # ZCode session tooling
 /.v2c/
 /.zcodeignore
+
+# ZCode session plans
+/.zcode/
