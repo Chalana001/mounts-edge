@@ -5,20 +5,23 @@
             <div class="absolute inset-6 border border-brand-light/15"></div>
 
             <div class="relative z-10 flex w-full flex-col justify-between">
-                <a href="/" class="font-serif text-2xl tracking-wide">Mounts Edge Regency</a>
+                <a href="/" class="flex items-center gap-4">
+                    <x-logo variant="mark" light alt="" class="h-12 w-auto shrink-0" />
+                    <span class="font-serif text-2xl tracking-wide"><x-brand-name /></span>
+                </a>
 
                 <div class="max-w-xl pb-12">
-                    <span class="mb-6 block text-[10px] font-bold uppercase tracking-[0.35em] text-brand-light/60">Private Management Portal</span>
+                    <span class="mb-6 block text-[10px] font-bold uppercase tracking-[0.35em] text-brand-light/70">Private Management Portal</span>
                     <h1 class="font-serif text-5xl font-normal leading-[1.08] xl:text-6xl">Where every stay<br>begins behind<br>the scenes.</h1>
                     <div class="mt-10 h-px w-20 bg-brand-orange"></div>
                 </div>
 
-                <p class="text-xs tracking-wider text-brand-light/50">Kandy, Sri Lanka</p>
+                <p class="text-xs tracking-wider text-brand-light/70">Kandy, Sri Lanka</p>
             </div>
         </section>
 
         <section class="relative flex min-h-screen items-center justify-center px-6 py-16 sm:px-12">
-            <a href="/" class="absolute left-6 top-7 font-serif text-xl tracking-wide lg:hidden">Mounts Edge Regency</a>
+            <a href="/" class="absolute left-6 top-7 font-serif text-xl tracking-wide lg:hidden"><x-brand-name /></a>
 
             <div class="w-full max-w-md">
                 <div class="mb-10">
@@ -51,7 +54,7 @@
                         </label>
 
                         @if (Route::has('password.request'))
-                            <a class="text-xs text-brand-green/60 transition hover:text-brand-orange focus:outline-none" href="{{ route('password.request') }}">{{ __('Forgot password?') }}</a>
+                            <a class="text-xs text-brand-green/60 transition hover:text-brand-ember focus:outline-none" href="{{ route('password.request') }}">{{ __('Forgot password?') }}</a>
                         @endif
                     </div>
 

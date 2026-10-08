@@ -1,26 +1,5 @@
-<section class="relative h-[70vh] md:h-[80vh] overflow-hidden" 
-         x-data="{ isVisible: false }" 
-         x-init="setTimeout(() => isVisible = true, 100)">
-    
-    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] ease-in-out scale-110"
-         :class="isVisible ? 'scale-100' : 'scale-110'"
-         style="background-image: url('/storage/hero-images/experience.jpg');">
-    </div>
-    <div class="absolute inset-0 bg-brand-green/40"></div>
-
-    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-        <div class="reveal-fade transition-all duration-1000 delay-300"
-             :class="isVisible ? 'reveal-visible' : ''">
-            <span class="text-[#F5F5DC]/80 text-xs tracking-[0.3em] uppercase mb-6 block font-bold">
-                Explore the Highlands
-            </span>
-            <h1 class="text-[clamp(2.5rem,7vw,4.5rem)] font-serif text-brand-light mb-6">
-                Experiences
-            </h1>
-            <div class="w-12 h-px bg-white/40 mx-auto mb-6"></div>
-            <p class="text-[#F5F5DC]/80 text-[clamp(1rem,2vw,1.25rem)] max-w-xl font-light mx-auto">
-                Discover nature, history, and adventure around Mounts Edge Mahiyangana
-            </p>
-        </div>
-    </div>
-</section>
+<x-page-hero
+    image="/storage/hero-images/experience.jpg"
+    eyebrow="Day-Outs · Hasalaka & Mahiyangana"
+    title="Things to Do Near Mahiyangana"
+    subtitle="Temples, lakes, viewpoints, and village life around Gurulupotha — ask the team for directions" />

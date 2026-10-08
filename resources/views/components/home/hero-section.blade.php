@@ -1,6 +1,12 @@
 <section class="relative h-screen w-full overflow-hidden bg-black font-sans" 
-    x-data="heroComponent()" 
+    x-data="heroComponent()"
     x-init="initComponent()"
+    x-intersect="inView = true; startAuto()"
+    x-intersect:leave="inView = false; stopAuto()"
+    @mouseenter="pause()"
+    @mouseleave="resume()"
+    @focusin="pause()"
+    @focusout="resume()"
     @resize.window="windowWidth = window.innerWidth">
 
     <div class="absolute inset-0 z-0">
@@ -235,13 +241,72 @@
                 // ever fetched; the rest stay unbound until navigated to.
                 loaded: [],
 
+                autoTimer: null,
+                autoDelay: 6000,
+                paused: false,
+                inView: false,
+
                 initComponent() {
                     this.markLoaded(this.bgIndex);
                     setTimeout(() => {
                         this.shown = true;
                         this.textShown = true;
                     }, 100);
+
+                    // A backgrounded tab still fires setInterval, just throttled, so
+                    // returning to it would otherwise replay a burst of queued slides.
+                    document.addEventListener('visibilitychange', () => {
+                        document.hidden ? this.stopAuto() : this.startAuto();
+                    });
                 },
+
+                /**
+                 * Auto-advance. Deliberately does nothing when the visitor has asked
+                 * for reduced motion -- a carousel that moves on its own is exactly
+                 * the kind of thing that setting is for.
+                 *
+                 * Only ever runs while the hero is on screen (x-intersect on the
+                 * section), which also protects the lazy background loading: a
+                 * visitor who scrolls past does not sit there pulling down the
+                 * remaining slides in the background.
+                 */
+                startAuto() {
+                    // inView is checked here rather than only at the call site: this
+                    // also runs on visibilitychange, and returning to the tab while
+                    // the hero is scrolled away must not start it advancing off-screen.
+                    if (!this.inView || this.autoTimer || this.paused || document.hidden) return;
+                    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                    if (this.slides.length < 2) return;
+
+                    this.autoTimer = setInterval(() => this.nextSlide(), this.autoDelay);
+                },
+
+                stopAuto() {
+                    clearInterval(this.autoTimer);
+                    this.autoTimer = null;
+                },
+
+                // Hover and keyboard focus hold the carousel still, so it cannot
+                // slide out from under someone reading it or tabbing the arrows.
+                pause() {
+                    this.paused = true;
+                    this.stopAuto();
+                },
+
+                resume() {
+                    this.paused = false;
+                    this.startAuto();
+                },
+
+                // Restarts the countdown after a manual click, so the next auto
+                // advance is a full interval away rather than whatever was left.
+                restartAuto() {
+                    if (!this.autoTimer) return;
+                    this.stopAuto();
+                    this.startAuto();
+                },
+
+                destroy() { this.stopAuto(); },
 
                 isLoaded(id) { return this.loaded.includes(id); },
 
@@ -317,7 +382,8 @@
                 nextSlide() {
                     if (this.isAnimating) return;
                     this.isAnimating = true;
-                    
+                    this.restartAuto();
+
                     this.textShown = false;
                     this.animatingType = 'next';
                     this.bgIndex = (this.bgIndex + 1) % this.slides.length;
@@ -338,7 +404,8 @@
                 prevSlide() {
                     if (this.isAnimating) return;
                     this.isAnimating = true;
-                    
+                    this.restartAuto();
+
                     this.textShown = false;
                     this.bgIndex = (this.bgIndex - 1 + this.slides.length) % this.slides.length;
                     // Seed from the slide before this one, so markLoaded's

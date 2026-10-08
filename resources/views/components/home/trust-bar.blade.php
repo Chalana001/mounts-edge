@@ -20,12 +20,12 @@
                      style="transition-delay: {{ $index * 150 }}ms"
                      :class="isVisible ? 'reveal-visible' : ''">
 
-                    <div class="text-2xl sm:text-4xl md:text-5xl font-serif text-[#F5F5DC] mb-2 md:mb-3 tabular-nums"
+                    <div class="text-2xl sm:text-4xl md:text-5xl font-serif text-brand-cream mb-2 md:mb-3 tabular-nums"
                          x-data="countUp({{ $stat['target'] }}, {{ $stat['decimals'] }}, @js($stat['suffix']))"
                          x-intersect.once.margin.-15%.0.-15%.0="start()"
                          x-text="display">{{ $stat['value'] }}</div>
 
-                    <div class="text-[#F5F5DC]/50 text-[8px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.3em] uppercase font-light leading-tight">
+                    <div class="text-brand-cream/70 text-[11px] tracking-[0.2em] sm:tracking-[0.3em] uppercase font-light leading-tight">
                         {{ $stat['label'] }}
                     </div>
                 </div>

@@ -1,9 +1,9 @@
 <x-admin-layout>
-    <div class="py-12 bg-[#FAF9F6] min-h-screen" x-data="roomAdmin()">
+    <div class="py-12 bg-brand-light min-h-screen" x-data="roomAdmin()">
         <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
             <header class="mb-10">
-                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E67E22]">Accommodation</span>
-                <h1 class="mt-2 font-serif text-3xl text-[#1a2e2a]">Rooms</h1>
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-ember">Accommodation</span>
+                <h1 class="mt-2 font-serif text-3xl text-brand-green">Rooms</h1>
                 <p class="mt-2 text-sm text-gray-500">Manage room types, amenities, rates and accommodation details.</p>
             </header>
             
@@ -26,11 +26,11 @@
             @endif
 
             <div class="mb-16">
-                <h2 class="text-2xl font-serif text-[#1a2e2a] mb-6">Room Types</h2>
+                <h2 class="text-2xl font-serif text-brand-green mb-6">Room Types</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="md:col-span-1">
                         <div class="bg-white p-6 shadow-sm border border-gray-100 rounded-lg">
-                            <h3 class="text-lg font-bold text-[#E67E22] uppercase tracking-widest text-xs mb-4">Add New Type</h3>
+                            <h3 class="text-lg font-bold text-brand-ember uppercase tracking-widest text-xs mb-4">Add New Type</h3>
                             <form action="{{ route('admin.room-types.store') }}" method="POST">
                                 @csrf
                                 <div class="mb-4">
@@ -45,7 +45,7 @@
                                     <label class="block text-[10px] tracking-widest uppercase text-gray-500 mb-2">SVG Icon</label>
                                     <textarea name="icon" rows="2" class="w-full border-gray-300 rounded-md" required></textarea>
                                 </div>
-                                <button type="submit" class="w-full bg-[#1a2e2a] text-white px-4 py-3 text-[10px] tracking-widest uppercase font-bold hover:bg-[#E67E22]">Save Type</button>
+                                <button type="submit" class="w-full bg-brand-green text-white px-4 py-3 text-[10px] tracking-widest uppercase font-bold hover:bg-brand-orange">Save Type</button>
                             </form>
                         </div>
                     </div>
@@ -64,9 +64,9 @@
                                 <tbody>
                                     @foreach($roomTypes as $type)
                                     <tr class="border-b border-gray-50 hover:bg-gray-50">
-                                        <td class="p-4 font-bold text-[#1a2e2a] text-sm">{{ $type->name }}</td>
+                                        <td class="p-4 font-bold text-brand-green text-sm">{{ $type->name }}</td>
                                         <td class="p-4 text-xs text-gray-600">{{ $type->slug }}</td>
-                                        <td class="p-4 text-xs font-bold text-[#E67E22]">{{ $type->rooms_count }}</td>
+                                        <td class="p-4 text-xs font-bold text-brand-ember">{{ $type->rooms_count }}</td>
                                         <td class="p-4 text-right">
                                             <form action="{{ route('admin.room-types.destroy', $type->id) }}" method="POST" onsubmit="return confirm('Delete this room type?');">
                                                 @csrf @method('DELETE')
@@ -86,8 +86,8 @@
 
             <div>
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-3xl font-serif text-[#1a2e2a]">Manage Rooms</h2>
-                    <button @click="openCreate()" class="bg-[#E67E22] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#1a2e2a] transition-colors shadow-sm">
+                    <h2 class="text-3xl font-serif text-brand-green">Manage Rooms</h2>
+                    <button @click="openCreate()" class="bg-brand-orange text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-brand-green transition-colors shadow-sm">
                         + Add New Room
                     </button>
                 </div>
@@ -96,7 +96,7 @@
                     <div class="p-6 text-gray-900 overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <tr class="bg-[#1a2e2a] text-white text-[10px] uppercase tracking-widest">
+                                <tr class="bg-brand-green text-white text-[10px] uppercase tracking-widest">
                                     <th class="p-4">Image</th>
                                     <th class="p-4">Name</th>
                                     <th class="p-4">Type</th>
@@ -108,12 +108,12 @@
                                 @forelse($rooms as $room)
                                 <tr class="border-b border-gray-50 hover:bg-gray-50 transition-colors">
                                     <td class="p-4"><img src="{{ $room->image }}" alt="{{ $room->name }}" class="w-20 h-14 object-cover rounded shadow-sm"></td>
-                                    <td class="p-4 font-bold text-[#1a2e2a]">{{ $room->name }}</td>
+                                    <td class="p-4 font-bold text-brand-green">{{ $room->name }}</td>
                                     <td class="p-4 text-sm text-gray-600">{{ $room->roomType->name ?? 'N/A' }}</td>
                                     <td class="p-4 text-sm text-gray-600">{{ $room->capacity }}</td>
                                     <td class="p-4">
                                         <div class="flex items-center gap-4">
-                                            <button @click="openEdit({{ Illuminate\Support\Js::from($room) }}, {{ Illuminate\Support\Js::from($room->features->pluck('id')->values()) }}, {{ Illuminate\Support\Js::from($room->images ?: array_filter([$room->image])) }})" class="text-[#E67E22] hover:text-[#1a2e2a] text-[10px] font-bold tracking-widest uppercase">Edit</button>
+                                            <button @click="openEdit({{ Illuminate\Support\Js::from($room) }}, {{ Illuminate\Support\Js::from($room->features->pluck('id')->values()) }}, {{ Illuminate\Support\Js::from($room->images ?: array_filter([$room->image])) }})" class="text-brand-ember hover:text-brand-green text-[10px] font-bold tracking-widest uppercase">Edit</button>
                                             
                                             <form action="{{ route('admin.rooms.destroy', $room->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this room?');">
                                                 @csrf @method('DELETE')
@@ -138,7 +138,7 @@
 
         <div x-show="roomModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" style="display: none;">
             <div class="bg-white max-w-4xl w-full p-8 rounded-lg max-h-[90vh] overflow-y-auto">
-                <h3 class="text-2xl font-serif text-[#1a2e2a] mb-6" x-text="editRoom ? 'Edit Room: ' + editRoom.name : 'Add New Room'"></h3>
+                <h3 class="text-2xl font-serif text-brand-green mb-6" x-text="editRoom ? 'Edit Room: ' + editRoom.name : 'Add New Room'"></h3>
                 
                 <form :action="editRoom ? `/admin/rooms/${editRoom.id}` : '{{ route('admin.rooms.store') }}'" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -175,7 +175,7 @@
                             <template x-for="(img, i) in kept" :key="img">
                                 <div class="flex items-center gap-2 mb-2 bg-gray-50 border border-gray-200 rounded p-2">
                                     <img :src="img" alt="" class="h-12 w-16 rounded object-cover shadow-sm">
-                                    <span class="text-[9px] font-bold uppercase tracking-widest text-[#E67E22] w-10" x-text="i === 0 ? 'Main' : ''"></span>
+                                    <span class="text-[9px] font-bold uppercase tracking-widest text-brand-ember w-10" x-text="i === 0 ? 'Main' : ''"></span>
                                     <input type="hidden" name="existing_images[]" :value="img">
                                     <div class="ml-auto flex items-center gap-1">
                                         <button type="button" @click="move(i, -1)" :disabled="i === 0" class="px-2 py-1 text-xs border rounded disabled:opacity-30" title="Move up">&uarr;</button>
@@ -209,7 +209,7 @@
                                 <label class="flex items-center space-x-2 cursor-pointer">
                                     <input type="checkbox" name="features[]" value="{{ $feature->id }}" 
                                            x-bind:checked="selectedFeatures.includes({{ $feature->id }})"
-                                           class="text-[#E67E22] rounded focus:ring-[#E67E22]">
+                                           class="text-brand-ember rounded focus:ring-brand-orange">
                                     <span class="text-sm text-gray-700">{{ $feature->name }}</span>
                                 </label>
                             @endforeach
@@ -218,7 +218,7 @@
 
                     <div class="flex justify-end gap-4 pt-6 border-t border-gray-100">
                         <button type="button" @click="roomModal = false" class="px-6 py-2 border text-xs uppercase font-bold tracking-widest">Cancel</button>
-                        <button type="submit" class="bg-[#1a2e2a] text-white px-8 py-2 text-xs uppercase font-bold tracking-widest hover:bg-[#E67E22]">Save Room</button>
+                        <button type="submit" class="bg-brand-green text-white px-8 py-2 text-xs uppercase font-bold tracking-widest hover:bg-brand-orange">Save Room</button>
                     </div>
                 </form>
             </div>

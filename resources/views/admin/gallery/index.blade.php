@@ -1,8 +1,8 @@
 <x-admin-layout>
-    <div class="py-12 bg-[#FAF9F6] min-h-screen" x-data="{ activeTab: 'images', imageModal: false, editItem: null }">
+    <div class="py-12 bg-brand-light min-h-screen" x-data="{ activeTab: 'images', imageModal: false, editItem: null }">
         <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
             
-            <header class="mb-8"><span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E67E22]">Media Library</span><h1 class="mt-2 font-serif text-3xl text-[#1a2e2a]">Gallery</h1><p class="mt-2 text-sm text-gray-500">Upload, categorize and manage images shown on the website.</p></header>
+            <header class="mb-8"><span class="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-ember">Media Library</span><h1 class="mt-2 font-serif text-3xl text-brand-green">Gallery</h1><p class="mt-2 text-sm text-gray-500">Upload, categorize and manage images shown on the website.</p></header>
 
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 text-sm font-bold">
@@ -23,14 +23,14 @@
             @endif
 
             <div class="flex gap-4 mb-8 overflow-x-auto border-b border-gray-300 pb-2">
-                <button @click="activeTab = 'images'" :class="activeTab === 'images' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Gallery Images</button>
-                <button @click="activeTab = 'categories'" :class="activeTab === 'categories' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Categories</button>
+                <button @click="activeTab = 'images'" :class="activeTab === 'images' ? 'border-b-2 border-brand-orange text-brand-ember' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Gallery Images</button>
+                <button @click="activeTab = 'categories'" :class="activeTab === 'categories' ? 'border-b-2 border-brand-orange text-brand-ember' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Categories</button>
             </div>
 
             <div x-show="activeTab === 'images'">
                 <div class="flex justify-between items-center mb-6">
                     <p class="text-gray-500 text-sm">Upload and manage your gallery images here.</p>
-                    <button @click="imageModal = true; editItem = null" class="bg-[#1a2e2a] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#E67E22] transition-colors shadow-sm">
+                    <button @click="imageModal = true; editItem = null" class="bg-brand-green text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-brand-orange transition-colors shadow-sm">
                         + Add New Image
                     </button>
                 </div>
@@ -42,7 +42,7 @@
                                 <img src="{{ asset($item->image) }}" alt="{{ $item->description ?: 'Gallery image' }}" loading="lazy" decoding="async" class="w-full h-full object-cover">
                                 
                                 <div class="absolute inset-0 bg-black/30 opacity-100 transition-opacity flex items-center justify-center gap-3 md:bg-black/50 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100">
-                                    <button @click="editItem = {{ Illuminate\Support\Js::from($item) }}; imageModal = true" class="bg-[#E67E22] text-white p-2 rounded hover:bg-orange-600">
+                                    <button @click="editItem = {{ Illuminate\Support\Js::from($item) }}; imageModal = true" class="bg-brand-orange text-white p-2 rounded hover:bg-orange-600">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                     </button>
                                     
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="p-3">
-                                <span class="text-[9px] uppercase tracking-widest text-[#E67E22] font-bold">{{ $item->category->name ?? 'Uncategorized' }}</span>
+                                <span class="text-[9px] uppercase tracking-widest text-brand-ember font-bold">{{ $item->category->name ?? 'Uncategorized' }}</span>
                                 <p class="text-xs text-gray-600 truncate mt-1">{{ $item->description ?? 'No description' }}</p>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
  
                 <div x-show="imageModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" style="display: none;">
                     <div class="bg-white max-w-lg w-full p-8 rounded-lg">
-                        <h3 class="text-2xl font-serif text-[#1a2e2a] mb-6" x-text="editItem ? 'Edit Image' : 'Upload New Image'"></h3>
+                        <h3 class="text-2xl font-serif text-brand-green mb-6" x-text="editItem ? 'Edit Image' : 'Upload New Image'"></h3>
                         
                         <form :action="editItem ? `/admin/gallery/items/${editItem.id}` : '{{ route('admin.gallery.items.store') }}'" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -98,7 +98,7 @@
 
                             <div class="flex justify-end gap-4">
                                 <button type="button" @click="imageModal = false" class="px-6 py-2 border text-xs uppercase font-bold">Cancel</button>
-                                <button type="submit" class="bg-[#1a2e2a] text-white px-6 py-2 text-xs uppercase font-bold">Save</button>
+                                <button type="submit" class="bg-brand-green text-white px-6 py-2 text-xs uppercase font-bold">Save</button>
                             </div>
                         </form>
                     </div>
@@ -109,14 +109,14 @@
                 <div class="grid md:grid-cols-3 gap-8">
                     <div class="md:col-span-1">
                         <div class="bg-white p-6 shadow-sm border border-gray-100 rounded-lg">
-                            <h3 class="text-lg font-bold text-[#E67E22] uppercase tracking-widest text-xs mb-4">Add Category</h3>
+                            <h3 class="text-lg font-bold text-brand-ember uppercase tracking-widest text-xs mb-4">Add Category</h3>
                             <form action="{{ route('admin.gallery.categories.store') }}" method="POST">
                                 @csrf
                                 <div class="mb-4">
                                     <label class="text-[10px] uppercase text-gray-500">Name (e.g. Weddings)</label>
                                     <input type="text" name="name" class="w-full border-gray-300 rounded" required>
                                 </div>
-                                <button type="submit" class="w-full bg-[#1a2e2a] text-white px-4 py-3 text-[10px] tracking-widest uppercase font-bold hover:bg-[#E67E22]">Add Category</button>
+                                <button type="submit" class="w-full bg-brand-green text-white px-4 py-3 text-[10px] tracking-widest uppercase font-bold hover:bg-brand-orange">Add Category</button>
                             </form>
                         </div>
                     </div>
@@ -134,8 +134,8 @@
                                 <tbody>
                                     @forelse($categories as $category)
                                     <tr class="border-b border-gray-50 hover:bg-gray-50">
-                                        <td class="p-4 font-bold text-[#1a2e2a] text-sm">{{ $category->name }}</td>
-                                        <td class="p-4 text-xs font-bold text-[#E67E22] text-center">{{ $category->items_count }}</td>
+                                        <td class="p-4 font-bold text-brand-green text-sm">{{ $category->name }}</td>
+                                        <td class="p-4 text-xs font-bold text-brand-ember text-center">{{ $category->items_count }}</td>
                                         <td class="p-4 text-right">
                                             <form action="{{ route('admin.gallery.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Delete this category?');">
                                                 @csrf @method('DELETE')

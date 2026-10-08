@@ -1,10 +1,10 @@
 <x-admin-layout>
-    <div class="min-h-screen bg-[#FAF9F6] py-10">
+    <div class="min-h-screen bg-brand-light py-10">
         <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
             <div class="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
                 <div>
-                    <a href="{{ route('admin.enquiries.index') }}" class="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-[#E67E22]">Back to Inbox</a>
-                    <h1 class="mt-3 font-serif text-3xl text-[#1a2e2a]">Enquiry Trash</h1>
+                    <a href="{{ route('admin.enquiries.index') }}" class="text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-brand-ember">Back to Inbox</a>
+                    <h1 class="mt-3 font-serif text-3xl text-brand-green">Enquiry Trash</h1>
                 </div>
                 @if ($enquiries->isNotEmpty())
                     <form method="POST" action="{{ route('admin.enquiries.trash.empty') }}" class="flex gap-2" onsubmit="return confirm('Permanently delete every enquiry in Trash?')">
@@ -23,7 +23,7 @@
                 @forelse ($enquiries as $enquiry)
                     <article class="flex flex-col justify-between gap-4 bg-white p-5 shadow-sm sm:flex-row sm:items-center">
                         <div>
-                            <h2 class="font-serif text-lg text-[#1a2e2a]">{{ $enquiry->name }}</h2>
+                            <h2 class="font-serif text-lg text-brand-green">{{ $enquiry->name }}</h2>
                             <p class="mt-1 text-xs text-gray-400">Deleted {{ $enquiry->deleted_at->diffForHumans() }}</p>
                         </div>
                         <div class="flex gap-4">

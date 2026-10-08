@@ -14,19 +14,19 @@
                     </svg>
                 </div>
 
-                <blockquote class="text-2xl md:text-4xl font-serif text-[#F5F5DC] mb-12 leading-[1.6] font-light italic">
+                <blockquote class="text-2xl md:text-4xl font-serif text-brand-cream mb-12 leading-[1.6] font-light italic">
                     "Our wedding at Mounts Edge was absolutely magical. The mountain views, the incredible food, and the attention to detail made it unforgettable."
                 </blockquote>
 
                 <div class="flex items-center justify-center gap-6">
                     <div class="h-px w-10 bg-brand-orange/40"></div>
-                    <p class="text-[10px] md:text-xs tracking-[0.4em] uppercase text-[#F5F5DC]/60 font-bold">
+                    <p class="text-[11px] md:text-xs tracking-[0.4em] uppercase text-brand-cream/70 font-bold">
                         Sarah & James, 2024
                     </p>
                     <div class="h-px w-10 bg-brand-orange/40"></div>
                 </div>
 
-                <span class="mt-8 block text-[9px] tracking-[0.2em] uppercase text-brand-orange/40 font-light">
+                <span class="mt-8 block text-[11px] tracking-[0.2em] uppercase text-brand-cream font-light">
                     Mahiyangana Highlands
                 </span>
 

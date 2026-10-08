@@ -1,8 +1,8 @@
 <x-admin-layout>
-    <div class="py-12 bg-[#FAF9F6] min-h-screen" x-data="{ activeTab: 'halls' }">
+    <div class="py-12 bg-brand-light min-h-screen" x-data="{ activeTab: 'halls' }">
         <div class="w-full px-5 sm:px-8 lg:px-10 xl:px-12">
             
-            <header class="mb-8"><span class="text-[10px] font-bold uppercase tracking-[0.25em] text-[#E67E22]">Celebrations</span><h1 class="mt-2 font-serif text-3xl text-[#1a2e2a]">Weddings</h1><p class="mt-2 text-sm text-gray-500">Manage halls, packages, catering menus and decoration options.</p></header>
+            <header class="mb-8"><span class="text-[10px] font-bold uppercase tracking-[0.25em] text-brand-ember">Celebrations</span><h1 class="mt-2 font-serif text-3xl text-brand-green">Weddings</h1><p class="mt-2 text-sm text-gray-500">Manage halls, packages, catering menus and decoration options.</p></header>
 
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6 text-sm font-bold">
@@ -23,15 +23,15 @@
             @endif
 
             <div class="flex gap-4 mb-8 overflow-x-auto border-b border-gray-300 pb-2">
-                <button @click="activeTab = 'halls'" :class="activeTab === 'halls' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Wedding Halls</button>
-                <button @click="activeTab = 'packages'" :class="activeTab === 'packages' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Packages</button>
-                <button @click="activeTab = 'catering'" :class="activeTab === 'catering' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Catering & Menu</button>
-                <button @click="activeTab = 'decorations'" :class="activeTab === 'decorations' ? 'border-b-2 border-[#E67E22] text-[#E67E22]' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Decorations</button>
+                <button @click="activeTab = 'halls'" :class="activeTab === 'halls' ? 'border-b-2 border-brand-orange text-brand-ember' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Wedding Halls</button>
+                <button @click="activeTab = 'packages'" :class="activeTab === 'packages' ? 'border-b-2 border-brand-orange text-brand-ember' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Packages</button>
+                <button @click="activeTab = 'catering'" :class="activeTab === 'catering' ? 'border-b-2 border-brand-orange text-brand-ember' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Catering & Menu</button>
+                <button @click="activeTab = 'decorations'" :class="activeTab === 'decorations' ? 'border-b-2 border-brand-orange text-brand-ember' : 'text-gray-500'" class="pb-2 text-sm uppercase tracking-widest font-bold">Decorations</button>
             </div>
 
             <div x-show="activeTab === 'halls'" x-data="hallAdmin()">
                 <div class="flex justify-end mb-4">
-                    <button @click="openCreate()" class="bg-[#1a2e2a] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#E67E22]">+ Add New Hall</button>
+                    <button @click="openCreate()" class="bg-brand-green text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-brand-orange">+ Add New Hall</button>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -39,10 +39,10 @@
                         <div class="bg-white p-6 shadow-sm border border-gray-100 flex gap-4">
                             <img src="{{ asset($h->image) }}" alt="{{ $h->name }}" class="w-32 h-24 object-cover rounded">
                             <div class="flex-1">
-                                <h4 class="font-bold text-lg text-[#1a2e2a]">{{ $h->name }}</h4>
+                                <h4 class="font-bold text-lg text-brand-green">{{ $h->name }}</h4>
                                 <p class="text-xs text-gray-500 mb-4">{{ $h->capacity }} • {{ $h->area }}</p>
                                 <div class="flex gap-4">
-                                    <button @click="openEdit({{ Illuminate\Support\Js::from($h) }}, {{ Illuminate\Support\Js::from($h->features ?: ['']) }}, {{ Illuminate\Support\Js::from($h->images ?: array_filter([$h->image])) }})" class="text-[#E67E22] text-[10px] font-bold uppercase tracking-widest">Edit</button>
+                                    <button @click="openEdit({{ Illuminate\Support\Js::from($h) }}, {{ Illuminate\Support\Js::from($h->features ?: ['']) }}, {{ Illuminate\Support\Js::from($h->images ?: array_filter([$h->image])) }})" class="text-brand-ember text-[10px] font-bold uppercase tracking-widest">Edit</button>
                                     <form action="{{ route('admin.weddings.hall.destroy', $h->id) }}" method="POST" onsubmit="return confirm('Delete this hall?');">
                                         @csrf @method('DELETE')
                                         <button class="text-red-500 text-[10px] font-bold uppercase tracking-widest">Delete</button>
@@ -58,7 +58,7 @@
 
                 <div x-show="hallModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" style="display: none;">
                     <div class="bg-white max-w-2xl w-full p-8 rounded-lg max-h-[90vh] overflow-y-auto">
-                        <h3 class="text-2xl font-serif text-[#1a2e2a] mb-6" x-text="editHall ? 'Edit Wedding Hall' : 'Add New Wedding Hall'"></h3>
+                        <h3 class="text-2xl font-serif text-brand-green mb-6" x-text="editHall ? 'Edit Wedding Hall' : 'Add New Wedding Hall'"></h3>
                         
                         <form :action="editHall ? `/admin/weddings/hall/${editHall.id}` : '{{ route('admin.weddings.hall.store') }}'" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -77,7 +77,7 @@
                                     <template x-for="(img, i) in kept" :key="img">
                                         <div class="flex items-center gap-2 mb-2 mt-2 bg-gray-50 border border-gray-200 rounded p-2">
                                             <img :src="img" alt="" class="h-12 w-16 rounded object-cover shadow-sm">
-                                            <span class="text-[9px] font-bold uppercase tracking-widest text-[#E67E22] w-10" x-text="i === 0 ? 'Main' : ''"></span>
+                                            <span class="text-[9px] font-bold uppercase tracking-widest text-brand-ember w-10" x-text="i === 0 ? 'Main' : ''"></span>
                                             <input type="hidden" name="existing_images[]" :value="img">
                                             <div class="ml-auto flex items-center gap-1">
                                                 <button type="button" @click="move(i, -1)" :disabled="i === 0" class="px-2 py-1 text-xs border rounded disabled:opacity-30" title="Move up">&uarr;</button>
@@ -105,7 +105,7 @@
                             </div>
 
                             <div class="mb-6 bg-gray-50 p-4 rounded border">
-                                <label class="block text-xs uppercase font-bold mb-3 text-[#1a2e2a]">Features</label>
+                                <label class="block text-xs uppercase font-bold mb-3 text-brand-green">Features</label>
                                 <div>
                                     <template x-for="(feat, index) in features" :key="index">
                                         <div class="flex gap-2 mb-2">
@@ -113,13 +113,13 @@
                                             <button type="button" @click="features.splice(index, 1)" class="text-red-500 font-bold px-2">×</button>
                                         </div>
                                     </template>
-                                    <button type="button" @click="features.push('')" class="text-xs text-[#E67E22] font-bold mt-2">+ Add Feature</button>
+                                    <button type="button" @click="features.push('')" class="text-xs text-brand-ember font-bold mt-2">+ Add Feature</button>
                                 </div>
                             </div>
 
                             <div class="flex justify-end gap-4">
                                 <button type="button" @click="hallModal = false" class="px-6 py-2 border text-xs uppercase font-bold">Cancel</button>
-                                <button type="submit" class="bg-[#1a2e2a] text-white px-6 py-2 text-xs uppercase font-bold">Save Hall</button>
+                                <button type="submit" class="bg-brand-green text-white px-6 py-2 text-xs uppercase font-bold">Save Hall</button>
                             </div>
                         </form>
                     </div>
@@ -128,7 +128,7 @@
 
             <div x-show="activeTab === 'packages'" x-data="{ pkgModal: false, editPkg: null, includes: [{ title: '', rule: '', items: [''] }] }" style="display: none;">
                 <div class="flex justify-end mb-4">
-                    <button @click="pkgModal = true; editPkg = null; includes = [{ title: '', rule: '', items: [''] }]" class="bg-[#1a2e2a] text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-[#E67E22]">+ Add Package</button>
+                    <button @click="pkgModal = true; editPkg = null; includes = [{ title: '', rule: '', items: [''] }]" class="bg-brand-green text-white px-6 py-2 text-[10px] tracking-widest uppercase font-bold hover:bg-brand-orange">+ Add Package</button>
                 </div>
                 
                 <div class="bg-white shadow-sm border rounded overflow-x-auto">
@@ -155,11 +155,11 @@
                             @endphp
 
                         <tr class="border-b">
-                            <td class="p-4 font-bold text-[#1a2e2a]">{{ $pkg->name }}</td>
+                            <td class="p-4 font-bold text-brand-green">{{ $pkg->name }}</td>
                             <td class="p-4 text-sm">{{ $pkg->guests }}</td>
                             <td class="p-4 text-sm">{{ $pkg->is_popular ? '⭐ Yes' : 'No' }}</td>
                             <td class="p-4 flex gap-4">
-                                <button @click="editPkg = {{ Illuminate\Support\Js::from($pkg) }}; includes = {{ Illuminate\Support\Js::from($formattedInc) }}; pkgModal = true" class="text-[#E67E22] text-[10px] font-bold uppercase">Edit</button>
+                                <button @click="editPkg = {{ Illuminate\Support\Js::from($pkg) }}; includes = {{ Illuminate\Support\Js::from($formattedInc) }}; pkgModal = true" class="text-brand-ember text-[10px] font-bold uppercase">Edit</button>
                                 <form action="{{ route('admin.weddings.packages.destroy', $pkg->id) }}" method="POST" onsubmit="return confirm('Delete this package?');">
                                     @csrf @method('DELETE')
                                     <button class="text-red-500 text-[10px] font-bold uppercase">Delete</button>
@@ -173,7 +173,7 @@
 
                 <div x-show="pkgModal" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" style="display: none;">
                     <div class="bg-white max-w-3xl w-full p-8 rounded-lg max-h-[90vh] overflow-y-auto">
-                        <h3 class="text-2xl font-serif text-[#1a2e2a] mb-6" x-text="editPkg ? 'Edit Package' : 'Add New Package'"></h3>
+                        <h3 class="text-2xl font-serif text-brand-green mb-6" x-text="editPkg ? 'Edit Package' : 'Add New Package'"></h3>
                         
                         <form :action="editPkg ? `/admin/weddings/packages/${editPkg.id}` : '{{ route('admin.weddings.packages.store') }}'" method="POST">
                             @csrf
@@ -186,13 +186,13 @@
                             
                             <div class="mb-4">
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" name="is_popular" class="text-[#E67E22] rounded" :checked="editPkg?.is_popular">
+                                    <input type="checkbox" name="is_popular" class="text-brand-ember rounded" :checked="editPkg?.is_popular">
                                     <span class="text-sm font-bold text-gray-700">Mark as 'Most Popular' Package</span>
                                 </label>
                             </div>
 
 <div class="mb-6 bg-gray-50 p-6 rounded border border-gray-200">
-    <label class="block text-sm uppercase font-bold mb-4 text-[#1a2e2a] border-b pb-2">Menu Sections (Includes)</label>
+    <label class="block text-sm uppercase font-bold mb-4 text-brand-green border-b pb-2">Menu Sections (Includes)</label>
     
     <div>
         <template x-for="(section, secIndex) in includes" :key="secIndex">
@@ -213,7 +213,7 @@
                     </div>
                 </div>
 
-                <div class="pl-4 border-l-2 border-[#E67E22]/30">
+                <div class="pl-4 border-l-2 border-brand-orange/30">
                     <label class="text-[10px] uppercase text-gray-500 mb-2 block">Items in this section</label>
                     <template x-for="(item, itemIndex) in section.items" :key="itemIndex">
                         <div class="flex gap-2 mb-2">
@@ -221,19 +221,19 @@
                             <button type="button" @click="section.items.splice(itemIndex, 1)" class="text-red-500 font-bold px-3 hover:bg-red-50 rounded">×</button>
                         </div>
                     </template>
-                    <button type="button" @click="section.items.push('')" class="text-[10px] text-[#E67E22] uppercase tracking-wider font-bold mt-2">+ Add Item</button>
+                    <button type="button" @click="section.items.push('')" class="text-[10px] text-brand-ember uppercase tracking-wider font-bold mt-2">+ Add Item</button>
                 </div>
             </div>
         </template>
 
-        <button type="button" @click="includes.push({title: '', rule: '', items: ['']})" class="mt-2 px-4 py-2 border-2 border-[#1a2e2a] text-[#1a2e2a] text-[10px] uppercase tracking-widest font-bold hover:bg-[#1a2e2a] hover:text-white transition-colors rounded">
+        <button type="button" @click="includes.push({title: '', rule: '', items: ['']})" class="mt-2 px-4 py-2 border-2 border-brand-green text-brand-green text-[10px] uppercase tracking-widest font-bold hover:bg-brand-green hover:text-white transition-colors rounded">
             + Add New Section
         </button>
     </div>
 </div>
                             <div class="flex justify-end gap-4">
                                 <button type="button" @click="pkgModal = false" class="px-6 py-2 border text-xs uppercase font-bold">Cancel</button>
-                                <button type="submit" class="bg-[#1a2e2a] text-white px-6 py-2 text-xs uppercase font-bold hover:bg-[#E67E22]">Save Package</button>
+                                <button type="submit" class="bg-brand-green text-white px-6 py-2 text-xs uppercase font-bold hover:bg-brand-orange">Save Package</button>
                             </div>
                         </form>
                     </div>
@@ -263,28 +263,28 @@
                             <div class="mb-4"><label class="text-[10px] uppercase text-gray-500">List Title (e.g. Menu Options)</label><input type="text" name="list_title" value="{{ $catering->list_title }}" class="w-full border-gray-300 rounded" required></div>
                             
                             <div class="mb-6 bg-gray-50 p-4 border rounded" x-data="{ items: {{ json_encode($catering->list_items ?: ['']) }} }">
-                                <label class="block text-xs uppercase font-bold mb-3 text-[#1a2e2a]">Menu Items</label>
+                                <label class="block text-xs uppercase font-bold mb-3 text-brand-green">Menu Items</label>
                                 <template x-for="(item, index) in items" :key="index">
                                     <div class="flex gap-2 mb-2">
                                         <input type="text" name="list_items[]" x-model="items[index]" class="flex-1 border-gray-300 rounded text-sm">
                                         <button type="button" @click="items.splice(index, 1)" class="text-red-500 font-bold px-2">×</button>
                                     </div>
                                 </template>
-                                <button type="button" @click="items.push('')" class="text-xs text-[#E67E22] font-bold mt-2">+ Add Item</button>
+                                <button type="button" @click="items.push('')" class="text-xs text-brand-ember font-bold mt-2">+ Add Item</button>
                             </div>
 
                             <div class="mb-6 bg-gray-50 p-4 border rounded" x-data="{ tags: {{ json_encode($catering->tags ?: ['']) }} }">
-                                <label class="block text-xs uppercase font-bold mb-3 text-[#1a2e2a]">Tags (e.g. Welcome Drinks)</label>
+                                <label class="block text-xs uppercase font-bold mb-3 text-brand-green">Tags (e.g. Welcome Drinks)</label>
                                 <template x-for="(tag, index) in tags" :key="index">
                                     <div class="flex gap-2 mb-2">
                                         <input type="text" name="tags[]" x-model="tags[index]" class="flex-1 border-gray-300 rounded text-sm">
                                         <button type="button" @click="tags.splice(index, 1)" class="text-red-500 font-bold px-2">×</button>
                                     </div>
                                 </template>
-                                <button type="button" @click="tags.push('')" class="text-xs text-[#E67E22] font-bold mt-2">+ Add Tag</button>
+                                <button type="button" @click="tags.push('')" class="text-xs text-brand-ember font-bold mt-2">+ Add Tag</button>
                             </div>
                             
-                            <div class="flex justify-end"><button type="submit" class="bg-[#1a2e2a] text-white px-8 py-3 text-xs uppercase font-bold w-full hover:bg-[#E67E22] transition-colors">Save Catering Info</button></div>
+                            <div class="flex justify-end"><button type="submit" class="bg-brand-green text-white px-8 py-3 text-xs uppercase font-bold w-full hover:bg-brand-orange transition-colors">Save Catering Info</button></div>
                         </div>
                     </div>
                 </form>
@@ -313,28 +313,28 @@
                             <div class="mb-4"><label class="text-[10px] uppercase text-gray-500">List Title (e.g. Decoration Styles)</label><input type="text" name="list_title" value="{{ $decoration->list_title }}" class="w-full border-gray-300 rounded" required></div>
                             
                             <div class="mb-6 bg-gray-50 p-4 border rounded" x-data="{ items: {{ json_encode($decoration->list_items ?: ['']) }} }">
-                                <label class="block text-xs uppercase font-bold mb-3 text-[#1a2e2a]">Style Items</label>
+                                <label class="block text-xs uppercase font-bold mb-3 text-brand-green">Style Items</label>
                                 <template x-for="(item, index) in items" :key="index">
                                     <div class="flex gap-2 mb-2">
                                         <input type="text" name="list_items[]" x-model="items[index]" class="flex-1 border-gray-300 rounded text-sm">
                                         <button type="button" @click="items.splice(index, 1)" class="text-red-500 font-bold px-2">×</button>
                                     </div>
                                 </template>
-                                <button type="button" @click="items.push('')" class="text-xs text-[#E67E22] font-bold mt-2">+ Add Item</button>
+                                <button type="button" @click="items.push('')" class="text-xs text-brand-ember font-bold mt-2">+ Add Item</button>
                             </div>
 
                             <div class="mb-6 bg-gray-50 p-4 border rounded" x-data="{ tags: {{ json_encode($decoration->tags ?: ['']) }} }">
-                                <label class="block text-xs uppercase font-bold mb-3 text-[#1a2e2a]">Tags (e.g. Kandyan Dancers)</label>
+                                <label class="block text-xs uppercase font-bold mb-3 text-brand-green">Tags (e.g. Kandyan Dancers)</label>
                                 <template x-for="(tag, index) in tags" :key="index">
                                     <div class="flex gap-2 mb-2">
                                         <input type="text" name="tags[]" x-model="tags[index]" class="flex-1 border-gray-300 rounded text-sm">
                                         <button type="button" @click="tags.splice(index, 1)" class="text-red-500 font-bold px-2">×</button>
                                     </div>
                                 </template>
-                                <button type="button" @click="tags.push('')" class="text-xs text-[#E67E22] font-bold mt-2">+ Add Tag</button>
+                                <button type="button" @click="tags.push('')" class="text-xs text-brand-ember font-bold mt-2">+ Add Tag</button>
                             </div>
                             
-                            <div class="flex justify-end"><button type="submit" class="bg-[#1a2e2a] text-white px-8 py-3 text-xs uppercase font-bold w-full hover:bg-[#E67E22] transition-colors">Save Decoration Info</button></div>
+                            <div class="flex justify-end"><button type="submit" class="bg-brand-green text-white px-8 py-3 text-xs uppercase font-bold w-full hover:bg-brand-orange transition-colors">Save Decoration Info</button></div>
                         </div>
                     </div>
                 </form>

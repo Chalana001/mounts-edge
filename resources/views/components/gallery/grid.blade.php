@@ -48,13 +48,29 @@
              instead of being cropped to a square, so the grid reads as a
              pinboard rather than a table. break-inside-avoid stops a card
              from being split across two columns. --}}
-        <div class="columns-2 lg:columns-3 xl:columns-4 gap-3 sm:gap-4 md:gap-6 reveal-scale"
+        {{-- The grid itself no longer reveals as one block; each tile settles in on
+             its own delay instead, matching the stagger every other grid on the site
+             uses (signature-moments, attractions, photo-spots).
+
+             80ms rather than the 100-150ms used elsewhere: there are twelve photos
+             here, so the last one still lands inside a second. --}}
+        @php $tileStagger = 80; @endphp
+        <div class="columns-2 lg:columns-3 xl:columns-4 gap-3 sm:gap-4 md:gap-6"
              x-data="{ isGridVisible: false }"
-             x-intersect.once.margin.-25%.0.-25%.0="isGridVisible = true"
-             :class="isGridVisible ? 'reveal-visible' : ''"
-             style="transition-duration: 1.5s; transition-delay: 400ms;">
+             x-intersect.once.margin.-15%.0.-15%.0="isGridVisible = true">
 
             @forelse($galleryItems as $index => $item)
+                {{-- Three elements, because filtering and revealing both want to own
+                     opacity and transform and cannot share one:
+
+                       outer  x-show + x-transition   -- category filtering
+                       middle .reveal-scale + delay   -- staggered scroll entrance
+                       inner  the tile itself
+
+                     Stacked on a single element, Alpine's x-show wins and the reveal
+                     never renders; .reveal-visible's !important would in turn stop the
+                     filter's leave transition from fading. Split, each keeps its own
+                     element and neither fights the other. --}}
                 <div x-show="activeTab === 'All' || activeTab === @js($item->category->name ?? 'Uncategorized')"
                      x-transition:enter="transition ease-out duration-500"
                      x-transition:enter-start="opacity-0 scale-95"
@@ -62,8 +78,14 @@
                      x-transition:leave="transition ease-in duration-300"
                      x-transition:leave-start="opacity-100 scale-100"
                      x-transition:leave-end="opacity-0 scale-95 hidden"
-                     style="aspect-ratio: {{ $item->aspect_ratio }};"
-                     class="group relative overflow-hidden rounded-md shadow-sm bg-brand-green/10 break-inside-avoid mb-3 sm:mb-4 md:mb-6">
+                     class="break-inside-avoid mb-3 sm:mb-4 md:mb-6">
+
+                <div class="reveal-scale"
+                     :class="isGridVisible ? 'reveal-visible' : ''"
+                     style="transition-delay: {{ $index * $tileStagger }}ms;">
+
+                <div style="aspect-ratio: {{ $item->aspect_ratio }};"
+                     class="group relative overflow-hidden rounded-md shadow-sm bg-brand-green/10">
 
                     <button type="button"
                             @click="open({{ $index }})"
@@ -99,7 +121,9 @@
                             </p>
                         @endif
                     </div>
-                </div>
+                </div>{{-- /tile --}}
+                </div>{{-- /reveal wrapper --}}
+                </div>{{-- /filter wrapper --}}
             @empty
                 <div class="text-center py-20 text-brand-green/70">
                     <p class="text-xl font-serif text-brand-green mb-2">No Images Yet</p>

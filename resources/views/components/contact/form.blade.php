@@ -8,23 +8,23 @@
 ])
 
 @php
-    $labelClass = 'text-[11px] font-bold uppercase tracking-widest text-[#1a2e2a]';
+    $labelClass = 'text-[11px] font-bold uppercase tracking-widest text-brand-green';
     $fieldClass = 'w-full bg-brand-light border border-brand-green/30 p-4 text-sm font-light focus:border-brand-orange focus:ring-0 transition-all outline-none';
     $selectClass = $fieldClass.' appearance-none cursor-pointer';
     $today = now()->format('Y-m-d');
 @endphp
 
-<section class="py-12 md:py-20 bg-[#f9f9f7] relative">
+<section class="pt-6 pb-12 md:pt-10 md:pb-20 bg-brand-light relative">
     <div class="container mx-auto px-6 max-w-4xl">
 
         <div class="text-center mb-8 md:mb-10">
-            <span class="text-[10px] tracking-[0.4em] uppercase text-brand-green/70 mb-2 block font-bold">Send a Message</span>
-            <h2 class="text-3xl md:text-4xl font-serif text-[#1a2e2a] mb-3">Make an Inquiry</h2>
+            <span class="text-[11px] tracking-[0.4em] uppercase text-brand-green/70 mb-2 block font-bold">Send a Message</span>
+            <h2 class="text-3xl md:text-4xl font-serif text-brand-green mb-3">Make an Inquiry</h2>
             <p class="text-brand-green/70 font-light italic text-sm">Tell us what you need and we'll get back to you as soon as possible.</p>
         </div>
 
         @if(session('success'))
-            <div class="bg-[#1a2e2a] text-brand-light px-4 py-4 rounded mb-6 text-sm text-center tracking-widest font-bold shadow-md">
+            <div class="bg-brand-green text-brand-light px-4 py-4 rounded mb-6 text-sm text-center tracking-widest font-bold shadow-md">
                 {{ session('success') }}
             </div>
         @endif
@@ -41,12 +41,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div class="space-y-1.5">
                     <label for="name" class="{{ $labelClass }}">Full Name *</label>
-                    <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Your full name" required class="{{ $fieldClass }}">
+                    <input id="name" type="text" name="name" value="{{ old('name') }}" placeholder="Your full name" required autocomplete="name" class="{{ $fieldClass }}">
                     <x-input-error :messages="$errors->get('name')" />
                 </div>
                 <div class="space-y-1.5">
                     <label for="email" class="{{ $labelClass }}">Email Address *</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="your@email.com" required class="{{ $fieldClass }}">
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" placeholder="your@email.com" required autocomplete="email" inputmode="email" class="{{ $fieldClass }}">
                     <x-input-error :messages="$errors->get('email')" />
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div class="space-y-1.5">
                     <label for="phone" class="{{ $labelClass }}">Phone Number *</label>
-                    <input id="phone" type="text" name="phone" value="{{ old('phone') }}" placeholder="+94 77 123 4567" required class="{{ $fieldClass }}">
+                    <input id="phone" type="tel" name="phone" value="{{ old('phone') }}" placeholder="+94 77 123 4567" required autocomplete="tel" inputmode="tel" class="{{ $fieldClass }}">
                     <x-input-error :messages="$errors->get('phone')" />
                 </div>
                 <div class="space-y-1.5">
@@ -170,20 +170,11 @@
             </div>
 
             <div class="text-center pt-2">
-                <button type="submit" :disabled="submitting" class="w-full md:w-auto bg-[#1a2e2a] text-brand-light hover:bg-[#E67E22] disabled:cursor-wait disabled:opacity-60 px-16 py-4 text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-500 shadow-xl">
+                <button type="submit" :disabled="submitting" class="w-full md:w-auto bg-brand-green text-brand-light hover:bg-brand-hover disabled:cursor-wait disabled:opacity-60 px-16 py-4 text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-500 shadow-xl">
                     <span x-text="submitting ? 'Sending...' : 'Send Message'">Send Message</span>
                 </button>
             </div>
         </form>
     </div>
 
-    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-            class="fixed bottom-8 left-8 w-12 h-12 bg-[#1a2e2a] text-brand-light flex items-center justify-center rounded-full shadow-2xl hover:scale-110 hover:bg-[#E67E22] transition-all z-50 focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-    </button>
-
-    <a href="https://wa.me/{{ $siteSettings->whatsapp_number }}" target="_blank" rel="noopener noreferrer"
-       class="fixed bottom-8 right-8 w-14 h-14 bg-[#25D366] text-brand-light flex items-center justify-center rounded-full shadow-2xl hover:scale-110 transition-transform z-50 border-none outline-none cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.9 1.1L21 3.5Z"/></svg>
-    </a>
 </section>

@@ -14,7 +14,7 @@
         : 'https://www.google.com/maps?q='.urlencode($mapQuery).'&z=15&hl=en&output=embed';
 @endphp
 
-<section class="relative h-[400px] md:h-[450px] bg-white border-t border-brand-green/10 overflow-hidden">
+<section class="relative h-[400px] md:h-[450px] bg-brand-light border-t border-brand-green/10 overflow-hidden">
     <iframe
         src="{{ $mapSrc }}"
         class="absolute inset-0 w-full h-full border-0"
