@@ -126,6 +126,18 @@
 P1s (4/4): form grids, dining hours + grid, navbar unscrolled active contrast, navbar lg tightness.
 P2s: hero rail, home/dish/info-card mobile grids, room+wedding tablists, room panel min-h, nearby card padding, attractions grid, gallery chips + caption, footer gaps, floating actions offset, 404 primary/secondary actions, CTA class normalization.
 P3s: amenities rhythm, wedding split spacing, footer contact size.
-Deferred to roadmap: shared components, testimonial typography, gallery caption min-heights, floating-actions per-page variants, form-field abstraction.
 
-Verify: `php artisan test` full suite green; all pages 200.
+## Shared component system delivered (2026-10-08)
+
+- `<x-section-heading>` standardizes eyebrow, serif heading, intro, surface, alignment, and size variants.
+- `<x-cta-button>` standardizes public primary, secondary, light, outline-dark, and WhatsApp actions while preserving tracking attributes.
+- `<x-container-section>` provides a shared responsive container and standard/compact section padding.
+- `<x-form-field>` centralizes public label, input/select/textarea, and validation-error markup without changing enquiry field names.
+- `<x-surface-link>` encodes the light-surface ember and dark-surface orange link contrast rule.
+- `<x-error-page>` deduplicates 403/404/500 presentation.
+- Gallery captions now have a stable minimum height; wedding testimonials accept props and use tighter typography; floating actions accept visibility props and normalize WhatsApp numbers.
+- Main public CTA bands, contact form, error pages, room/gallery/experience headings, and public inline CTA links were migrated to the primitives.
+
+Remaining roadmap items: migrate every remaining one-off section heading, add more CTA-band/container call sites, split the contact form into child field groups if needed, and extract gallery tiles only after Alpine filtering/lightbox behavior has dedicated tests.
+
+Verify: `php artisan test` full suite green (84 tests, 292 assertions); all public pages return 200; an invalid route returns 404.

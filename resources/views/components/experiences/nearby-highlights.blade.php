@@ -3,13 +3,11 @@
          x-intersect.once.margin.-25%.0.-25%.0="isVisible = true">
     
     <div class="container mx-auto px-6">
-        <div class="text-center mb-10 md:mb-14 reveal-fade" :class="isVisible ? 'reveal-visible' : ''">
-            <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">Explore the Region</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-brand-green mb-6">Nearby Attractions</h2>
-            <p class="text-brand-green/70 max-w-xl mx-auto font-light leading-relaxed">
-                Discover the sacred and scenic wonders surrounding our retreat, each just a short journey away.
-            </p>
-        </div>
+        <x-section-heading
+            eyebrow="Explore the Region"
+            title="Nearby Attractions"
+            intro="Discover the sacred and scenic wonders surrounding our retreat, each just a short journey away."
+            size="large" />
 
         @php
             $highlights = [

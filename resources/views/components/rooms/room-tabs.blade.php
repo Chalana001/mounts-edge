@@ -14,21 +14,11 @@
         } }" >
 
     <div class="container mx-auto px-6">
-        <div class="text-center mb-12 md:mb-16 reveal-fade"
-             x-data="{ isVisible: false }" 
-             x-intersect.once.margin.-25%.0.-25%.0="isVisible = true"
-             :class="isVisible ? 'reveal-visible' : ''"
-             style="transition-duration: 1.2s;">
-            <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">
-                Accommodations
-            </span>
-            <h2 class="text-3xl md:text-5xl font-serif text-brand-green mb-6">
-                Choose Your Retreat
-            </h2>
-            <p class="text-brand-green/70 max-w-xl mx-auto font-light text-sm md:text-base">
-                Deluxe single, double, triple and family rooms, plus a Family Suite, in Gurulupotha near Hasalaka and Mahiyangana. Find your mountain escape
-            </p>
-        </div>
+        <x-section-heading
+            eyebrow="Accommodations"
+            title="Choose Your Retreat"
+            intro="Deluxe single, double, triple and family rooms, plus a Family Suite, in Gurulupotha near Hasalaka and Mahiyangana. Find your mountain escape"
+            size="large" />
         <div role="tablist" aria-label="Room types" class="flex {{ count($roomTypes) <= 3 ? 'flex-row' : 'flex-col' }} md:flex-row md:flex-wrap justify-center gap-2 md:gap-4 mb-12 md:mb-16 px-0">
             @foreach($roomTypes as $type)
                 <button type="button"

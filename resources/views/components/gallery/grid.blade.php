@@ -17,8 +17,10 @@
          x-intersect.once.margin.-10%.0.-10%.0="isHeaderVisible = true"
          :class="isHeaderVisible ? 'reveal-visible' : ''"
          style="transition-duration: 1.2s;">
-        <h2 class="text-4xl md:text-5xl font-serif text-brand-green mb-4">Our Gallery</h2>
-        <p class="text-brand-green/70 font-light max-w-2xl mx-auto">A look around Mounts Edge Regency: rooms, weddings, dining, and the grounds.</p>
+        <x-section-heading
+            title="Our Gallery"
+            intro="A look around Mounts Edge Regency: rooms, weddings, dining, and the grounds."
+            size="large" />
     </div>
 
     {{-- Filter chips, not tabs: they narrow one grid rather than swapping panels,
@@ -111,7 +113,7 @@
 
                     {{-- Touch devices never fire :hover, so the caption sits flush
                          on mobile and only uses the slide-up reveal from md up. --}}
-                    <div class="absolute bottom-0 left-0 right-0 p-3 md:p-5 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
+                    <div class="absolute bottom-0 left-0 right-0 min-h-[3.25rem] md:min-h-20 p-3 md:p-5 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500 pointer-events-none">
                         <span class="text-[11px] tracking-[0.15em] md:tracking-[0.2em] uppercase text-brand-cream md:text-brand-orange font-bold block mb-0.5 md:mb-1 drop-shadow-md">
                             {{ $item->category->name ?? 'Uncategorized' }}
                         </span>

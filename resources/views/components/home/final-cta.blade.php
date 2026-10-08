@@ -30,19 +30,17 @@
             </h2>
 
             <p class="text-brand-cream/70 text-base md:text-lg font-light mb-12 max-w-md mx-auto">
-                Get in touch and we'll help you plan your stay in Mahiyangana: <a href="/luxury-stay" class="underline hover:text-brand-light">rooms</a>, <a href="/weddings" class="underline hover:text-brand-light">weddings</a>, <a href="/dining" class="underline hover:text-brand-light">dining</a>, and <a href="/experiences" class="underline hover:text-brand-light">day-outs</a>.
+                Get in touch and we'll help you plan your stay in Mahiyangana: <x-surface-link href="/luxury-stay" surface="dark">rooms</x-surface-link>, <x-surface-link href="/weddings" surface="dark">weddings</x-surface-link>, <x-surface-link href="/dining" surface="dark">dining</x-surface-link>, and <x-surface-link href="/experiences" surface="dark">day-outs</x-surface-link>.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <a href="/luxury-stay" 
-                   class="bg-transparent border border-brand-cream/40 text-brand-cream hover:bg-brand-cream hover:text-brand-green transition-all duration-500 px-12 py-5 text-[11px] tracking-[0.2em] uppercase font-bold rounded-none">
+                <x-cta-button href="/luxury-stay" variant="outline-dark">
                     Stay
-                </a>
-                
-                <a href="/weddings" 
-                   class="bg-brand-cream text-brand-green hover:bg-brand-green hover:text-brand-light transition-all duration-500 px-12 py-5 text-[11px] tracking-[0.2em] uppercase font-bold rounded-none shadow-xl">
+                </x-cta-button>
+
+                <x-cta-button href="/weddings" variant="light">
                     Celebrate
-                </a>
+                </x-cta-button>
             </div>
         </div>
     </div>

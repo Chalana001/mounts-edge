@@ -3,13 +3,11 @@
          x-intersect.once.margin.-25%.0px.-25%.0px="isVisible = true">
     
     <div class="container mx-auto px-6">
-        <div class="text-center mb-10 md:mb-14 reveal-fade" :class="isVisible ? 'reveal-visible' : ''" style="transition-duration: 1.2s;">
-            <span class="text-brand-green/70 text-xs tracking-[0.2em] uppercase mb-4 block">Things to Do</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-brand-green mb-6">Nearby Adventures</h2>
-            <p class="text-brand-green/70 max-w-xl mx-auto font-light leading-relaxed">
-                Activities and day trips we can arrange for you around Mahiyangana.
-            </p>
-        </div>
+        <x-section-heading
+            eyebrow="Things to Do"
+            title="Nearby Adventures"
+            intro="From ancient temples to hidden waterfalls, discover the spirit of the highlands."
+            size="large" />
 
         @php
             $experiences = [

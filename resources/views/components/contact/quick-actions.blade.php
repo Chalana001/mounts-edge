@@ -1,29 +1,17 @@
-<section class="py-12 md:py-20 bg-brand-green">
+<section class="py-10 md:py-16 bg-brand-green">
     <div class="container mx-auto px-6">
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            
-            <a href="tel:{{ $siteSettings->phone_link }}" 
-               data-conversion="contact_phone_click"
-               class="w-full sm:w-auto flex items-center justify-center gap-3 bg-brand-cream text-brand-green hover:bg-brand-green hover:text-brand-light px-10 py-5 text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-500">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <x-cta-button href="tel:{{ $siteSettings->phone_link }}" data-conversion="contact_phone_click" variant="light" class="w-full sm:w-auto">
                 Call Now
-            </a>
+            </x-cta-button>
 
-            <a href="https://wa.me/{{ $siteSettings->whatsapp_number }}?text=Hello%20Mounts%20Edge%20Regency!%20I%20would%20like%20to%20make%20an%20inquiry."
-               target="_blank" rel="noopener noreferrer"
-               data-conversion="contact_whatsapp_click"
-               class="w-full sm:w-auto flex items-center justify-center gap-3 bg-whatsapp text-brand-light hover:bg-whatsapp-dark px-10 py-5 text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-500 shadow-lg cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.9 1.1L21 3.5Z"/></svg>
+            <x-cta-button href="https://wa.me/{{ $siteSettings->whatsapp_number }}?text=Hello%20Mounts%20Edge%20Regency!%20I%20would%20like%20to%20make%20an%20inquiry." data-conversion="contact_whatsapp_click" variant="whatsapp" external class="w-full sm:w-auto">
                 WhatsApp Us
-            </a>
+            </x-cta-button>
 
-            <a href="mailto:{{ $siteSettings->public_email }}" 
-               data-conversion="contact_email_click"
-               class="w-full sm:w-auto flex items-center justify-center gap-3 border border-brand-cream/30 text-brand-cream hover:bg-brand-cream hover:text-brand-green px-10 py-5 text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-500">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            <x-cta-button href="mailto:{{ $siteSettings->public_email }}" data-conversion="contact_email_click" variant="outline-dark" class="w-full sm:w-auto">
                 Email Us
-            </a>
-            
+            </x-cta-button>
         </div>
     </div>
 </section>
