@@ -10,13 +10,13 @@
             $analyticsMeasurementId = config('services.google_analytics.measurement_id');
         @endphp
 
-        <title>{{ $seo['title'] }}</title>
+        <title>@yield('page.title', $seo['title'])</title>
 
         <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
         <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
         <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
 
-        <meta name="robots" content="index, follow">
+        <meta name="robots" content="@yield('page.robots', 'index, follow')">
         <meta name="description" content="{{ $seo['description'] }}">
         <link rel="canonical" href="{{ $seo['canonical'] }}">
         <meta property="og:type" content="website">
