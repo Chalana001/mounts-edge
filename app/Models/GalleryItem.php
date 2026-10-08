@@ -16,6 +16,22 @@ class GalleryItem extends Model
     }
 
     /**
+     * Alt text shared by the grid image, lightbox image, figcaption, and the
+     * open-button aria-label — previously each site had its own fallback and
+     * the grid <img> passed a raw null when description was empty.
+     */
+    public function altText(): string
+    {
+        $description = trim((string) $this->description);
+
+        if ($description !== '') {
+            return $description;
+        }
+
+        return (($this->category->name ?? 'Gallery')).' at Mounts Edge Regency';
+    }
+
+    /**
      * "width / height" for a CSS aspect-ratio, read from the stored file.
      *
      * The masonry gallery lets each image keep its own proportions, so without

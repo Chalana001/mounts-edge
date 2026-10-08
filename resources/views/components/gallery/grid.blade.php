@@ -3,7 +3,7 @@
     // forcing a close-and-reopen for every photo.
     $lightboxItems = $galleryItems->map(fn ($item) => [
         'src' => asset($item->image),
-        'alt' => $item->description ?: (($item->category->name ?? 'Gallery') . ' at Mounts Edge Regency'),
+        'alt' => $item->altText(),
         'category' => $item->category->name ?? 'Uncategorized',
     ])->values();
 
@@ -90,14 +90,14 @@
                     <button type="button"
                             @click="open({{ $index }})"
                             class="absolute inset-0 z-10 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-orange"
-                            aria-label="View photo: {{ $item->description ?: ($item->category->name ?? 'Gallery') }}"></button>
+                            aria-label="View photo: {{ $item->altText() }}"></button>
 
                     {{-- Tiles are ~300px wide, but the lightbox reuses the full file,
                          so the original stays the largest srcset candidate. --}}
                     <x-responsive-image :src="asset($item->image)"
                                         :widths="[400, 800]"
                                         sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 50vw"
-                                        :alt="$item->description"
+                                        :alt="$item->altText()"
                                         loading="lazy" decoding="async"
                                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110" />
 

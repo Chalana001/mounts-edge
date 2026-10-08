@@ -83,8 +83,9 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="text-[10px] uppercase text-gray-500">Short Description</label>
-                                <input type="text" name="description" :value="editItem?.description" class="w-full border-gray-300 rounded" placeholder="e.g. Luxury suite bedroom">
+                                <label class="text-[10px] uppercase text-gray-500">Alt text / caption</label>
+                                <input type="text" name="description" :value="editItem?.description" class="w-full border-gray-300 rounded" placeholder="e.g. Deluxe suite bedroom with mountain view">
+                                <p class="text-[10px] text-gray-400 mt-1">Describe the photo for search engines and screen readers.</p>
                             </div>
 
                             <div class="mb-6">
