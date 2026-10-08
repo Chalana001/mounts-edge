@@ -60,3 +60,27 @@
     opacity: 1 !important;
     transform: translateX(0) !important;
 }
+
+/* Reduced motion: the site leans hard on scroll reveals, 10s Ken Burns zooms and
+   staggered card entries. For visitors who ask the OS to tone motion down we keep
+   the content (opacity/transform reset to their resting state) and drop the travel. */
+@media (prefers-reduced-motion: reduce) {
+    .reveal-hidden,
+    .reveal-fade,
+    .reveal-scale,
+    .reveal-left,
+    .reveal-right {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
