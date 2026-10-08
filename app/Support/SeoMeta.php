@@ -200,6 +200,20 @@ class SeoMeta
                 'addressCountry' => 'LK',
             ],
             'hasMap' => $settings->map_url,
+            // Owner-verified 2026-10-07/08 (BUSINESS-TRUTH.md §3/§6). Only
+            // facts confirmed by the owner belong here — no gym or airport
+            // transfer until the owner confirms the OTA page is accurate.
+            'amenityFeature' => [
+                ['@type' => 'LocationFeatureSpecification', 'name' => 'Infinity pool', 'value' => true],
+                ['@type' => 'LocationFeatureSpecification', 'name' => "Children's pool", 'value' => true],
+                ['@type' => 'LocationFeatureSpecification', 'name' => 'Free WiFi', 'value' => true],
+                ['@type' => 'LocationFeatureSpecification', 'name' => 'Free parking', 'value' => true],
+                ['@type' => 'LocationFeatureSpecification', 'name' => 'Power backup', 'value' => true],
+                ['@type' => 'LocationFeatureSpecification', 'name' => 'Air conditioning', 'value' => true],
+                ['@type' => 'LocationFeatureSpecification', 'name' => 'On-site restaurant', 'value' => true],
+                ['@type' => 'LocationFeatureSpecification', 'name' => 'Bar', 'value' => true],
+            ],
+            'checkinTime' => '14:00',
             'sameAs' => [],
         ];
     }

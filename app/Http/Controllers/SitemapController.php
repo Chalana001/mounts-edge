@@ -55,6 +55,9 @@ class SitemapController extends Controller
                 route('gallery'),
                 route('contact'),
             ],
+            // All content on these pages is static markup or copy; a single
+            // deploy-level date is accurate and avoids per-row bookkeeping.
+            'lastmod' => now()->toDateString(),
         ], 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }
 

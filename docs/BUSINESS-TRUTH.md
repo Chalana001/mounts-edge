@@ -72,10 +72,34 @@ meal-plan variants; tier names not specified. Internal reference only:
 | Family Suite | 8 | 20,500 | 27,200 | 40,600 | 53,000 |
 
 All rates LKR per night; "Room only" is tier 1. Publish? Y for names/capacity/
-type; N for prices. Bed configurations from the OTA list apply where known:
-Deluxe Single 1 large double bed, Deluxe Double 2 large double beds, Deluxe
-Triple 3 beds (assumed — confirm), Deluxe Family 4 large double beds, Family
-Suite sleeps 8 (bed configuration TODO — confirm).
+type/size/beds/in-room amenities; N for prices and availability counts.
+
+OTA-sourced room details (owner-supplied OTA screenshot, 2026-10-08) — sizes,
+in-room amenities, and live availability per room. Availability changes daily;
+do not publish counts on the site:
+
+| Room | Size | Beds (OTA) | In-room (OTA) | Availability snapshot |
+|---|---|---|---|---|
+| Deluxe Single | 25 m² | 1 large double bed | Balcony, view, AC, private bathroom, flat-screen TV | 2 left |
+| Deluxe Double | 25 m² | 2 large double beds | Balcony, view, AC, private bathroom, flat-screen TV | 3 left |
+| Deluxe Triple | 25 m² | 2 large double beds (OTA label: "Standard Triple", max 2) | AC, private bathroom, flat-screen TV | 1 left |
+| Deluxe Family | 50 m² | 4 large double beds | Balcony, view, AC, private bathroom, flat-screen TV | 2 left |
+| Family Suite | TODO | TODO (sleeps 8) | TODO | TODO |
+
+OTA quirks: the OTA still labels the Triple "Standard Triple Room" and shows
+"max persons: 2" on rooms whose real capacity is higher — the owner's local
+list (capacities in the rates table) governs the website. Family Suite
+size/beds/in-room details were not in the screenshot — TODO.
+
+The OTA page also lists property-level amenities (owner's channel content):
+year-round outdoor pool, 24-hour front desk, free private on-site parking,
+airport pickup/drop-off, restaurant and bar with Sri Lankan/Chinese cuisine,
+air-conditioned Royal Banquet Hall for 400+ guests with Poruwa/DJ/lighting
+packages. Caution — cross-check with the owner before publishing the ones our
+interviews didn't confirm: 24-hour fitness centre/gym, airport pickup/drop-off,
+halal/vegan/gluten-free dining, "Royal Banquet Hall" naming (our owner calls
+the spaces Grand Hall/Grand Lawn; "Royal Banquet Hall 400+" likely maps to the
+Grand Lawn's 400+ capacity).
 
 Applies on next fresh run: `php artisan migrate:fresh --seed` (seeder is
 idempotent via firstOrCreate/this file).
