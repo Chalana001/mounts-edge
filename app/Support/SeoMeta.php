@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SeoMeta
 {
-    private const DEFAULT_DESCRIPTION = 'Mounts Edge Regency is a hotel on Kandy Rd, Gurulupotha near Hasalaka and Mahiyangana, Sri Lanka, for stays, dining, weddings, celebrations, and local experiences.';
+    private const DEFAULT_DESCRIPTION = 'Mounts Edge Regency is a hotel on Kandy Rd, Gurulupotha near Hasalaka and Mahiyangana, Sri Lanka.';
 
     private const HOME_TITLE = 'Hotel in Mahiyangana, Sri Lanka | Mounts Edge Regency';
 
@@ -41,7 +41,7 @@ class SeoMeta
         return [
             'home' => [
                 'title' => self::HOME_TITLE,
-                'description' => 'Stay at Mounts Edge Regency on Kandy Rd, Gurulupotha near Hasalaka and Mahiyangana, Sri Lanka, with dining, weddings, celebrations, and a peaceful mountain setting.',
+                'description' => 'Stay at Mounts Edge Regency on Kandy Rd, Gurulupotha near Hasalaka and Mahiyangana — dining, weddings, and a peaceful mountain setting.',
                 'h1' => 'Hotel in Gurulupotha, Near Mahiyangana',
                 'intro' => 'Mounts Edge Regency is a hotel on Kandy Rd, Gurulupotha, Hasalaka 20960, near Mahiyangana, for quiet stays, weddings, dining, and day-outs.',
                 'faq' => [
@@ -63,7 +63,7 @@ class SeoMeta
             ],
             'weddings' => [
                 'title' => 'Wedding Venue in Mahiyangana | Mounts Edge Regency',
-                'description' => 'Plan your wedding at Mounts Edge Regency in Gurulupotha near Mahiyangana — an indoor hall for up to 200 guests, an outdoor lawn for 400+, in-house catering, and outside vendors welcome.',
+                'description' => 'Wedding venue near Mahiyangana: Grand Hall up to 200 guests, Grand Lawn 400+, in-house catering, outside vendors welcome.',
                 'h1' => 'Wedding Venue Near Mahiyangana',
                 'intro' => 'Celebrate at Mounts Edge Regency in Gurulupotha, Hasalaka 20960, near Mahiyangana. Choose the Grand Hall for up to 200 guests or the Grand Lawn for 400+ — with in-house catering, decoration, power backup, parking, and a bridal room. Outside vendors are welcome.',
                 'faq' => [
@@ -74,7 +74,7 @@ class SeoMeta
             ],
             'dining' => [
                 'title' => 'Dining in Mahiyangana | Mounts Edge Regency',
-                'description' => 'Sri Lankan and international dining at Mounts Edge Regency, open daily 6:30 AM–10:00 PM, with The Terrace Bar from 5:00 PM. Walk-ins welcome; groups can reserve.',
+                'description' => 'Open daily 6:30 AM–10:00 PM at Mounts Edge Regency near Mahiyangana, with The Terrace Bar from 5:00 PM. Walk-ins welcome.',
                 'h1' => 'Dining Near Mahiyangana',
                 'intro' => 'Dine at Mounts Edge Regency in Gurulupotha, Hasalaka 20960, near Mahiyangana — Sri Lankan and international flavours in a relaxed mountain setting. The restaurant is open daily 6:30 AM–10:00 PM and The Terrace Bar from 5:00 PM. Walk-ins are welcome; reserving is recommended for groups.',
                 'faq' => [

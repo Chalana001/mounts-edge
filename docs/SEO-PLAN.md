@@ -71,7 +71,7 @@ Apply these details to the website footer, contact page, schema, Google Business
 | 2. Commercial page optimization | Weeks 2–4 | Strong hotel, rooms, wedding, dining, gallery, contact, and experience pages | Core pass done 2026-10-07 — copy/FAQ synced to verified facts, placeholder rooms removed, per-event catering framing; detail pages and gallery alt-text open |
 | 3. Local entity and reputation cleanup | Weeks 2–6, ongoing | Consistent Google/OTA profiles and ethical review operation | Checklist drafted (`LOCAL-LISTINGS.md`) — execution pending owner access |
 | 4. Destination content cluster | Months 2–4 | Helpful Mahiyangana travel content and internal topical authority | Not started |
-| 5. Image SEO | Starts at launch, ongoing | Discoverable, accurately described property and destination images | Partially absorbed by the performance work; alt-text/caption work open |
+| 5. Image SEO | Starts at launch, ongoing | Discoverable, accurately described property and destination images | Started — 12 gallery images have unique factual alt text (2026-10-08); other images + captions open |
 | 6. Partner services and package expansion | Months 3–5, conditional | Legitimate safari, tour, or package pages only where real services exist | Not started |
 | 7. Authority and AI visibility | Months 3–12, ongoing | Strong third-party mentions, citations, and reliable entity signals | Not started |
 | 8. Measurement and continuous improvement | Launch onward | Decisions based on Search Console, analytics, conversions, and reviews | Not started — GA4 config intentionally deferred to launch |
