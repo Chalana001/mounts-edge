@@ -41,7 +41,11 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            // A slow SMTP relay handshake plus TLS plus the message send can
+            // exceed PHP's 30s max_execution_time; cap the socket instead so
+            // failures surface as catchable mail errors rather than fatal
+            // timeouts that lose the enquiry success response.
+            'timeout' => env('MAIL_TIMEOUT', 25),
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
 

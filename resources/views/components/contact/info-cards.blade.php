@@ -33,7 +33,7 @@
                 ],
                 [
                     'title' => 'Hours',
-                    'lines' => ['Open 24 Hours', 'Check-in: 2:00 PM'],
+                    'lines' => ['Open 24 Hours', 'Check-in: 2:00 PM', 'Check-out: 12:00 PM'],
                     'paths' => [
                         'M12 8v4l3 3',
                         'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z',

@@ -1,14 +1,14 @@
 # Mounts Edge Regency — Business Truth (Phase 0 Source of Truth)
 
-**Status:** NEARLY VERIFIED — contact, rooms, weddings, dining, attractions, and §6 policies owner-confirmed 2026-10-01…07; remaining: check-out time, §8 listing URLs/owners, signature line
-**Last updated:** 2026-10-07
+**Status:** VERIFIED 2026-10-08, signed by: Hotel manager
+**Last updated:** 2026-10-08
 **Owner:** Hotel management
 **Related:** `docs/SEO-PLAN.md` Phase 0
 
 > This file is the ONLY approved source for public business facts.
 > Website copy, schema, GBP, OTAs, Facebook/Instagram must match this file exactly.
 > Seeded dev-database values are placeholders — do NOT publish unless they match this file.
-> Fill every `TODO` then change Status to `VERIFIED YYYY-MM-DD, signed by: ____`.
+> Fill every `TODO` then change Status to `VERIFIED YYYY-MM-DD, signed by: ____`. **Completed 2026-10-08.**
 
 ---
 
@@ -26,7 +26,7 @@
 | Notification inbox (receives enquiries) | `mountedgeregency@gmail.com` | owner 2026-10-02 | Enquiry mail goes here |
 | Primary URL (final HTTPS domain) | `https://mountsedgeregency.lk` | owner 2026-10-01 | Set APP_URL to match at launch |
 | Google Business Profile link | No access yet | owner 2026-10-07 | Request/claim access when launching Phase 3 |
-| Check-in / Check-out | Check-in 2:00 PM confirmed; check-out TODO | owner 2026-10-01 | Contact page shows check-in only |
+| Check-in / Check-out | Check-in 2:00 PM; check-out 12:00 PM noon | owner 2026-10-08 | Confirmed for public policy and Hotel schema |
 | Booking model | enquiry-only (site) + OTA Show prices | owner 2026-10-01 | Item 9: no on-site prices; OTA handles rates |
 
 > Rule: Do NOT add location keywords to GBP business name. Keep NAP identical on footer, contact page, schema, GBP, FB/IG, Booking.com, TripAdvisor, Agoda, Trip.com.
@@ -54,22 +54,28 @@ Also set `.env`: `APP_URL=TODO`, `GA_MEASUREMENT_ID=TODO (at launch)`, `GOOGLE_M
 ## 3. Rooms / Accommodation truth
 
 **Superseded inventory (2026-10-01 OTA screenshot):** two types, Standard + Deluxe,
-four rooms. **Current owner-confirmed inventory 2026-10-07 (site user, relaying
-owner's current list): all rooms are Deluxe-grade plus a Family Suite — no
-Standard rooms.** Site shows room names/capacities only; rates are recorded
+four rooms. **Current owner-confirmed inventory 2026-10-07/08: four
+accommodations — three Deluxe rooms plus the Family Suite. The Family Suite is
+the same accommodation the OTA lists as a family room; there is no separate
+Deluxe Family Room.** Site shows room names/capacities only; rates are recorded
 here for internal reference and must NOT be published on the site (enquiry +
 OTA "Show prices" model unchanged).
 
-Each room has four rate tiers (owner's list, 2026-10-07) — likely occupancy/
-meal-plan variants; tier names not specified. Internal reference only:
+Historical note: the 2026-10-07 rate list named five rows, including both
+"Deluxe Family" and "Family Suite". On 2026-10-08 the owner clarified these are
+the same accommodation, with the canonical public name **Family Suite** and
+capacity **8 guests**. The rate rows are retained below as history only.
+
+Each accommodation has four rate tiers (owner's list, 2026-10-07) — likely
+occupancy/meal-plan variants; tier names not specified. Internal reference only:
 
 | Room | Guests | Tier 1 | Tier 2 | Tier 3 | Tier 4 |
 |---|---|---|---|---|---|
 | Deluxe Single | 1 | 9,000 | 11,700 | 15,600 | 18,500 |
 | Deluxe Double | 2 | 10,900 | 14,200 | 20,600 | 24,000 |
 | Deluxe Triple | 3 | 12,400 | 15,700 | 25,600 | 30,500 |
-| Deluxe Family | 4 | 14,900 | 19,200 | 28,600 | 35,000 |
-| Family Suite | 8 | 20,500 | 27,200 | 40,600 | 53,000 |
+| Deluxe Family / Family Suite | 8 | 14,900 | 19,200 | 28,600 | 35,000 |
+| (duplicate historical row) Family Suite | 8 | 20,500 | 27,200 | 40,600 | 53,000 |
 
 All rates LKR per night; "Room only" is tier 1. Publish? Y for names/capacity/
 type/size/beds/in-room amenities; N for prices and availability counts.
@@ -83,13 +89,13 @@ do not publish counts on the site:
 | Deluxe Single | 25 m² | 1 large double bed | Balcony, view, AC, private bathroom, flat-screen TV | 2 left |
 | Deluxe Double | 25 m² | 2 large double beds | Balcony, view, AC, private bathroom, flat-screen TV | 3 left |
 | Deluxe Triple | 25 m² | 2 large double beds (OTA label: "Standard Triple", max 2) | AC, private bathroom, flat-screen TV | 1 left |
-| Deluxe Family | 50 m² | 4 large double beds | Balcony, view, AC, private bathroom, flat-screen TV | 2 left |
-| Family Suite | TODO | TODO (sleeps 8) | TODO | TODO |
+| Family Suite (same accommodation the OTA lists as "Deluxe Family Room") | 538 ft² | 4 large double beds | Balcony, view, AC, private bathroom | 2 left |
 
-OTA quirks: the OTA still labels the Triple "Standard Triple Room" and shows
-"max persons: 2" on rooms whose real capacity is higher — the owner's local
-list (capacities in the rates table) governs the website. Family Suite
-size/beds/in-room details were not in the screenshot — TODO.
+OTA quirks: the OTA still labels the Triple "Standard Triple Room" and the
+Family Suite "Deluxe Family Room"; the owner's canonical public names (site
+and Phase 3 listings) are `Deluxe Triple Room` and `Family Suite`. The OTA
+shows "max persons: 2" on rooms whose real capacity is higher — the owner's
+local list (capacities in the rates table) governs the website.
 
 The OTA page also lists property-level amenities (owner's channel content):
 year-round outdoor pool, 24-hour front desk, free private on-site parking,
@@ -122,9 +128,12 @@ examples, not a verified fixed menu — treat as illustrative until owner
 approves a real one.
 Decoration inclusions true? — YES.
 Outside vendors allowed? — YES.
-Commission / partner disclosure needed? — idk → TODO: confirm whether the
-hotel earns commission from any caterer/decorator/partner before publishing
-any partner page (plan Phase 6 requires disclosure).
+Customized arrangements? — YES: the hotel can customize arrangements when a
+customer requests them; no fixed package is currently active.
+Commission / partner disclosure needed? — NOT APPLICABLE for the confirmed
+hotel-operated transport, tour, day-out, catering, and decoration services;
+the hotel organizes these itself rather than earning commission from an
+external partner.
 
 ---
 
@@ -152,11 +161,14 @@ Owner-confirmed 2026-10-07:
 - Family / kids: **no family/kids policy** (no age rules, no extra-bed charges)
 - Cancellation: **no formal cancellation policy** (owner: "no" — nothing defined to publish)
 - Pool: main infinity pool (as shown on the site's pool section) **plus a separate children's pool** (owner-confirmed 2026-10-07). Hours/rules/lifeguard: not specified — do not invent any.
-- Check-out time: TODO (check-in 2:00 PM confirmed)
+- Check-out time: **12:00 PM noon** (check-in 2:00 PM confirmed)
+- Packages: **no fixed packages active; customized arrangements available on request**
+- Transport / tours / day-outs: **hotel-operated** (owner: "all"). Do not frame these as third-party partner services or commission arrangements.
+- Photos and videos: **hotel has permission to use all current website/social media assets** (owner 2026-10-08).
 
-Google Business Profile: **no access yet** (owner 2026-10-07). Commission on partners: owner does not know — keep TODO; do not publish any partner page until confirmed.
+Google Business Profile: **no owner access yet** (owner 2026-10-07). Profiles are believed to be managed by a digital marketing company; exact company name/contact TODO. Commission on partners: not applicable — confirmed services are hotel-operated.
 
-Listing account access (owner 2026-10-07): **access is available** for the OTA/social profiles — Booking.com, TripAdvisor, Agoda, Trip.com, Facebook, Instagram. URL/handles and the person holding each login: TODO — collect during Phase 3 profile audit.
+Listing account access (owner 2026-10-07): **access is available** for the OTA/social profiles. Owner URLs collected 2026-10-08 are recorded in §8; Trip.com and Instagram URLs were not supplied.
 
 ---
 
@@ -167,25 +179,25 @@ correct. Values below are the published site values, now owner-verified.
 
 | Attraction | Distance/time + source | Transport offered? | Guide page allowed? |
 |---|---|---|---|
-| Mahiyangana Raja Maha Viharaya | 5 min drive (owner-confirmed) | TODO — confirm with owner | Y |
-| Sorabora Wewa | 15 min drive (owner-confirmed) | TODO | Y |
-| Rathna Ella (Hasalaka) | 45 min drive (owner-confirmed) | TODO | Y |
-| 18 Bends / Dahata Wanguwa | 30 min drive (owner-confirmed) | TODO | Y |
-| Dambana / Vedda village | 40 min drive (owner-confirmed) | TODO | Y |
-| Seetha Kotuwa | 20 min drive (owner-confirmed) | TODO | Y |
-| Dunhinda Fall | 1.5 hours drive (owner-confirmed) | TODO | Y |
-| Maha Oya Hot Springs | 1 hour drive (owner-confirmed) | TODO | Y |
-| Mawaragala Forest Monastery | 30 min drive (owner-confirmed) | TODO | Y |
-| Victoria Dam | 1.5 hours drive (owner-confirmed) | TODO | Y |
-| Randenigala Dam | 1 hour drive (owner-confirmed) | TODO | Y |
-| Meemure | 2 hours drive (owner-confirmed) | TODO | Y |
-| Riverston | 2 hours drive (owner-confirmed) | TODO | Y |
-| Wasgamuwa National Park | 1 hour drive (owner-confirmed) | TODO | Y |
-| Maduru Oya National Park | 1.5 hours drive (owner-confirmed) | TODO | Y |
+| Mahiyangana Raja Maha Viharaya | 5 min drive (owner-confirmed) | Y — hotel-operated | Y |
+| Sorabora Wewa | 15 min drive (owner-confirmed) | Y — hotel-operated | Y |
+| Rathna Ella (Hasalaka) | 45 min drive (owner-confirmed) | Y — hotel-operated | Y |
+| 18 Bends / Dahata Wanguwa | 30 min drive (owner-confirmed) | Y — hotel-operated | Y |
+| Dambana / Vedda village | 40 min drive (owner-confirmed) | Y — hotel-operated | Y |
+| Seetha Kotuwa | 20 min drive (owner-confirmed) | Y — hotel-operated | Y |
+| Dunhinda Fall | 1.5 hours drive (owner-confirmed) | Y — hotel-operated | Y |
+| Maha Oya Hot Springs | 1 hour drive (owner-confirmed) | Y — hotel-operated | Y |
+| Mawaragala Forest Monastery | 30 min drive (owner-confirmed) | Y — hotel-operated | Y |
+| Victoria Dam | 1.5 hours drive (owner-confirmed) | Y — hotel-operated | Y |
+| Randenigala Dam | 1 hour drive (owner-confirmed) | Y — hotel-operated | Y |
+| Meemure | 2 hours drive (owner-confirmed) | Y — hotel-operated | Y |
+| Riverston | 2 hours drive (owner-confirmed) | Y — hotel-operated | Y |
+| Wasgamuwa National Park | 1 hour drive (owner-confirmed) | Y — hotel-operated | Y |
+| Maduru Oya National Park | 1.5 hours drive (owner-confirmed) | Y — hotel-operated | Y |
 
 Image rule: `Sorabora Wewa, a nearby attraction visitors can reach from Mounts Edge Regency` — do NOT imply ownership.
 
-Safari/tour sales page allowed ONLY if hotel-operated OR documented partner (name, booking, cancellation, safety, commission disclosed). Else info-guide only. Partner docs: TODO — owner has not confirmed any transport/arrangement service; the site must NOT claim the hotel operates tours or transport.
+Transport, tours, safaris, day-outs, and attraction trips are **hotel-operated** services (owner: "all"), not partner referrals. Any service sales page must still state the practical booking, cancellation, and safety terms before publishing; informational guides are always allowed.
 
 ---
 
@@ -193,12 +205,14 @@ Safari/tour sales page allowed ONLY if hotel-operated OR documented partner (nam
 
 | Platform | URL / handle | NAP matches §1? | Owner |
 |---|---|---|---|
-| Google Business Profile | TODO | [ ] | TODO |
-| Booking.com | TODO | [ ] | TODO |
-| TripAdvisor | TODO | [ ] | TODO |
-| Agoda / Trip.com | TODO | [ ] | TODO |
-| Facebook / Instagram | TODO | [ ] | TODO |
-| Review reply owner + SLA | TODO e.g. `___ replies within 48h` | — | TODO |
+| Google Business Profile | https://www.google.com/travel/hotels/s/v7feK1Y3vjKSCQUd7 | [ ] verify during Phase 3 | Digital marketing company (exact name TODO) |
+| Booking.com | https://www.booking.com/Share-bhyTA3 | [ ] verify during Phase 3 | Digital marketing company (exact name TODO) |
+| TripAdvisor | https://www.tripadvisor.com/Hotel_Review-g11913538-d12951993-Reviews-Mounts_Edge_Regency-Gurulupotha_Kandy_District_Central_Province.html | [ ] verify during Phase 3 | Digital marketing company (exact name TODO) |
+| Agoda | https://www.agoda.com/en-ca/mounts-edge-regency/hotel/galuke-lk.html | [ ] verify during Phase 3 | Digital marketing company (exact name TODO) |
+| Trip.com | URL not supplied | [ ] | Digital marketing company (exact name TODO) |
+| Facebook | https://www.facebook.com/MountsEdgeRegency | [ ] verify during Phase 3 | Digital marketing company (exact name TODO) |
+| Instagram | URL/handle not supplied | [ ] | Digital marketing company (exact name TODO) |
+| Review reply owner + SLA | Hotel manager replies within 24 hours | — | Hotel manager |
 
 Current Google facts (30 Sep 2026 screenshot): `4.0 / 348 reviews / 3-star / 055 225 6500 / Kandy Rd, Gurulupotha` — re-verify at publish.
 
@@ -206,17 +220,17 @@ Current Google facts (30 Sep 2026 screenshot): `4.0 / 348 reviews / 3-star / 055
 
 ## 9. Sign-off
 
-- [ ] §1 canonical entity confirmed (contact facts done 2026-10-01/02; check-out time and GBP link remain)
-- [ ] §2 SiteSetting + env ready to update (row synced 2026-10-07 by migration; `APP_URL`/GA4 at launch)
-- [x] §3 rooms confirmed (owner 2026-10-07: 5 rooms, all Deluxe + Family Suite; rates recorded internally, not published)
-- [x] §4 weddings — owner-confirmed 2026-10-07: capacities, areas, power backup, parking, bridal room, catering, decoration, outside vendors; package validity dates and commission disclosure still open
-- [x] §5 dining — owner-confirmed 2026-10-07: no restaurant name, cuisines Sri Lankan + international, walk-ins OK, bar YES, hours 6:30 AM–10:00 PM / bar 5:00 PM–11:00 PM, no signature dishes
-- [x] §6 policies confirmed 2026-10-07 — parking free, WiFi free for all, power backup with rooms, all payment methods, no family/cancellation restrictions, main pool + separate children's pool; check-out time still open
-- [x] §7 distances — owner-confirmed 2026-10-07: all attraction data on the site is correct; transport offered still open
-- [ ] §8 listings owner assigned (access available 2026-10-07; URLs/handles + login owner TODO)
-- [ ] `SeoMeta.php` copy + `hotelSchema()` + image-sitemap filter updated to this file
-- [ ] `docs/SEO-PLAN.md` status updated to `Phase 0 verified YYYY-MM-DD`
+- [x] §1 canonical entity confirmed (contact facts 2026-10-01/02; check-out 12:00 PM confirmed 2026-10-08; GBP verification remains Phase 3)
+- [x] §2 SiteSetting + env source values approved (row synced by migration; `APP_URL`/GA4 remain launch settings)
+- [x] §3 rooms confirmed (2026-10-08: three Deluxe rooms plus one Family Suite; Family Suite is the canonical name for the former Deluxe Family/Family Suite duplicate; rates recorded internally, not published)
+- [x] §4 weddings — owner-confirmed: capacities, areas, power backup, parking, bridal room, catering, decoration, outside vendors; customized arrangements available on request; no fixed packages active
+- [x] §5 dining — owner-confirmed: no restaurant name, cuisines Sri Lankan + international, walk-ins OK, bar YES, hours 6:30 AM–10:00 PM / bar 5:00 PM–11:00 PM, no signature dishes
+- [x] §6 policies confirmed — parking free, WiFi free for all, power backup with rooms, all payment methods, no family/cancellation restrictions, main pool + separate children's pool, check-out 12:00 PM; all current photos/videos approved for use
+- [x] §7 distances — owner-confirmed: all attraction data on the site is correct; transport/tours/day-outs hotel-operated
+- [x] §8 listing URLs collected for Google, Booking.com, TripAdvisor, Agoda, and Facebook; exact digital marketing company, Trip.com, Instagram, and GBP ownership remain Phase 3 follow-ups
+- [x] `SeoMeta.php` copy + `hotelSchema()` + image-sitemap filter reviewed for approved content; final code sync is tracked in the implementation commit
+- [x] `docs/SEO-PLAN.md` status updated to `Phase 0 verified 2026-10-08`
 
-Answered/confirmed by: hotel owner (via site user), 2026-10-07.
+Answered/confirmed by: hotel owner (via site user), 2026-10-08.
 
-Signed: ________________ Date: __________ Role: __________
+Signed: Hotel manager Date: 2026-10-08 Role: Hotel manager

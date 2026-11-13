@@ -44,8 +44,9 @@ class ContactController extends Controller
             'phone' => ['required', 'string', 'max:30'],
             'type' => ['required', Rule::in(Enquiry::TYPES)],
             // Optional once the visitor has answered the structured questions,
-            // but required for a general enquiry where it is the only content.
-            'message' => ['required_if:type,'.Enquiry::TYPE_GENERAL, 'nullable', 'string', 'max:5000'],
+            // but required for general and service enquiries where the message
+            // is the only content.
+            'message' => ['required_if:type,'.Enquiry::TYPE_GENERAL.','.Enquiry::TYPE_SERVICE, 'nullable', 'string', 'max:5000'],
 
             'details.room_type' => ['nullable', 'string', Rule::exists('room_types', 'name')],
             'details.check_in' => ['required_if:type,'.Enquiry::TYPE_ROOM, 'nullable', 'date', 'after_or_equal:today'],

@@ -42,14 +42,18 @@ php artisan storage:link
 production row on whatever the original 2026-08-09 insert wrote — enquiry
 notification mail would go to an unverified address.
 
-After migrating, run the room seeder and clean any placeholder rows the
-pre-2026-10-07 database may still hold (the seeder is idempotent, but
-`firstOrCreate` never *removes* obsolete rooms):
+After migrating, run the room seeder (it now uses `updateOrCreate`, so it also
+repairs seeded copy on an existing database) and clean any placeholder rows
+the pre-2026-10-08 database may still hold:
 
 ```bash
 php artisan db:seed --class=RoomSeeder --force
-php artisan tinker --execute="App\Models\Room::whereNotIn('name', ['Deluxe Single Room','Deluxe Double Room','Deluxe Triple Room','Deluxe Family Room','Family Suite'])->get()->each->delete(); App\Models\RoomType::whereNotIn('slug', ['deluxe','family-suite'])->get()->each->delete();"
+php artisan tinker --execute="App\Models\Room::whereNotIn('name', ['Deluxe Single Room','Deluxe Double Room','Deluxe Triple Room','Family Suite'])->get()->each->delete(); App\Models\RoomType::whereNotIn('slug', ['deluxe','family-suite'])->get()->each->delete();"
 ```
+
+The 2026-10-08 migration additionally reconciles databases that still hold
+the superseded separate `Deluxe Family Room` row, merging it into the
+canonical `Family Suite`.
 
 On a fresh `migrate:fresh --seed` deploy this is unnecessary — the seeders
 write only the current inventory. Room prices are never seeded: the site is

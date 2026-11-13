@@ -11,10 +11,12 @@ class RoomSeeder extends Seeder
 {
     public function run(): void
     {
-        // Owner-confirmed 2026-10-07: current inventory is all-Deluxe plus a
-        // Family Suite — no Standard rooms. Rates exist in four tiers per
-        // room (docs/BUSINESS-TRUTH.md §3) but are deliberately NOT seeded:
-        // the site is enquiry-only and prices stay on the OTA.
+        // Owner-confirmed 2026-10-08: four accommodations — three Deluxe
+        // rooms plus one Family Suite. The OTA's "Deluxe Family Room" and
+        // the previous seeded "Family Suite" are the same accommodation;
+        // Family Suite is the canonical public name. Rates exist in four
+        // tiers per room (docs/BUSINESS-TRUTH.md §3) but are deliberately
+        // NOT seeded: the site is enquiry-only and prices stay on the OTA.
         $deluxeType = RoomType::firstOrCreate(
             ['slug' => 'deluxe'],
             ['name' => 'Deluxe Rooms', 'icon' => 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z']
@@ -59,26 +61,15 @@ class RoomSeeder extends Seeder
                 'features' => ['AC', 'Free WiFi', 'Mountain View', 'Flat-screen TV'],
             ],
             [
-                'room_type_id' => $deluxeType->id,
-                'name' => 'Deluxe Family Room',
-                'tagline' => 'Space for the whole family',
-                'description' => 'A Deluxe Family Room of 50 m² with 4 large double beds, a balcony with a view, air conditioning, and a flat-screen TV. Enquire for availability and rates.',
-                'image' => '/storage/rooms/family.jpg',
-                'images' => ['/storage/rooms/family.jpg'],
-                'capacity' => '4 guests',
-                'size' => '50 m² · 4 large double beds',
-                'features' => ['AC', 'Free WiFi', 'Living Area', 'Private Balcony', 'Flat-screen TV'],
-            ],
-            [
                 'room_type_id' => $suiteType->id,
                 'name' => 'Family Suite',
                 'tagline' => 'Room to gather, space to breathe',
-                'description' => 'A Family Suite for up to 8 guests, the largest accommodation at Mounts Edge Regency, ideal for larger families and groups. Enquire for availability and rates.',
-                'image' => '/storage/rooms/villa.jpg',
-                'images' => ['/storage/rooms/villa.jpg'],
+                'description' => 'A Family Suite of 538 ft² for up to 8 guests with 4 large double beds, a balcony with a view, air conditioning, and a private bathroom. Enquire for availability and rates.',
+                'image' => '/storage/rooms/family.jpg',
+                'images' => ['/storage/rooms/family.jpg'],
                 'capacity' => '8 guests',
-                'size' => 'Suite',
-                'features' => ['AC', 'Free WiFi', 'Living Area', 'Mountain View'],
+                'size' => '538 ft² · 4 large double beds',
+                'features' => ['AC', 'Free WiFi', 'Living Area', 'Private Balcony', 'Private Bathroom'],
             ],
         ];
 
@@ -86,12 +77,19 @@ class RoomSeeder extends Seeder
             $features = $data['features'];
             unset($data['features']);
 
-            $room = Room::firstOrCreate(['name' => $data['name']], $data);
+            // updateOrCreate (not firstOrCreate) so an existing row picks up
+            // corrected owner-verified details without a fresh database.
+            $room = Room::updateOrCreate(['name' => $data['name']], $data);
 
             foreach ($features as $featureName) {
                 $feature = Feature::firstOrCreate(['name' => $featureName]);
                 $room->features()->syncWithoutDetaching([$feature->id]);
             }
         }
+
+        // Remove the superseded duplicate family record on already-seeded
+        // databases; keepRoomList clean via the 2026-10-08 reconciliation
+        // migration on production data.
+        Room::where('name', 'Deluxe Family Room')->delete();
     }
 }

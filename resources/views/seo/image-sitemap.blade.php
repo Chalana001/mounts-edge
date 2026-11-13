@@ -6,6 +6,9 @@
         <image:image>
             <image:loc>{{ $entry['image'] }}</image:loc>
             <image:title>{{ $entry['title'] }}</image:title>
+            @if (!empty($entry['caption']))
+                <image:caption>{{ $entry['caption'] }}</image:caption>
+            @endif
         </image:image>
     </url>
 @endforeach

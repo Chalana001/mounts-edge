@@ -2,7 +2,7 @@
     <div class="container mx-auto px-6">
         <h3 class="text-3xl md:text-4xl font-serif text-brand-green mb-4">Ready to Book Your Stay?</h3>
         <p class="text-brand-green/70 mb-8 max-w-xl mx-auto font-light">
-            Send an enquiry for Deluxe and Family Suite rooms in Gurulupotha, call <x-surface-link href="tel:{{ $siteSettings->phone_link }}">{{ $siteSettings->phone_display }}</x-surface-link> or message us below. See also our <x-surface-link href="{{ route('weddings') }}">wedding venue</x-surface-link> and <x-surface-link href="{{ route('dining') }}">dining</x-surface-link>.
+            Send an enquiry for Deluxe rooms or the Family Suite in Gurulupotha, call <x-surface-link href="tel:{{ $siteSettings->phone_link }}">{{ $siteSettings->phone_display }}</x-surface-link> or message us below. See also our <x-surface-link href="{{ route('weddings') }}">wedding venue</x-surface-link> and <x-surface-link href="{{ route('dining') }}">dining</x-surface-link>.
         </p>
 
         <div class="flex flex-wrap items-center justify-center gap-3">

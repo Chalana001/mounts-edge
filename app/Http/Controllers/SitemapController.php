@@ -68,7 +68,7 @@ class SitemapController extends Controller
         ], 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }
 
-    /** @return array<int, array{page: string, image: string, title: string}> */
+    /** @return array<int, array{page: string, image: string, title: string, caption?: string}> */
     private function imageEntries(): array
     {
         if (! Schema::hasTable('rooms')) {
@@ -87,7 +87,7 @@ class SitemapController extends Controller
             $this->appendImages($entries, route('weddings'), WeddingCatering::query()->get(), 'wedding catering');
             $this->appendImages($entries, route('weddings'), WeddingDecoration::query()->get(), 'wedding decoration');
         }
-        $this->appendImages($entries, route('gallery'), GalleryItem::query()->get(), 'gallery image');
+        $this->appendImages($entries, route('gallery'), GalleryItem::query()->get(), 'gallery image', includeCaptions: true);
 
         $deduplicated = [];
         foreach ($entries as $entry) {
@@ -98,24 +98,32 @@ class SitemapController extends Controller
     }
 
     /**
-     * @param  array<int, array{page: string, image: string, title: string}>  $entries
+     * @param  array<int, array{page: string, image: string, title: string, caption?: string}>  $entries
      * @param  iterable<int, object>  $records
      */
-    private function appendImages(array &$entries, string $pageUrl, iterable $records, string $fallbackLabel): void
+    private function appendImages(array &$entries, string $pageUrl, iterable $records, string $fallbackLabel, bool $includeCaptions = false): void
     {
         foreach ($records as $record) {
             $name = trim((string) ($record->name ?? $record->description ?? $fallbackLabel));
+            $caption = trim((string) ($record->description ?? ''));
             $paths = array_merge(
                 [(string) ($record->image ?? '')],
                 is_array($record->images ?? null) ? $record->images : []
             );
 
             foreach (array_unique(array_filter($paths, fn ($path) => is_string($path) && $path !== '')) as $path) {
-                $entries[] = [
+                $entry = [
                     'page' => $pageUrl,
                     'image' => $this->absoluteImageUrl($path),
                     'title' => $name.' | Mounts Edge Regency',
                 ];
+                // Gallery rows have no `name`; their `description` is the
+                // factual caption and belongs in image:caption as well.
+                if ($includeCaptions && $caption !== '') {
+                    $entry['caption'] = $caption;
+                }
+
+                $entries[] = $entry;
             }
         }
     }

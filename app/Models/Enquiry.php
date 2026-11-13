@@ -19,9 +19,10 @@ class Enquiry extends Model
     public const TYPE_ROOM = 'Room Booking';
     public const TYPE_WEDDING = 'Wedding Inquiry';
     public const TYPE_DINING = 'Dining Reservation';
+    public const TYPE_SERVICE = 'Service Enquiry';
     public const TYPE_GENERAL = 'General Inquiry';
 
-    public const TYPES = [self::TYPE_ROOM, self::TYPE_WEDDING, self::TYPE_DINING, self::TYPE_GENERAL];
+    public const TYPES = [self::TYPE_ROOM, self::TYPE_WEDDING, self::TYPE_DINING, self::TYPE_SERVICE, self::TYPE_GENERAL];
 
     /**
      * Which detail keys belong to which enquiry type. Used to strip the
@@ -32,6 +33,7 @@ class Enquiry extends Model
         self::TYPE_ROOM => ['room_type', 'check_in', 'check_out', 'guests', 'rooms'],
         self::TYPE_WEDDING => ['hall', 'package', 'event_date', 'event_guests'],
         self::TYPE_DINING => ['dining_date', 'dining_time', 'party_size'],
+        self::TYPE_SERVICE => [],
         self::TYPE_GENERAL => [],
     ];
 

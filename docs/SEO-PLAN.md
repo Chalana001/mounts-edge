@@ -1,7 +1,7 @@
 # Mounts Edge Regency — Pre-Launch SEO Plan
 
-**Status:** Phase 0 largely verified — contact, rooms, weddings (incl. capacities/areas), dining (incl. hours), and all attraction distances owner-confirmed 2026-10-01…07; §6 policies, check-out time, and a few §4/§8 details remain. Phase 1 defects fixed 2026-10-07: `site_settings` synced by migration, conversion events unified, dynamic `robots.txt` serving, auth pages noindexed, and the `$seo` page-view error resolved.
-**Last updated:** 7 October 2026
+**Status:** Phase 0 VERIFIED 2026-10-08 (signed by hotel manager) — canonical contact, rooms, weddings, dining, attractions, policies, hotel-operated services, photo rights, and supplied listing URLs are owner-confirmed; Phase 3 still owns claiming/verifying the Google profile and exact social/OTA ownership. Phase 1 defects fixed 2026-10-07: `site_settings` synced by migration, conversion events unified, dynamic `robots.txt` serving, auth pages noindexed, and the `$seo` page-view error resolved.
+**Last updated:** 8 October 2026
 **Audience:** Hotel management, marketing, and the Laravel development team
 
 ## Purpose
@@ -66,13 +66,13 @@ Apply these details to the website footer, contact page, schema, Google Business
 
 | Phase | Timing | Outcome | Status (2026-10-07) |
 | --- | --- | --- | --- |
-| 0. Business truth and content governance | Before implementation | Management-approved source of truth for all public hotel content | Largely verified — §1 contact, §3 rooms, §4 weddings, §5 dining (incl. hours), §7 attractions owner-confirmed; §6 policies + a few details open |
+| 0. Business truth and content governance | Before implementation | Management-approved source of truth for all public hotel content | **Verified 2026-10-08** — signed source of truth; exact listing ownership and GBP execution remain Phase 3 operational follow-ups |
 | 1. Technical SEO foundation | Weeks 1–2 | Crawlable, measurable, fast, correctly indexed site | Implemented and verified — defects fixed 2026-10-07; launch items remain (domain, GA4, Search Console) |
 | 2. Commercial page optimization | Weeks 2–4 | Strong hotel, rooms, wedding, dining, gallery, contact, and experience pages | Core pass done 2026-10-07 — copy/FAQ synced to verified facts, placeholder rooms removed, per-event catering framing; detail pages and gallery alt-text open |
 | 3. Local entity and reputation cleanup | Weeks 2–6, ongoing | Consistent Google/OTA profiles and ethical review operation | Checklist drafted (`LOCAL-LISTINGS.md`) — execution pending owner access |
 | 4. Destination content cluster | Months 2–4 | Helpful Mahiyangana travel content and internal topical authority | Not started |
-| 5. Image SEO | Starts at launch, ongoing | Discoverable, accurately described property and destination images | Started — 12 gallery images have unique factual alt text (2026-10-08); other images + captions open |
-| 6. Partner services and package expansion | Months 3–5, conditional | Legitimate safari, tour, or package pages only where real services exist | Not started |
+| 5. Image SEO | Starts at launch, ongoing | Discoverable, accurately described property and destination images | Started — 12 gallery images have unique factual alt text and image-sitemap captions; per-page OG images added (2026-10-08) |
+| 6. Partner services and package expansion | Months 3–5, conditional | Legitimate safari, tour, or package pages only where real services exist | Started — Experiences page now carries a hotel-operated Tours, Transport & Day-Outs section with Service Enquiry conversion (2026-10-08); no fixed packages or published rates |
 | 7. Authority and AI visibility | Months 3–12, ongoing | Strong third-party mentions, citations, and reliable entity signals | Not started |
 | 8. Measurement and continuous improvement | Launch onward | Decisions based on Search Console, analytics, conversions, and reviews | Not started — GA4 config intentionally deferred to launch |
 
@@ -89,16 +89,16 @@ Collect and sign off on the following information:
 - [ ] Primary public reservations phone number
 - [ ] WhatsApp number and responsible staff member
 - [ ] Reservation email
-- [ ] Check-in and check-out times
+- [x] Check-in and check-out times (2:00 PM / 12:00 PM noon; confirmed 2026-10-08)
 - [ ] Current room inventory, names, bed configuration, capacity, bathroom details, amenities, accessible features, images, and pricing/enquiry policy
 - [ ] Current wedding halls and outdoor spaces, capacity, event facilities, menus, package policy, parking, and approved imagery
 - [ ] Dining hours, food offering, bar information, and reservation policy
 - [ ] Pool availability, rules, opening hours, and safety policy
-- [ ] Day-out packages, if active: inclusions, price, availability, limits, and expiry date
-- [ ] Whether safaris/tours are hotel-operated or partner-operated
-- [ ] For every partner service: company name, contact, licence/credentials where relevant, pickup process, pricing, cancellation policy, and written permission to feature the service
+- [x] Day-out packages: no fixed packages active; customized arrangements available on request
+- [x] Safaris/tours/transport/day-outs: hotel-operated (confirmed 2026-10-08)
+- [x] Partner service review: no external partner services confirmed; the listed transport/tours/day-outs are hotel-operated and commission-free
 - [ ] Cancellation, child, pet, smoking, parking, accessibility, and payment policies
-- [ ] Copyright/usage approval for all photos and videos
+- [x] Copyright/usage approval for all current photos and videos (owner-confirmed 2026-10-08)
 
 ### Dynamic content governance
 
@@ -143,7 +143,7 @@ Phase 0 is complete only when:
 4. **Auth pages lacked a robots meta → fixed.** `layouts/guest.blade.php` (login, password reset, etc.) now carries `noindex, nofollow`.
 5. **`$seo` undefined on pages using `<x-seo-intro>`/`<x-seo-faq>` (pre-existing, found during verification) → fixed.** Page views rendered before the layout computed `$seo`, causing a 500 on `/contact`, `/dining`, and other pages with visible SEO blocks. The view composer in `AppServiceProvider` now supplies `$seo` to the seven public page views. Verified: all eight public pages return 200 and the intro/FAQ blocks render.
 
-Minor, non-blocking: sitemap URLs lack `lastmod`; the image sitemap has no captions; OG image is not per-page.
+### Minor, non-blocking: sitemap URLs now include a deploy-date `lastmod`; the image sitemap emits gallery captions; OG images are page-specific.
 
 ### Implementation requirements
 
@@ -335,5 +335,5 @@ AI systems may use a mixture of first-party pages, Google data, OTAs, reviews, t
 ## Immediate next action
 
 1. ~~Fix the three Phase 1 defects~~ **Done 2026-10-07** (plus the `$seo` page-view error and auth noindex found along the way).
-2. Continue **Phase 0**: owner confirmed dining hours, wedding hall capacities/areas, and all attraction distances on 2026-10-07 — remaining are §6 policies (pool, parking count, WiFi, family, cancellation, payment), check-out time, commission disclosure, and listing ownership. Then sign off.
+2. ~~Continue **Phase 0**~~ **Done 2026-10-08** — business truth signed by the hotel manager; canonical room inventory, check-out time, hotel-operated services, photo rights, listing URLs, and review SLA recorded.
 3. At launch: set `APP_URL=https://mountsedgeregency.lk`, set `GA_MEASUREMENT_ID`, enable `SEO_CONTENT_VERIFIED` once content is approved, submit the sitemap in Search Console, and execute `LOCAL-LISTINGS.md`.

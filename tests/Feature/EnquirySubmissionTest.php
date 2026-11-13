@@ -239,6 +239,33 @@ class EnquirySubmissionTest extends TestCase
         ]))->assertSessionHasErrors('message');
     }
 
+    public function test_service_enquiry_needs_only_a_message(): void
+    {
+        Mail::fake();
+
+        $this->post('/send-enquiry', array_merge($this->payload, [
+            'type' => Enquiry::TYPE_SERVICE,
+            'message' => 'We need transport for four guests to Dunhinda Fall on 12 November.',
+        ]))->assertSessionHasNoErrors();
+
+        $enquiry = Enquiry::firstOrFail();
+        $this->assertSame(Enquiry::TYPE_SERVICE, $enquiry->type);
+        $this->assertSame([], $enquiry->details);
+        $this->assertSame('We need transport for four guests to Dunhinda Fall on 12 November.', $enquiry->message);
+    }
+
+    public function test_service_enquiry_requires_a_message(): void
+    {
+        Mail::fake();
+
+        $payload = $this->payload;
+        unset($payload['message']);
+
+        $this->post('/send-enquiry', array_merge($payload, [
+            'type' => Enquiry::TYPE_SERVICE,
+        ]))->assertSessionHasErrors('message');
+    }
+
     public function test_message_is_optional_for_a_room_enquiry(): void
     {
         Mail::fake();

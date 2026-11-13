@@ -110,11 +110,11 @@
 
             <div class="space-y-1.5">
                 <label for="message" class="text-[11px] font-bold uppercase tracking-widest text-brand-green">
-                    <span x-show="type === @js(\App\Models\Enquiry::TYPE_GENERAL) || type === ''">Message *</span>
-                    <span x-show="type !== @js(\App\Models\Enquiry::TYPE_GENERAL) && type !== ''" x-cloak>Additional Notes</span>
+                    <span x-show="type === @js(\App\Models\Enquiry::TYPE_GENERAL) || type === @js(\App\Models\Enquiry::TYPE_SERVICE) || type === ''">Message *</span>
+                    <span x-show="type !== @js(\App\Models\Enquiry::TYPE_GENERAL) && type !== @js(\App\Models\Enquiry::TYPE_SERVICE) && type !== ''" x-cloak>Additional Notes</span>
                 </label>
                 <textarea id="message" name="message"
-                          :rows="type === @js(\App\Models\Enquiry::TYPE_GENERAL) || type === '' ? 5 : 3"
+                          :rows="type === @js(\App\Models\Enquiry::TYPE_GENERAL) || type === @js(\App\Models\Enquiry::TYPE_SERVICE) || type === '' ? 5 : 3"
                           placeholder="Anything else we should know?" class="{{ $fieldClass }} resize-none">{{ old('message') }}</textarea>
                 <x-input-error :messages="$errors->get('message')" />
             </div>
